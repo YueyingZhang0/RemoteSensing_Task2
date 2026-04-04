@@ -1,0 +1,51 @@
+# Task 3 v3.1: predicted difficulty feasibility run (frozen probe, conservative params).
+# Inherits P2 quadratic shape but with lower alpha/max_weight.
+# Includes ramp-up and threshold sweep.
+experiment_name: task3_v3_1_predicted_frozen
+split_json: "outputs/task3_split/split_info.json"
+metadata_csv: "outputs/task1_topo_v3/patch_metadata.csv"
+patch_image_dir: "outputs/task1_topo_v3/patches/images"
+patch_mask_dir: "outputs/task1_topo_v3/patches/masks"
+output_dir: "outputs/task3_v3_1_predicted_frozen_same_split"
+target_col: "sci_res2_norm"
+group_col: "sample_id"
+val_ratio: 0.2
+random_state: 42
+hard_ratio: 0.2
+image_size: 128
+batch_size: 16
+lr: 0.001
+weight_decay: 0.0001
+warmup_epochs: 30
+joint_epochs: 50
+num_workers: 0
+device: null
+
+difficulty_weighting:
+  enabled: true
+  mode: frozen_probe
+  probe_checkpoint: "outputs/task3_difficulty_probe/best_sce_branch.pt"
+  probe:
+    in_channels: 3
+    base_channels: 32
+    mlp_hidden: 64
+    dropout: 0.0
+  tau: 0.6
+  alpha: 0.5
+  gamma: 2.0
+  warmup_epochs: 30
+  ramp_epochs: 20
+  min_weight: 1.0
+  max_weight: 1.5
+  normalize_weights_in_batch: true
+  debug_save_first_weighted_batch: true
+
+sampling:
+  use_weighted_sampler: false
+
+threshold_sweep:
+  enabled: true
+  thresholds: [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70]
+
+logging:
+  save_weight_stats: true

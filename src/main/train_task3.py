@@ -326,6 +326,7 @@ def main() -> None:
                 "mlp_hidden": int(probe_cfg.get("mlp_hidden", 64)),
                 "dropout": float(probe_cfg.get("dropout", 0.0)),
             }
+        dw_eff["ramp_epochs"] = int(dw.get("ramp_epochs", 0))
         if mode == "joint":
             dw_eff["joint_calib_epochs"] = int(dw.get("joint_calib_epochs", 10))
             dw_eff["joint_oracle_weight_epochs"] = int(dw.get("joint_oracle_weight_epochs", 0))
@@ -390,6 +391,9 @@ def main() -> None:
             train_task3_baseline_probe_weighted(
                 model=UNetBaseline(in_channels=3, base=32).to(device),
                 probe=probe,
+                ramp_epochs=int(dw.get("ramp_epochs", 0)),
+                threshold_sweep_thresholds=th_list,
+                debug_save_first_weighted_batch=bool(dw.get("debug_save_first_weighted_batch", False)),
                 **dw_common,
             )
             print(f"Done (frozen-probe-weighted baseline). Artifacts in {out_dir}")
@@ -400,6 +404,9 @@ def main() -> None:
                 joint_oracle_weight_epochs=int(dw.get("joint_oracle_weight_epochs", 0)),
                 lambda_diff=float(dw.get("lambda_diff", 0.5)),
                 pred_weight_detach=bool(dw.get("pred_weight_detach", True)),
+                ramp_epochs=int(dw.get("ramp_epochs", 0)),
+                threshold_sweep_thresholds=th_list,
+                debug_save_first_weighted_batch=bool(dw.get("debug_save_first_weighted_batch", False)),
                 **dw_common,
             )
             print(f"Done (joint-difficulty baseline). Artifacts in {out_dir}")

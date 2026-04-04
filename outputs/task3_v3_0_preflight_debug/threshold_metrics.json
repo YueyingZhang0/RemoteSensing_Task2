@@ -1,0 +1,73 @@
+{
+  "thresholds": [
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7
+  ],
+  "per_threshold": {
+    "0.30": {
+      "val_dice_mean": 0.8027434890333525,
+      "val_recall_mean": 0.8250178146653552,
+      "hard_dice_mean": 0.7239355735222706,
+      "hard_recall_mean": 0.7500950573989874
+    },
+    "0.35": {
+      "val_dice_mean": 0.8032016554373559,
+      "val_recall_mean": 0.8170995280793907,
+      "hard_dice_mean": 0.7245491840797847,
+      "hard_recall_mean": 0.7407928788823912
+    },
+    "0.40": {
+      "val_dice_mean": 0.8032992364659363,
+      "val_recall_mean": 0.8095433578204836,
+      "hard_dice_mean": 0.7246358965525791,
+      "hard_recall_mean": 0.7317154757542407
+    },
+    "0.45": {
+      "val_dice_mean": 0.8027856191588663,
+      "val_recall_mean": 0.8016127132677091,
+      "hard_dice_mean": 0.724529677479029,
+      "hard_recall_mean": 0.722925191315687
+    },
+    "0.50": {
+      "val_dice_mean": 0.8019835387816137,
+      "val_recall_mean": 0.7939618084179163,
+      "hard_dice_mean": 0.7227967612378811,
+      "hard_recall_mean": 0.7126260300512476
+    },
+    "0.55": {
+      "val_dice_mean": 0.8010637177429036,
+      "val_recall_mean": 0.7858728231170016,
+      "hard_dice_mean": 0.7214467281583486,
+      "hard_recall_mean": 0.7029189203941356
+    },
+    "0.60": {
+      "val_dice_mean": 0.7997722154314256,
+      "val_recall_mean": 0.777471093549351,
+      "hard_dice_mean": 0.7203607004704781,
+      "hard_recall_mean": 0.6931073920675294
+    },
+    "0.65": {
+      "val_dice_mean": 0.7981066509872102,
+      "val_recall_mean": 0.7682678576587709,
+      "hard_dice_mean": 0.7187449750892065,
+      "hard_recall_mean": 0.6823222356268027
+    },
+    "0.70": {
+      "val_dice_mean": 0.7960216778159388,
+      "val_recall_mean": 0.7580460485145437,
+      "hard_dice_mean": 0.7155956406468262,
+      "hard_recall_mean": 0.6698411266850135
+    }
+  },
+  "best_hard_dice_threshold": 0.4,
+  "best_val_dice_threshold": 0.4,
+  "fixed_threshold_reporting": 0.5,
+  "note": "Primary reported metrics use threshold 0.5 in val_metrics.json; sweep is diagnostic only."
+}

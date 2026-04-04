@@ -8,7 +8,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from scipy.stats import pearsonr
+from scipy.stats import pearsonr, spearmanr
 from torch.utils.data import DataLoader
 
 from src.models.sce_probe_cnn import SCEProbeCNN
@@ -313,6 +313,90 @@ def plot_threshold_curves(threshold_metrics: Dict[str, Any], out_dir: Path) -> N
     _one(val_r, "val_recall_mean", "threshold_curve_val_recall.png")
     _one(hard_d, "hard_dice_mean", "threshold_curve_hard_dice.png")
     _one(hard_r, "hard_recall_mean", "threshold_curve_hard_recall.png")
+
+
+@torch.no_grad()
+def evaluate_difficulty_predictions(
+    model: nn.Module,
+    loader: DataLoader,
+    device: torch.device,
+    tau: float,
+    out_dir: Path,
+) -> Dict[str, Any]:
+    """Collect predicted vs GT difficulty scores on val; compute stats, scatter, histogram."""
+    model.eval()
+    preds: List[float] = []
+    gts: List[float] = []
+    is_hard_flags: List[bool] = []
+
+    for batch in loader:
+        img = batch["image"].to(device)
+        gt = batch["sci_res2_norm"]
+        hard = batch["is_hard"]
+        out = model(img)
+        if isinstance(out, tuple):
+            diff = out[1].squeeze(1).detach().cpu()
+        else:
+            continue
+        preds.extend(diff.numpy().ravel().tolist())
+        gts.extend(gt.numpy().ravel().tolist() if isinstance(gt, torch.Tensor) else [float(g) for g in gt])
+        is_hard_flags.extend(bool(h) for h in hard)
+
+    if len(preds) < 3:
+        return {"error": "too few samples"}
+
+    pa = np.asarray(preds, dtype=np.float64)
+    ga = np.asarray(gts, dtype=np.float64)
+    ha = np.asarray(is_hard_flags, dtype=bool)
+
+    pearson_r = float(pearsonr(ga, pa)[0]) if np.std(pa) > 1e-12 and np.std(ga) > 1e-12 else None
+    spearman_r = float(spearmanr(ga, pa).correlation) if np.std(pa) > 1e-12 else None
+
+    n = len(pa)
+    above_tau = int((pa > tau).sum())
+    above_tau_on_hard = int((pa[ha] > tau).sum()) if ha.any() else 0
+    n_hard = int(ha.sum())
+
+    stats: Dict[str, Any] = {
+        "val_sci_corr_pearson": pearson_r,
+        "val_sci_corr_spearman": spearman_r,
+        "pred_sci_mean": float(pa.mean()),
+        "pred_sci_std": float(pa.std()),
+        "gt_sci_mean": float(ga.mean()),
+        "gt_sci_std": float(ga.std()),
+        "pct_pred_above_tau": round(above_tau / n, 4) if n else None,
+        "pct_pred_above_tau_on_true_hard": round(above_tau_on_hard / n_hard, 4) if n_hard else None,
+        "n_val": n,
+        "n_hard": n_hard,
+        "tau": tau,
+    }
+    save_json(stats, out_dir / "difficulty_stats.json")
+
+    plt.figure(figsize=(5, 5))
+    plt.scatter(ga, pa, s=6, alpha=0.4)
+    plt.xlabel("GT sci_res2_norm")
+    plt.ylabel("Predicted difficulty")
+    plt.title(f"Pred vs GT (Pearson={pearson_r or 0:.3f})")
+    mn = min(float(ga.min()), float(pa.min()))
+    mx = max(float(ga.max()), float(pa.max()))
+    plt.plot([mn, mx], [mn, mx], "k--", linewidth=0.8)
+    plt.tight_layout()
+    plt.savefig(out_dir / "pred_vs_gt_scatter.png", dpi=160)
+    plt.close()
+
+    plt.figure(figsize=(6, 4))
+    plt.hist(pa, bins=30, alpha=0.6, label="predicted")
+    plt.hist(ga, bins=30, alpha=0.4, label="GT")
+    plt.axvline(tau, color="r", linestyle="--", linewidth=1, label=f"tau={tau}")
+    plt.xlabel("score")
+    plt.ylabel("count")
+    plt.legend()
+    plt.title("Difficulty score distribution")
+    plt.tight_layout()
+    plt.savefig(out_dir / "pred_sci_hist.png", dpi=160)
+    plt.close()
+
+    return stats
 
 
 def _plot_task3_curves(rows: List[dict], path: Path, ours: bool) -> None:
@@ -670,6 +754,87 @@ def train_task3_baseline_oracle_weighted(
         plot_threshold_curves(tm, out_dir)
 
 
+@torch.no_grad()
+def _evaluate_probe_difficulty(
+    probe: nn.Module,
+    loader: DataLoader,
+    device: torch.device,
+    tau: float,
+    out_dir: Path,
+) -> Dict[str, Any]:
+    """Collect frozen-probe predictions vs GT on val; reuse evaluate_difficulty_predictions logic."""
+    probe.eval()
+    preds: List[float] = []
+    gts: List[float] = []
+    is_hard_flags: List[bool] = []
+
+    for batch in loader:
+        img = batch["image"].to(device)
+        gt = batch["sci_res2_norm"]
+        hard = batch["is_hard"]
+        out = probe(img)
+        pred = out["sci_pred"].squeeze(1).detach().cpu().clamp(0.0, 1.0)
+        preds.extend(pred.numpy().ravel().tolist())
+        gts.extend(gt.numpy().ravel().tolist() if isinstance(gt, torch.Tensor) else [float(g) for g in gt])
+        is_hard_flags.extend(bool(h) for h in hard)
+
+    if len(preds) < 3:
+        return {"error": "too few samples"}
+
+    pa = np.asarray(preds, dtype=np.float64)
+    ga = np.asarray(gts, dtype=np.float64)
+    ha = np.asarray(is_hard_flags, dtype=bool)
+
+    pearson_r = float(pearsonr(ga, pa)[0]) if np.std(pa) > 1e-12 and np.std(ga) > 1e-12 else None
+    spearman_r = float(spearmanr(ga, pa).correlation) if np.std(pa) > 1e-12 else None
+
+    n = len(pa)
+    above_tau = int((pa > tau).sum())
+    above_tau_on_hard = int((pa[ha] > tau).sum()) if ha.any() else 0
+    n_hard = int(ha.sum())
+
+    stats: Dict[str, Any] = {
+        "val_sci_corr_pearson": pearson_r,
+        "val_sci_corr_spearman": spearman_r,
+        "pred_sci_mean": float(pa.mean()),
+        "pred_sci_std": float(pa.std()),
+        "gt_sci_mean": float(ga.mean()),
+        "gt_sci_std": float(ga.std()),
+        "pct_pred_above_tau": round(above_tau / n, 4) if n else None,
+        "pct_pred_above_tau_on_true_hard": round(above_tau_on_hard / n_hard, 4) if n_hard else None,
+        "n_val": n,
+        "n_hard": n_hard,
+        "tau": tau,
+    }
+    save_json(stats, out_dir / "difficulty_stats.json")
+
+    plt.figure(figsize=(5, 5))
+    plt.scatter(ga, pa, s=6, alpha=0.4)
+    plt.xlabel("GT sci_res2_norm")
+    plt.ylabel("Predicted difficulty (frozen probe)")
+    plt.title(f"Probe vs GT (Pearson={pearson_r or 0:.3f})")
+    mn = min(float(ga.min()), float(pa.min()))
+    mx = max(float(ga.max()), float(pa.max()))
+    plt.plot([mn, mx], [mn, mx], "k--", linewidth=0.8)
+    plt.tight_layout()
+    plt.savefig(out_dir / "pred_vs_gt_scatter.png", dpi=160)
+    plt.close()
+
+    plt.figure(figsize=(6, 4))
+    plt.hist(pa, bins=30, alpha=0.6, label="predicted (probe)")
+    plt.hist(ga, bins=30, alpha=0.4, label="GT")
+    plt.axvline(tau, color="r", linestyle="--", linewidth=1, label=f"tau={tau}")
+    plt.xlabel("score")
+    plt.ylabel("count")
+    plt.legend()
+    plt.title("Frozen probe difficulty distribution")
+    plt.tight_layout()
+    plt.savefig(out_dir / "pred_sci_hist.png", dpi=160)
+    plt.close()
+
+    return stats
+
+
 def train_task3_baseline_probe_weighted(
     model: nn.Module,
     probe: nn.Module,
@@ -688,8 +853,11 @@ def train_task3_baseline_probe_weighted(
     max_weight: float,
     normalize_weights_in_batch: bool,
     save_weight_stats: bool,
+    ramp_epochs: int = 0,
+    threshold_sweep_thresholds: Optional[List[float]] = None,
+    debug_save_first_weighted_batch: bool = False,
 ) -> None:
-    """Per-sample weights from frozen SCEProbeCNN predictions (same mapping as oracle_sample_weights)."""
+    """Per-sample weights from frozen SCEProbeCNN predictions with gradual ramp-up."""
     out_dir.mkdir(parents=True, exist_ok=True)
     opt = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
@@ -697,15 +865,28 @@ def train_task3_baseline_probe_weighted(
     weight_by_epoch: List[Dict[str, Any]] = []
     best_dice = -1.0
     best_state: Optional[dict] = None
+    first_weighted_batch_saved = False
+
+    t_warmup = int(difficulty_warmup_epochs)
+    t_ramp = int(ramp_epochs)
+
+    def ramp_lambda(ep: int) -> float:
+        if ep < t_warmup:
+            return 0.0
+        elapsed = ep - t_warmup
+        if t_ramp <= 0 or elapsed >= t_ramp:
+            return 1.0
+        return elapsed / t_ramp
 
     for epoch in range(total_epochs):
         use_weights = epoch >= difficulty_warmup_epochs
+        lam_t = ramp_lambda(epoch)
         model.train()
         ep_loss = 0.0
         n_batches = 0
         all_w: List[float] = []
 
-        for batch in train_loader:
+        for batch_idx, batch in enumerate(train_loader):
             img = batch["image"].to(device)
             m = batch["mask"].to(device)
             opt.zero_grad(set_to_none=True)
@@ -716,11 +897,35 @@ def train_task3_baseline_probe_weighted(
             logits = model(img)
             li = seg_loss_per_sample(logits, m)
             if use_weights:
-                w = oracle_sample_weights(
+                w_raw = oracle_sample_weights(
                     scores, tau, alpha, gamma, min_weight, max_weight, normalize_weights_in_batch
                 )
+                w = 1.0 + lam_t * (w_raw - 1.0)
+                w = w.clamp(1.0, max_weight)
                 loss = (li * w).sum() / w.sum().clamp_min(1e-8)
                 all_w.extend(w.detach().float().cpu().numpy().tolist())
+
+                if debug_save_first_weighted_batch and not first_weighted_batch_saved and batch_idx == 0:
+                    gt_scores = batch.get("sci_res2_norm")
+                    dbg: Dict[str, Any] = {
+                        "weight_mode_used": "frozen_probe",
+                        "epoch": epoch,
+                        "batch_index": batch_idx,
+                        "phase": "probe_weighted",
+                        "ramp_lambda": lam_t,
+                        "tau": tau,
+                        "alpha": alpha,
+                        "gamma": gamma,
+                        "min_weight": min_weight,
+                        "max_weight": max_weight,
+                        "predicted_scores": scores.detach().float().cpu().tolist(),
+                        "sci_res2_norm_gt": gt_scores.tolist() if gt_scores is not None else None,
+                        "w_raw": w_raw.detach().float().cpu().tolist(),
+                        "w_effective": w.detach().float().cpu().tolist(),
+                        "patch_name": list(batch.get("patch_name", [])),
+                    }
+                    save_json(dbg, out_dir / "debug_first_weighted_batch.json")
+                    first_weighted_batch_saved = True
             else:
                 loss = li.mean()
             loss.backward()
@@ -739,6 +944,7 @@ def train_task3_baseline_probe_weighted(
         row = {
             "epoch": epoch,
             "phase": "probe_weighted" if use_weights else "weight_warmup",
+            "ramp_lambda": round(lam_t, 4) if use_weights else None,
             "train_seg_loss": train_loss_mean,
             "val_dice_mean": val_metrics["val_dice_mean"],
             "val_recall_mean": val_metrics["val_recall_mean"],
@@ -757,6 +963,7 @@ def train_task3_baseline_probe_weighted(
                     "train_weight_mean": tw_m,
                     "train_weight_std": tw_s,
                     "train_weight_max": tw_x,
+                    "ramp_lambda": round(lam_t, 4) if use_weights else None,
                 }
             )
 
@@ -785,11 +992,15 @@ def train_task3_baseline_probe_weighted(
     }
     save_json(hard_json, out_dir / "hard_patch_metrics.json")
 
+    diff_stats = _evaluate_probe_difficulty(probe, val_loader, device, tau, out_dir)
+    final_val["difficulty_stats"] = diff_stats
+
     weight_stats: Dict[str, Any] = {
         "tau": tau,
         "alpha": alpha,
         "gamma": gamma,
         "warmup_epochs": difficulty_warmup_epochs,
+        "ramp_epochs": ramp_epochs,
         "min_weight": min_weight,
         "max_weight": max_weight,
         "normalize_weights_in_batch": normalize_weights_in_batch,
@@ -798,6 +1009,13 @@ def train_task3_baseline_probe_weighted(
     if save_weight_stats:
         weight_stats["by_epoch"] = weight_by_epoch
     save_json(weight_stats, out_dir / "weight_stats.json")
+
+    if threshold_sweep_thresholds:
+        tm = evaluate_loader_threshold_sweep(
+            model, val_loader, device, ours=False, thresholds=threshold_sweep_thresholds
+        )
+        save_json(tm, out_dir / "threshold_metrics.json")
+        plot_threshold_curves(tm, out_dir)
 
 
 def train_task3_joint_difficulty(
@@ -821,10 +1039,16 @@ def train_task3_joint_difficulty(
     joint_oracle_weight_epochs: int,
     lambda_diff: float,
     pred_weight_detach: bool,
+    ramp_epochs: int = 0,
+    threshold_sweep_thresholds: Optional[List[float]] = None,
+    debug_save_first_weighted_batch: bool = False,
 ) -> None:
     """
-    UNet + difficulty head: calibrate head with uniform seg + aux loss, optional oracle-weighted phase,
-    then per-sample weights from predicted difficulty (detach optional for stability).
+    UNet + difficulty head: calibrate head with uniform seg + aux loss, optional oracle-weighted
+    phase, then per-sample weights from predicted difficulty with gradual ramp-up.
+
+    Ramp-up: in the first `ramp_epochs` of the pred_weight phase, lambda_t linearly
+    rises from 0 to 1 so that w_eff = 1 + lambda_t * (w_raw - 1).
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     opt = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
@@ -833,11 +1057,14 @@ def train_task3_joint_difficulty(
     weight_by_epoch: List[Dict[str, Any]] = []
     best_dice = -1.0
     best_state: Optional[dict] = None
+    first_pred_batch_saved = False
 
     t_calib = int(joint_calib_epochs)
     t_oracle_w = int(joint_oracle_weight_epochs)
     t_dw = int(difficulty_warmup_epochs)
-    if t_dw + t_calib + t_oracle_w > total_epochs:
+    t_ramp = int(ramp_epochs)
+    t_pred_start = t_dw + t_calib + t_oracle_w
+    if t_pred_start > total_epochs:
         raise ValueError(
             "difficulty_warmup_epochs + joint_calib_epochs + joint_oracle_weight_epochs must be <= total_epochs"
         )
@@ -851,14 +1078,24 @@ def train_task3_joint_difficulty(
             return "joint_oracle_weight"
         return "joint_pred_weight"
 
+    def ramp_lambda(ep: int) -> float:
+        """Ramp coefficient for the pred_weight phase: 0->1 over ramp_epochs."""
+        if ep < t_pred_start:
+            return 0.0
+        elapsed = ep - t_pred_start
+        if t_ramp <= 0 or elapsed >= t_ramp:
+            return 1.0
+        return elapsed / t_ramp
+
     for epoch in range(total_epochs):
         ph = phase_for_epoch(epoch)
+        lam_t = ramp_lambda(epoch)
         model.train()
         ep_loss = 0.0
         n_batches = 0
         all_w: List[float] = []
 
-        for batch in train_loader:
+        for batch_idx, batch in enumerate(train_loader):
             img = batch["image"].to(device)
             m = batch["mask"].to(device)
             gt_scores = batch["sci_res2_norm"].to(device)
@@ -881,11 +1118,36 @@ def train_task3_joint_difficulty(
             else:
                 s_for_w = d.detach() if pred_weight_detach else d
                 s_for_w = s_for_w.clamp(0.0, 1.0)
-                w = oracle_sample_weights(
+                w_raw = oracle_sample_weights(
                     s_for_w, tau, alpha, gamma, min_weight, max_weight, normalize_weights_in_batch
                 )
+                w = 1.0 + lam_t * (w_raw - 1.0)
+                w = w.clamp(1.0, max_weight)
                 loss = (li * w).sum() / w.sum().clamp_min(1e-8) + lambda_diff * F.smooth_l1_loss(d, gt_scores)
                 all_w.extend(w.detach().float().cpu().numpy().tolist())
+
+                if debug_save_first_weighted_batch and not first_pred_batch_saved and batch_idx == 0:
+                    dbg: Dict[str, Any] = {
+                        "weight_mode_used": "joint_pred_weight",
+                        "epoch": epoch,
+                        "batch_index": batch_idx,
+                        "phase": ph,
+                        "ramp_lambda": lam_t,
+                        "tau": tau,
+                        "alpha": alpha,
+                        "gamma": gamma,
+                        "min_weight": min_weight,
+                        "max_weight": max_weight,
+                        "pred_weight_detach": pred_weight_detach,
+                        "normalize_weights_in_batch": normalize_weights_in_batch,
+                        "sci_res2_norm_gt": gt_scores.detach().float().cpu().tolist(),
+                        "predicted_difficulty": d.detach().float().cpu().tolist(),
+                        "w_raw": w_raw.detach().float().cpu().tolist(),
+                        "w_effective": w.detach().float().cpu().tolist(),
+                        "patch_name": list(batch.get("patch_name", [])),
+                    }
+                    save_json(dbg, out_dir / "debug_first_weighted_batch.json")
+                    first_pred_batch_saved = True
 
             loss.backward()
             opt.step()
@@ -903,6 +1165,7 @@ def train_task3_joint_difficulty(
         row = {
             "epoch": epoch,
             "phase": ph,
+            "ramp_lambda": round(lam_t, 4) if ph == "joint_pred_weight" else None,
             "train_seg_loss": train_loss_mean,
             "val_dice_mean": val_metrics["val_dice_mean"],
             "val_recall_mean": val_metrics["val_recall_mean"],
@@ -922,6 +1185,7 @@ def train_task3_joint_difficulty(
                     "train_weight_std": tw_s,
                     "train_weight_max": tw_x,
                     "phase": ph,
+                    "ramp_lambda": round(lam_t, 4) if ph == "joint_pred_weight" else None,
                 }
             )
 
@@ -950,6 +1214,9 @@ def train_task3_joint_difficulty(
     }
     save_json(hard_json, out_dir / "hard_patch_metrics.json")
 
+    diff_stats = evaluate_difficulty_predictions(model, val_loader, device, tau, out_dir)
+    final_val["difficulty_stats"] = diff_stats
+
     weight_stats: Dict[str, Any] = {
         "tau": tau,
         "alpha": alpha,
@@ -957,6 +1224,7 @@ def train_task3_joint_difficulty(
         "difficulty_warmup_epochs": difficulty_warmup_epochs,
         "joint_calib_epochs": joint_calib_epochs,
         "joint_oracle_weight_epochs": joint_oracle_weight_epochs,
+        "ramp_epochs": ramp_epochs,
         "lambda_diff": lambda_diff,
         "pred_weight_detach": pred_weight_detach,
         "min_weight": min_weight,
@@ -967,4 +1235,11 @@ def train_task3_joint_difficulty(
     if save_weight_stats:
         weight_stats["by_epoch"] = weight_by_epoch
     save_json(weight_stats, out_dir / "weight_stats.json")
+
+    if threshold_sweep_thresholds:
+        tm = evaluate_loader_threshold_sweep(
+            model, val_loader, device, ours=False, thresholds=threshold_sweep_thresholds
+        )
+        save_json(tm, out_dir / "threshold_metrics.json")
+        plot_threshold_curves(tm, out_dir)
 
