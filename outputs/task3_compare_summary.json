@@ -1,0 +1,34 @@
+{
+  "baseline": {
+    "val_dice_mean": 0.810364156961441,
+    "val_recall_mean": 0.7928871741671296,
+    "hard_dice_mean": 0.730991462298802,
+    "hard_recall_mean": 0.711265403608769,
+    "val_sci_corr": null,
+    "loss_mode": null
+  },
+  "sce_v1": {
+    "val_dice_mean": 0.8106712875671165,
+    "val_recall_mean": 0.8055726488982771,
+    "hard_dice_mean": 0.7268522824559893,
+    "hard_recall_mean": 0.7076163437706572,
+    "val_sci_corr": 0.32354761475759414,
+    "loss_mode": null
+  },
+  "v2_oracle_weighted": {
+    "val_dice_mean": 0.8113892092261203,
+    "val_recall_mean": 0.8050390729608861,
+    "hard_dice_mean": 0.7371026294572013,
+    "hard_recall_mean": 0.7296962685118106,
+    "val_sci_corr": null,
+    "loss_mode": "oracle_weighted"
+  },
+  "v2_vs_baseline": {
+    "hard_dice_delta": 0.006111167158399322,
+    "hard_recall_delta": 0.018430864903041577,
+    "val_dice_delta": 0.0010250522646793048,
+    "pass_min_hard_dice": true,
+    "pass_min_val_dice": true,
+    "pass_hard_recall": true
+  }
+}

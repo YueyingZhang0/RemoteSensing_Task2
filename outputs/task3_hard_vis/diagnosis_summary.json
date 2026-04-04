@@ -1,0 +1,46 @@
+{
+  "hard_patch_total": 35,
+  "exported_subset_counts": {
+    "ours_worse_hard": 20,
+    "ours_better_hard": 20,
+    "ours_similar_hard": 10
+  },
+  "figure_counts_by_folder": {
+    "ours_worse_hard": 20,
+    "ours_better_hard": 20,
+    "ours_similar_hard": 10
+  },
+  "hard_subset_means": {
+    "mean_baseline_dice": 0.730991462298802,
+    "mean_ours_dice": 0.7268522824559893,
+    "mean_delta_dice": -0.0041391798428126745,
+    "mean_baseline_recall": 0.711265403608769,
+    "mean_ours_recall": 0.7076163437706572,
+    "mean_delta_recall": -0.0036490598381118075
+  },
+  "hard_subset_fp_fn_means": {
+    "mean_delta_fp_pixels": 11.257142857142858,
+    "mean_delta_fn_pixels": -6.114285714285714
+  },
+  "diagnosis_heuristics": {
+    "val_sci_corr": 0.32354761475759414,
+    "thresholds_used": {
+      "fp_clearly_positive_mean_px": 5.0,
+      "fn_clear_drop_mean_px": -5.0,
+      "fn_no_clear_drop_floor": -3.0,
+      "small_change_abs_mean_px": 4.0
+    },
+    "possible_failure_modes": [
+      "recall gain but precision collapse"
+    ],
+    "possible_failure_mode": "recall gain but precision collapse",
+    "note": null
+  },
+  "output_files_relative_to_project": [
+    "outputs\\task3_hard_vis\\hard_patch_comparison.csv",
+    "outputs\\task3_hard_vis\\summary.csv",
+    "outputs\\task3_hard_vis\\diagnosis_summary.json"
+  ],
+  "figure_glob_relative": "outputs\\task3_hard_vis/{ours_worse_hard,ours_better_hard,ours_similar_hard}/*.png",
+  "figure_total_exported": 50
+}

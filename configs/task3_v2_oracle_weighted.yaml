@@ -1,10 +1,9 @@
-# Task 3 minimal: U-Net seg + optional SCE (sci_res2_norm fixed)
+experiment_name: task3_v2_oracle_weighted
 split_json: "outputs/task3_split/split_info.json"
 metadata_csv: "outputs/task1_topo_v3/patch_metadata.csv"
 patch_image_dir: "outputs/task1_topo_v3/patches/images"
 patch_mask_dir: "outputs/task1_topo_v3/patches/masks"
-output_dir_baseline: "outputs/task3_unet_baseline"
-output_dir_ours: "outputs/task3_unet_sce"
+output_dir: "outputs/task3_v2_oracle_weighted"
 target_col: "sci_res2_norm"
 group_col: "sample_id"
 val_ratio: 0.2
@@ -16,6 +15,18 @@ lr: 0.001
 weight_decay: 0.0001
 warmup_epochs: 30
 joint_epochs: 50
-lambda_sce: 0.5
 num_workers: 0
 device: null
+
+difficulty_weighting:
+  enabled: true
+  tau: 0.7
+  alpha: 1.0
+  gamma: 2.0
+  warmup_epochs: 5
+  min_weight: 1.0
+  max_weight: 2.0
+  normalize_weights_in_batch: true
+
+logging:
+  save_weight_stats: true

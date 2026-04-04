@@ -1,0 +1,6 @@
+{
+  "hard_dice_mean": 0.7371026294572013,
+  "hard_recall_mean": 0.7296962685118106,
+  "n_hard_patches_note": "subset of val where is_hard=True (top sci_res2_norm)",
+  "loss_mode": "oracle_weighted"
+}
