@@ -1,0 +1,42 @@
+=== Task 1 summary ===
+patch_size=128
+stride=64
+min_fov_ratio=0.8
+min_vessel_pixels=120
+border_margin=3
+wj=1.0
+we=0.35
+wc=1.5
+lambda_topo=2.0
+legacy_area_ref=150.0
+area_trend_mode=log_linear
+area_trend_beta=[1.4598911724408794, -0.15238300331262417]
+fov_trend_mode=quadratic
+fov_trend_beta=[1.7303558335170752, -4.236288976467339, 2.522954579868669]
+
+total_patches=1440
+filtered_by_fov=572
+filtered_by_vessel_area=0
+valid_patches=868
+
+=== Correlation diagnostics ===
+Pearson(vessel_area, sci_stable)=-0.740908
+Spearman(vessel_area, sci_stable)=-0.788085
+Pearson(vessel_area, sci_topo)=-0.727020
+Spearman(vessel_area, sci_topo)=-0.772775
+Pearson(vessel_area, sci_res)=-0.000783
+Spearman(vessel_area, sci_res)=-0.074279
+Pearson(vessel_area, sci_res2)=-0.043196
+Spearman(vessel_area, sci_res2)=-0.093170
+Pearson(fov_ratio, sci_topo)=0.133769
+Spearman(fov_ratio, sci_topo)=0.282704
+Pearson(fov_ratio, sci_res)=0.392136
+Spearman(fov_ratio, sci_res)=0.459866
+Pearson(fov_ratio, sci_res2)=0.000000
+Spearman(fov_ratio, sci_res2)=0.060899
+
+=== Distribution summary ===
+sci_stable: min=0.152408, p1=0.172800, p5=0.188815, q1=0.222815, median=0.271062, q3=0.354663, p95=0.473811, p99=0.571060, max=0.604619
+sci_topo: min=0.162993, p1=0.182447, p5=0.198809, q1=0.233620, median=0.286362, q3=0.376023, p95=0.508985, p99=0.605587, max=0.657348
+sci_res: min=-0.297540, p1=-0.185443, p5=-0.100007, q1=-0.035488, median=-0.000126, q3=0.037824, p95=0.108565, p99=0.171864, max=0.199813
+sci_res2: min=-0.267786, p1=-0.167248, p5=-0.088070, q1=-0.033379, median=-0.000871, q3=0.030437, p95=0.100466, p99=0.167979, max=0.209498

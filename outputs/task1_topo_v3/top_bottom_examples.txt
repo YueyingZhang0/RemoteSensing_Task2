@@ -1,0 +1,96 @@
+=== Top sci_raw patches ===
+30_y128_x128.png	sci_raw=0.830556	vessel_area=720	sk_len=598	junctions=5	end_eff=4	components=7	fov_ratio=1.0
+21_y256_x437.png	sci_raw=0.826786	vessel_area=560	sk_len=463	junctions=5	end_eff=3	components=11	fov_ratio=0.826477
+30_y192_x128.png	sci_raw=0.822139	vessel_area=804	sk_len=661	junctions=5	end_eff=6	components=11	fov_ratio=1.0
+30_y128_x64.png	sci_raw=0.816092	vessel_area=696	sk_len=568	junctions=7	end_eff=8	components=7	fov_ratio=0.997925
+29_y256_x0.png	sci_raw=0.812121	vessel_area=660	sk_len=536	junctions=10	end_eff=8	components=5	fov_ratio=0.905579
+30_y256_x0.png	sci_raw=0.809904	vessel_area=626	sk_len=507	junctions=9	end_eff=8	components=4	fov_ratio=0.906494
+26_y192_x437.png	sci_raw=0.790323	vessel_area=310	sk_len=245	junctions=1	end_eff=1	components=4	fov_ratio=0.805298
+30_y192_x0.png	sci_raw=0.785174	vessel_area=661	sk_len=519	junctions=8	end_eff=8	components=2	fov_ratio=0.882751
+29_y320_x0.png	sci_raw=0.773788	vessel_area=557	sk_len=431	junctions=8	end_eff=7	components=2	fov_ratio=0.803284
+30_y192_x64.png	sci_raw=0.768349	vessel_area=872	sk_len=670	junctions=9	end_eff=10	components=6	fov_ratio=1.0
+
+=== Bottom sci_raw patches ===
+36_y128_x384.png	sci_raw=0.189059	vessel_area=3729	sk_len=705	junctions=13	end_eff=7	components=3	fov_ratio=0.971802
+36_y192_x384.png	sci_raw=0.187756	vessel_area=3904	sk_len=733	junctions=18	end_eff=13	components=2	fov_ratio=1.0
+30_y384_x320.png	sci_raw=0.187411	vessel_area=3527	sk_len=661	junctions=10	end_eff=7	components=2	fov_ratio=0.999512
+37_y320_x384.png	sci_raw=0.186747	vessel_area=2656	sk_len=496	junctions=5	end_eff=4	components=2	fov_ratio=0.991638
+32_y320_x384.png	sci_raw=0.185750	vessel_area=3214	sk_len=597	junctions=6	end_eff=6	components=3	fov_ratio=0.989319
+24_y128_x384.png	sci_raw=0.185699	vessel_area=4615	sk_len=857	junctions=14	end_eff=11	components=3	fov_ratio=0.967834
+23_y320_x384.png	sci_raw=0.185052	vessel_area=1940	sk_len=359	junctions=9	end_eff=5	components=2	fov_ratio=0.998596
+24_y320_x384.png	sci_raw=0.184327	vessel_area=4275	sk_len=788	junctions=21	end_eff=11	components=3	fov_ratio=0.991516
+26_y256_x0.png	sci_raw=0.181632	vessel_area=2929	sk_len=532	junctions=6	end_eff=5	components=3	fov_ratio=0.886292
+36_y192_x437.png	sci_raw=0.164636	vessel_area=3857	sk_len=635	junctions=16	end_eff=13	components=2	fov_ratio=0.819275
+
+=== Top sci_topo patches ===
+21_y256_x437.png	sci_topo=0.657348	vessel_area=560	sk_len=463	junctions=5	end_eff=3	components=11	fov_ratio=0.826477
+30_y192_x128.png	sci_topo=0.640133	vessel_area=804	sk_len=661	junctions=5	end_eff=6	components=11	fov_ratio=1.0
+29_y256_x0.png	sci_topo=0.636202	vessel_area=660	sk_len=536	junctions=10	end_eff=8	components=5	fov_ratio=0.905579
+30_y128_x64.png	sci_topo=0.636186	vessel_area=696	sk_len=568	junctions=7	end_eff=8	components=7	fov_ratio=0.997925
+30_y128_x128.png	sci_topo=0.635760	vessel_area=720	sk_len=598	junctions=5	end_eff=4	components=7	fov_ratio=1.0
+30_y256_x0.png	sci_topo=0.631421	vessel_area=626	sk_len=507	junctions=9	end_eff=8	components=4	fov_ratio=0.906494
+26_y192_x437.png	sci_topo=0.610208	vessel_area=310	sk_len=245	junctions=1	end_eff=1	components=4	fov_ratio=0.805298
+30_y192_x192.png	sci_topo=0.608184	vessel_area=814	sk_len=620	junctions=10	end_eff=7	components=8	fov_ratio=1.0
+30_y192_x0.png	sci_topo=0.606984	vessel_area=661	sk_len=519	junctions=8	end_eff=8	components=2	fov_ratio=0.882751
+29_y320_x0.png	sci_topo=0.604898	vessel_area=557	sk_len=431	junctions=8	end_eff=7	components=2	fov_ratio=0.803284
+
+=== Bottom sci_topo patches ===
+25_y320_x384.png	sci_topo=0.182556	vessel_area=3588	sk_len=679	junctions=10	end_eff=6	components=5	fov_ratio=0.996399
+36_y128_x384.png	sci_topo=0.182225	vessel_area=3729	sk_len=705	junctions=13	end_eff=7	components=3	fov_ratio=0.971802
+23_y320_x384.png	sci_topo=0.181373	vessel_area=1940	sk_len=359	junctions=9	end_eff=5	components=2	fov_ratio=0.998596
+24_y320_x384.png	sci_topo=0.181133	vessel_area=4275	sk_len=788	junctions=21	end_eff=11	components=3	fov_ratio=0.991516
+30_y384_x320.png	sci_topo=0.179026	vessel_area=3527	sk_len=661	junctions=10	end_eff=7	components=2	fov_ratio=0.999512
+24_y128_x384.png	sci_topo=0.178620	vessel_area=4615	sk_len=857	junctions=14	end_eff=11	components=3	fov_ratio=0.967834
+32_y320_x384.png	sci_topo=0.176711	vessel_area=3214	sk_len=597	junctions=6	end_eff=6	components=3	fov_ratio=0.989319
+37_y320_x384.png	sci_topo=0.176670	vessel_area=2656	sk_len=496	junctions=5	end_eff=4	components=2	fov_ratio=0.991638
+26_y256_x0.png	sci_topo=0.173641	vessel_area=2929	sk_len=532	junctions=6	end_eff=5	components=3	fov_ratio=0.886292
+36_y192_x437.png	sci_topo=0.162993	vessel_area=3857	sk_len=635	junctions=16	end_eff=13	components=2	fov_ratio=0.819275
+
+=== Top sci_res patches ===
+30_y192_x128.png	sci_res=0.199813	vessel_area=804	sk_len=661	junctions=5	end_eff=6	components=11	fov_ratio=1.0
+24_y192_x64.png	sci_res=0.199571	vessel_area=1827	sk_len=1091	junctions=29	end_eff=34	components=10	fov_ratio=1.0
+24_y192_x128.png	sci_res=0.198927	vessel_area=2252	sk_len=1239	junctions=35	end_eff=35	components=11	fov_ratio=1.0
+24_y256_x64.png	sci_res=0.192228	vessel_area=1622	sk_len=1001	junctions=28	end_eff=24	components=8	fov_ratio=1.0
+27_y256_x192.png	sci_res=0.190273	vessel_area=1093	sk_len=769	junctions=14	end_eff=14	components=13	fov_ratio=1.0
+27_y256_x256.png	sci_res=0.182403	vessel_area=1108	sk_len=763	junctions=15	end_eff=14	components=12	fov_ratio=1.0
+30_y128_x128.png	sci_res=0.178647	vessel_area=720	sk_len=598	junctions=5	end_eff=4	components=7	fov_ratio=1.0
+30_y192_x64.png	sci_res=0.176115	vessel_area=872	sk_len=670	junctions=9	end_eff=10	components=6	fov_ratio=1.0
+30_y128_x64.png	sci_res=0.173914	vessel_area=696	sk_len=568	junctions=7	end_eff=8	components=7	fov_ratio=0.997925
+30_y256_x64.png	sci_res=0.170855	vessel_area=1045	sk_len=753	junctions=13	end_eff=11	components=3	fov_ratio=1.0
+
+=== Bottom sci_res patches ===
+23_y384_x256.png	sci_res=-0.182545	vessel_area=993	sk_len=248	junctions=0	end_eff=0	components=2	fov_ratio=1.0
+23_y384_x64.png	sci_res=-0.191326	vessel_area=706	sk_len=212	junctions=1	end_eff=0	components=2	fov_ratio=0.916321
+23_y384_x128.png	sci_res=-0.197569	vessel_area=910	sk_len=222	junctions=1	end_eff=1	components=2	fov_ratio=1.0
+31_y448_x128.png	sci_res=-0.216431	vessel_area=498	sk_len=162	junctions=1	end_eff=1	components=3	fov_ratio=0.803833
+23_y384_x384.png	sci_res=-0.223820	vessel_area=989	sk_len=198	junctions=1	end_eff=1	components=1	fov_ratio=0.871643
+23_y448_x256.png	sci_res=-0.235683	vessel_area=491	sk_len=155	junctions=0	end_eff=0	components=2	fov_ratio=0.882507
+23_y456_x256.png	sci_res=-0.249994	vessel_area=425	sk_len=138	junctions=0	end_eff=0	components=2	fov_ratio=0.820007
+23_y384_x192.png	sci_res=-0.250765	vessel_area=785	sk_len=164	junctions=0	end_eff=0	components=2	fov_ratio=1.0
+23_y448_x192.png	sci_res=-0.285916	vessel_area=431	sk_len=122	junctions=0	end_eff=0	components=1	fov_ratio=0.892883
+23_y456_x192.png	sci_res=-0.297540	vessel_area=388	sk_len=112	junctions=0	end_eff=0	components=1	fov_ratio=0.830383
+
+=== Top sci_res2 patches ===
+21_y256_x437.png	sci_res2=0.209498	vessel_area=560	sk_len=463	junctions=5	end_eff=3	components=11	fov_ratio=0.826477
+29_y256_x0.png	sci_res2=0.202779	vessel_area=660	sk_len=536	junctions=10	end_eff=8	components=5	fov_ratio=0.905579
+30_y256_x0.png	sci_res2=0.189645	vessel_area=626	sk_len=507	junctions=9	end_eff=8	components=4	fov_ratio=0.906494
+30_y192_x128.png	sci_res2=0.182791	vessel_area=804	sk_len=661	junctions=5	end_eff=6	components=11	fov_ratio=1.0
+24_y192_x64.png	sci_res2=0.182549	vessel_area=1827	sk_len=1091	junctions=29	end_eff=34	components=10	fov_ratio=1.0
+24_y192_x128.png	sci_res2=0.181906	vessel_area=2252	sk_len=1239	junctions=35	end_eff=35	components=11	fov_ratio=1.0
+30_y192_x0.png	sci_res2=0.180083	vessel_area=661	sk_len=519	junctions=8	end_eff=8	components=2	fov_ratio=0.882751
+24_y256_x64.png	sci_res2=0.175207	vessel_area=1622	sk_len=1001	junctions=28	end_eff=24	components=8	fov_ratio=1.0
+27_y256_x192.png	sci_res2=0.173252	vessel_area=1093	sk_len=769	junctions=14	end_eff=14	components=13	fov_ratio=1.0
+27_y256_x256.png	sci_res2=0.165382	vessel_area=1108	sk_len=763	junctions=15	end_eff=14	components=12	fov_ratio=1.0
+
+=== Bottom sci_res2 patches ===
+23_y384_x320.png	sci_res2=-0.165046	vessel_area=1306	sk_len=309	junctions=1	end_eff=1	components=3	fov_ratio=0.999878
+31_y448_x128.png	sci_res2=-0.171718	vessel_area=498	sk_len=162	junctions=1	end_eff=1	components=3	fov_ratio=0.803833
+23_y384_x384.png	sci_res2=-0.178488	vessel_area=989	sk_len=198	junctions=1	end_eff=1	components=1	fov_ratio=0.871643
+23_y448_x256.png	sci_res2=-0.192408	vessel_area=491	sk_len=155	junctions=0	end_eff=0	components=2	fov_ratio=0.882507
+23_y384_x256.png	sci_res2=-0.199566	vessel_area=993	sk_len=248	junctions=0	end_eff=0	components=2	fov_ratio=1.0
+23_y456_x256.png	sci_res2=-0.203027	vessel_area=425	sk_len=138	junctions=0	end_eff=0	components=2	fov_ratio=0.820007
+23_y384_x128.png	sci_res2=-0.214591	vessel_area=910	sk_len=222	junctions=1	end_eff=1	components=2	fov_ratio=1.0
+23_y448_x192.png	sci_res2=-0.245162	vessel_area=431	sk_len=122	junctions=0	end_eff=0	components=1	fov_ratio=0.892883
+23_y456_x192.png	sci_res2=-0.249822	vessel_area=388	sk_len=112	junctions=0	end_eff=0	components=1	fov_ratio=0.830383
+23_y384_x192.png	sci_res2=-0.267786	vessel_area=785	sk_len=164	junctions=0	end_eff=0	components=2	fov_ratio=1.0
+

@@ -1,0 +1,15 @@
+metadata_csv: "outputs/task1_topo_v3/patch_metadata.csv"
+patch_image_dir: "outputs/task1_topo_v3/patches/images"
+output_dir: "outputs/task2_sce_probe"
+target_col: "sci_res2_norm"
+group_col: "sample_id"
+val_ratio: 0.2
+random_state: 42
+batch_size: 32
+epochs: 100
+lr: 0.001
+weight_decay: 0.0001
+early_stop_patience: 15
+num_workers: 0
+image_size: 128
+in_channels: 3

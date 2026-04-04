@@ -1,0 +1,18 @@
+# 忽略 Python 虚拟环境
+.venv/
+venv/
+ENV/
+
+# 忽略缓存文件
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# 忽略大型权重文件 (如果你不想传模型的话)
+*.pth
+*.onnx
+*.weights
+
+# 忽略 Cursor/VS Code 配置
+.vscode/
+.cursor/
