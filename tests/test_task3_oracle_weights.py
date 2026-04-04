@@ -3,7 +3,17 @@ from __future__ import annotations
 
 import torch
 
-from src.training.task3_engine import oracle_sample_weights, smart_sample_weights
+from src.training.task3_engine import (
+    _effective_oracle_score_gamma,
+    oracle_sample_weights,
+    smart_sample_weights,
+)
+
+
+def test_effective_gamma_modes() -> None:
+    assert _effective_oracle_score_gamma("oracle_true_linear", 99.0) == 1.0
+    assert _effective_oracle_score_gamma("oracle_quadratic", 0.5) == 2.0
+    assert _effective_oracle_score_gamma("oracle_linear", 1.5) == 1.5
 
 
 def test_smart_differs_from_linear_when_low_fov_high_sci() -> None:

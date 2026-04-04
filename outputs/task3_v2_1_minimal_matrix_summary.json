@@ -1,0 +1,75 @@
+{
+  "runs": [
+    {
+      "run_id": "P0_baseline",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_baseline_same_split",
+      "loss_mode": null,
+      "val_dice_mean_at_0_5": 0.8103641556678753,
+      "val_recall_mean_at_0_5": 0.7928871741671296,
+      "hard_dice_mean_at_0_5": 0.7309914610311695,
+      "hard_recall_mean_at_0_5": 0.711265403608769,
+      "best_val_dice_threshold": 0.3,
+      "best_val_dice_mean": 0.8136493465651342,
+      "best_hard_dice_threshold": 0.3,
+      "primary_hard_dice_mean": 0.7346782118357121,
+      "hard_recall_at_best_hard_dice_threshold": 0.7445685276719971,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8136493465651342
+    },
+    {
+      "run_id": "P1_oracle_true_linear",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_oracle_true_linear_same_split",
+      "loss_mode": "oracle_true_linear",
+      "val_dice_mean_at_0_5": 0.8123277157522155,
+      "val_recall_mean_at_0_5": 0.8155521667156408,
+      "hard_dice_mean_at_0_5": 0.7317150130751756,
+      "hard_recall_mean_at_0_5": 0.7407073262280316,
+      "best_val_dice_threshold": 0.5,
+      "best_val_dice_mean": 0.8123277157522155,
+      "best_hard_dice_threshold": 0.35,
+      "primary_hard_dice_mean": 0.7325805146840063,
+      "hard_recall_at_best_hard_dice_threshold": 0.7656356981751625,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8123277157522155
+    },
+    {
+      "run_id": "P2_oracle_quadratic",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_oracle_quadratic_same_split",
+      "loss_mode": "oracle_quadratic",
+      "val_dice_mean_at_0_5": 0.8111360777777413,
+      "val_recall_mean_at_0_5": 0.8272893647856553,
+      "hard_dice_mean_at_0_5": 0.7345565544419441,
+      "hard_recall_mean_at_0_5": 0.7491657741841089,
+      "best_val_dice_threshold": 0.55,
+      "best_val_dice_mean": 0.8113293557608482,
+      "best_hard_dice_threshold": 0.5,
+      "primary_hard_dice_mean": 0.7345565544419441,
+      "hard_recall_at_best_hard_dice_threshold": 0.7491657741841089,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8113293557608482
+    },
+    {
+      "run_id": "P3_best_plus_sampler",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_best_plus_sampler_same_split",
+      "loss_mode": "oracle_quadratic",
+      "val_dice_mean_at_0_5": 0.8099301956127531,
+      "val_recall_mean_at_0_5": 0.8127399470181892,
+      "hard_dice_mean_at_0_5": 0.7350319050192884,
+      "hard_recall_mean_at_0_5": 0.7442153564544456,
+      "best_val_dice_threshold": 0.4,
+      "best_val_dice_mean": 0.8103470380314337,
+      "best_hard_dice_threshold": 0.45,
+      "primary_hard_dice_mean": 0.7354089038502344,
+      "hard_recall_at_best_hard_dice_threshold": 0.7515098289537985,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8103470380314337
+    }
+  ],
+  "primary_metric": "hard_dice_mean_at_best_hard_dice_threshold",
+  "answers": {
+    "true_linear_better_than_baseline_on_primary": false,
+    "true_linear_weak_gain_vs_baseline": false,
+    "quadratic_better_than_true_linear_on_primary": true,
+    "sampler_improved_over_best_weighting_primary": true,
+    "p1_vs_baseline_delta_primary": -0.002097697151705824,
+    "p2_vs_baseline_delta_primary": -0.00012165739376801543,
+    "p3_vs_best_p1_p2_delta_primary": 0.000852349408290265,
+    "declared_p1_p2_winner_for_p3": "oracle_quadratic"
+  }
+}

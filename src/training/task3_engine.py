@@ -457,6 +457,18 @@ def train_task3(
         plot_threshold_curves(tm, out_dir)
 
 
+def _effective_oracle_score_gamma(weight_mode: str, gamma_from_config: float) -> float:
+    """Map weight_mode to exponent in w = 1 + alpha * h^gamma (score-only oracle weights)."""
+    wm = str(weight_mode).lower()
+    if wm == "oracle_true_linear":
+        return 1.0
+    if wm == "oracle_quadratic":
+        return 2.0
+    if wm in ("oracle_linear", "oracle_smart"):
+        return float(gamma_from_config)
+    raise ValueError(f"unknown weight_mode for gamma mapping: {weight_mode}")
+
+
 def train_task3_baseline_oracle_weighted(
     model: nn.Module,
     train_loader: DataLoader,
@@ -482,8 +494,10 @@ def train_task3_baseline_oracle_weighted(
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     wm = str(weight_mode).lower()
-    if wm not in ("oracle_linear", "oracle_smart"):
-        raise ValueError("weight_mode must be oracle_linear | oracle_smart")
+    if wm not in ("oracle_linear", "oracle_smart", "oracle_true_linear", "oracle_quadratic"):
+        raise ValueError("weight_mode must be oracle_linear | oracle_true_linear | oracle_quadratic | oracle_smart")
+    gamma_cfg = float(gamma)
+    gamma_eff = _effective_oracle_score_gamma(wm, gamma_cfg)
     opt = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
     history: List[Dict[str, Any]] = []
@@ -514,11 +528,11 @@ def train_task3_baseline_oracle_weighted(
                     scores = scores[perm]
                 if wm == "oracle_smart":
                     w = smart_sample_weights(
-                        scores, fov, tau, alpha, gamma, fov_min, max_weight, normalize_weights_in_batch
+                        scores, fov, tau, alpha, gamma_eff, fov_min, max_weight, normalize_weights_in_batch
                     )
                 else:
                     w = oracle_sample_weights(
-                        scores, tau, alpha, gamma, min_weight, max_weight, normalize_weights_in_batch
+                        scores, tau, alpha, gamma_eff, min_weight, max_weight, normalize_weights_in_batch
                     )
                 if (
                     debug_save_first_weighted_batch
@@ -527,10 +541,10 @@ def train_task3_baseline_oracle_weighted(
                 ):
                     with torch.no_grad():
                         w_if_linear = oracle_sample_weights(
-                            scores, tau, alpha, gamma, min_weight, max_weight, normalize_weights_in_batch
+                            scores, tau, alpha, gamma_eff, min_weight, max_weight, normalize_weights_in_batch
                         )
                         w_if_smart = smart_sample_weights(
-                            scores, fov, tau, alpha, gamma, fov_min, max_weight, normalize_weights_in_batch
+                            scores, fov, tau, alpha, gamma_eff, fov_min, max_weight, normalize_weights_in_batch
                         )
                     dbg: Dict[str, Any] = {
                         "weight_mode_used": wm,
@@ -539,7 +553,8 @@ def train_task3_baseline_oracle_weighted(
                         "shuffle_scores_in_batch": shuffle_scores_in_batch,
                         "tau": tau,
                         "alpha": alpha,
-                        "gamma": gamma,
+                        "gamma": gamma_eff,
+                        "gamma_from_config": gamma_cfg,
                         "fov_min": fov_min,
                         "min_weight": min_weight,
                         "max_weight": max_weight,
@@ -612,6 +627,10 @@ def train_task3_baseline_oracle_weighted(
         final_val["loss_mode"] = "shuffle_oracle_ablation"
     elif wm == "oracle_smart":
         final_val["loss_mode"] = "oracle_smart"
+    elif wm == "oracle_true_linear":
+        final_val["loss_mode"] = "oracle_true_linear"
+    elif wm == "oracle_quadratic":
+        final_val["loss_mode"] = "oracle_quadratic"
     else:
         final_val["loss_mode"] = "oracle_linear"
     final_val["val_sci_corr"] = None
@@ -628,7 +647,8 @@ def train_task3_baseline_oracle_weighted(
     weight_stats: Dict[str, Any] = {
         "tau": tau,
         "alpha": alpha,
-        "gamma": gamma,
+        "gamma": gamma_eff,
+        "gamma_from_config": gamma_cfg,
         "warmup_epochs": difficulty_warmup_epochs,
         "min_weight": min_weight,
         "max_weight": max_weight,

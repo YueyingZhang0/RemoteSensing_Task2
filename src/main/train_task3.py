@@ -20,6 +20,7 @@ from src.datasets.seg_sce_patch_dataset import SegSCEPatchDataset
 from src.models.task3_unet import UNetBaseline, UNetBaselineJointDifficulty, UNetWithSCE
 from src.training.splits import load_or_create_group_split, make_group_train_val_split, mark_hard_patches
 from src.training.task3_engine import (
+    _effective_oracle_score_gamma,
     collate_seg_sce,
     load_frozen_sce_probe,
     train_task3,
@@ -61,7 +62,7 @@ def parse_args() -> argparse.Namespace:
         "--weight_mode",
         type=str,
         default=None,
-        choices=("oracle_linear", "oracle_smart"),
+        choices=("oracle_linear", "oracle_smart", "oracle_true_linear", "oracle_quadratic"),
         help="Override difficulty_weighting.weight_mode (oracle branch only).",
     )
     p.add_argument(
@@ -79,12 +80,11 @@ def _build_weighted_sampler_weights(
     fov_min: float,
     hard_sampling_weight: float,
 ) -> WeightedRandomSampler:
-    if "fov_ratio" not in df_tr.columns:
-        raise ValueError("Weighted sampler requires fov_ratio column in metadata (train split).")
+    """Oversample hard patches by score only: s > tau (no FOV gate). fov_min kept for API/config compat."""
+    _ = fov_min  # legacy; difficulty_weighting.fov_min no longer affects sampler mask
     s = df_tr[target_col].astype(np.float64).values
-    f = df_tr["fov_ratio"].astype(np.float64).values
     weights = np.ones(len(df_tr), dtype=np.float64)
-    hard_mask = (f >= fov_min) & (s > tau)
+    hard_mask = s > tau
     weights[hard_mask] = float(hard_sampling_weight)
     w_t = torch.from_numpy(weights).double()
     return WeightedRandomSampler(w_t, num_samples=len(df_tr), replacement=True)
@@ -272,9 +272,14 @@ def main() -> None:
         total_ep = w_ep + j_ep
         shuffle_ab = bool(dw.get("shuffle_scores_in_batch", False)) or bool(args.shuffle_score_ablation)
         weight_mode = (args.weight_mode or str(dw.get("weight_mode", "oracle_linear"))).lower()
-        if weight_mode not in ("oracle_linear", "oracle_smart"):
-            raise ValueError("difficulty_weighting.weight_mode must be oracle_linear | oracle_smart")
+        if weight_mode not in ("oracle_linear", "oracle_smart", "oracle_true_linear", "oracle_quadratic"):
+            raise ValueError(
+                "difficulty_weighting.weight_mode must be "
+                "oracle_linear | oracle_true_linear | oracle_quadratic | oracle_smart"
+            )
         fov_min_v = float(dw.get("fov_min", 0.8))
+        gamma_cfg = float(dw.get("gamma", 2.0))
+        gamma_effective = _effective_oracle_score_gamma(weight_mode, gamma_cfg)
         ts_cfg = cfg.get("threshold_sweep") or {}
         sweep_on = bool(ts_cfg.get("enabled")) or bool(args.threshold_sweep)
         th_list: list[float] | None = list(ts_cfg["thresholds"]) if sweep_on and ts_cfg.get("thresholds") else None
@@ -286,7 +291,8 @@ def main() -> None:
             "fov_min": fov_min_v,
             "tau": float(dw.get("tau", 0.7)),
             "alpha": float(dw.get("alpha", 1.0)),
-            "gamma": float(dw.get("gamma", 2.0)),
+            "gamma": gamma_cfg,
+            "gamma_effective": gamma_effective,
             "weight_warmup_epochs": int(dw.get("warmup_epochs", 5)),
             "min_weight": float(dw.get("min_weight", 1.0)),
             "max_weight": float(dw.get("max_weight", 2.0)),
@@ -297,6 +303,9 @@ def main() -> None:
             "sampling": {
                 "use_weighted_sampler": use_weighted_sampler,
                 "hard_sampling_weight": float(sam_pre.get("hard_sampling_weight", 2.0)),
+                "weighted_sampler_hard_mask": (
+                    f"{target_col} > tau (no FOV gate)" if use_weighted_sampler else "n/a"
+                ),
             },
             "debug_save_first_weighted_batch": bool(dw.get("debug_save_first_weighted_batch", False)),
         }
