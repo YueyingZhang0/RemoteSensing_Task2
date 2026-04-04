@@ -1,0 +1,129 @@
+{
+  "cnn_val": {
+    "pearson": 0.8769443891374036,
+    "spearman": 0.8546227767261613,
+    "mae": 0.07986689987863133,
+    "rmse": 0.104092960211355,
+    "r2": 0.7655949943033841,
+    "loss": 0.005417672192358391
+  },
+  "best_scalar_val_pearson": 0.9085152205982014,
+  "thresholds": {
+    "pearson_min": 0.35,
+    "spearman_min": 0.4,
+    "pearson_margin": 0.1
+  },
+  "verdict": {
+    "pass_pearson": true,
+    "pass_spearman": true,
+    "pass_margin": false,
+    "pass_overall": false
+  },
+  "verdict_task2_relaxed": {
+    "description": "Pass if at least 2 of: val_loss_improved (from history.json early vs late val loss), pass_margin (CNN val Pearson > best_scalar + margin), manual_visual_ok (human-only: set true in JSON or pass manual_visual_ok= after reviewing highest_pred.txt / lowest_pred.txt vs Task 1 semantics).",
+    "val_loss_improved": true,
+    "val_loss_improved_note": "mean early (12 ep) vs late (12 ep): 0.017019 -> 0.007713",
+    "pass_margin": false,
+    "manual_visual_ok": false,
+    "criteria_pass_count": 1,
+    "pass_relaxed": false
+  },
+  "scalar_baselines": {
+    "area_linear": {
+      "train": {
+        "pearson": 0.7066957397744249,
+        "spearman": 0.7552033842520249,
+        "mae": 0.13211156751852968,
+        "rmse": 0.16945403097262648,
+        "r2": 0.4994188686153217
+      },
+      "val": {
+        "pearson": 0.844413412088236,
+        "spearman": 0.8699853663104955,
+        "mae": 0.08829292147123106,
+        "rmse": 0.12127767927768447,
+        "r2": 0.6818104451568378
+      }
+    },
+    "area_quadratic": {
+      "train": {
+        "pearson": 0.7576400729443442,
+        "spearman": 0.7521743428585245,
+        "mae": 0.1172638127727536,
+        "rmse": 0.15631838010617022,
+        "r2": 0.574018480131111
+      },
+      "val": {
+        "pearson": 0.8823109392063506,
+        "spearman": 0.8697436332851648,
+        "mae": 0.08325723878191389,
+        "rmse": 0.10791117065706074,
+        "r2": 0.7480832927175557
+      }
+    },
+    "fov_linear": {
+      "train": {
+        "pearson": 0.13607948801889758,
+        "spearman": 0.2764141411835655,
+        "mae": 0.1935449748644077,
+        "rmse": 0.2372771507417708,
+        "r2": 0.018517627059485342
+      },
+      "val": {
+        "pearson": 0.13588730856646153,
+        "spearman": 0.314185171850972,
+        "mae": 0.1691095729553993,
+        "rmse": 0.213462668151652,
+        "r2": 0.01424717502782269
+      }
+    },
+    "fov_quadratic": {
+      "train": {
+        "pearson": 0.1456454225224116,
+        "spearman": 0.2775254001017941,
+        "mae": 0.19249682397220727,
+        "rmse": 0.23695116808035208,
+        "r2": 0.02121258910173185
+      },
+      "val": {
+        "pearson": 0.1815736365484188,
+        "spearman": 0.3221449838987286,
+        "mae": 0.16749272157551012,
+        "rmse": 0.21185273845782196,
+        "r2": 0.029060146580410673
+      }
+    },
+    "area_fov_linear": {
+      "train": {
+        "pearson": 0.738871460198895,
+        "spearman": 0.8017782157839372,
+        "mae": 0.12428642196435385,
+        "rmse": 0.1613896115953281,
+        "r2": 0.5459310346964474
+      },
+      "val": {
+        "pearson": 0.8581338759731298,
+        "spearman": 0.9159177378075503,
+        "mae": 0.07731257709366933,
+        "rmse": 0.1145401233254604,
+        "r2": 0.7161823132377344
+      }
+    },
+    "area_fov_quadratic": {
+      "train": {
+        "pearson": 0.8044274897678453,
+        "spearman": 0.8054091916965391,
+        "mae": 0.10338177772316193,
+        "rmse": 0.14227817601788467,
+        "r2": 0.6471035862941961
+      },
+      "val": {
+        "pearson": 0.9085152205982014,
+        "spearman": 0.9166370396838079,
+        "mae": 0.06754156214938963,
+        "rmse": 0.09564521530144134,
+        "r2": 0.8020977820509526
+      }
+    }
+  }
+}

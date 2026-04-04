@@ -46,6 +46,23 @@ def plot_train_val_curves(
     plt.close()
 
 
+def plot_histogram_1d(
+    values: np.ndarray,
+    save_path: str | Path,
+    title: str,
+    xlabel: str,
+    bins: int = 20,
+) -> None:
+    plt.figure(figsize=(5, 4))
+    plt.hist(np.asarray(values).ravel(), bins=bins, edgecolor="black", alpha=0.75)
+    plt.xlabel(xlabel)
+    plt.ylabel("count")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=200)
+    plt.close()
+
+
 def plot_scatter_feature(
     x: np.ndarray,
     y_true: np.ndarray,

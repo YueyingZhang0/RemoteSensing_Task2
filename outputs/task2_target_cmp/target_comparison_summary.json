@@ -1,0 +1,35 @@
+{
+  "split_parent": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task2_target_cmp",
+  "targets": {
+    "sci_topo_norm": {
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task2_target_cmp\\sci_topo_norm",
+      "best_epoch": 21,
+      "val_pearson": 0.8769443891374036,
+      "val_spearman": 0.8546227767261613,
+      "best_scalar_val_pearson": 0.9085152205982014,
+      "cnn_minus_best_scalar_pearson": -0.031570831460797866,
+      "verdict_pass_overall": false,
+      "verdict_pass_relaxed": false
+    },
+    "sci_res_norm": {
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task2_target_cmp\\sci_res_norm",
+      "best_epoch": 1,
+      "val_pearson": 0.2959012030322059,
+      "val_spearman": 0.27962162429868187,
+      "best_scalar_val_pearson": 0.5169896447373081,
+      "cnn_minus_best_scalar_pearson": -0.22108844170510222,
+      "verdict_pass_overall": false,
+      "verdict_pass_relaxed": false
+    },
+    "sci_res2_norm": {
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task2_target_cmp\\sci_res2_norm",
+      "best_epoch": 31,
+      "val_pearson": 0.4854234006605772,
+      "val_spearman": 0.47242012815342554,
+      "best_scalar_val_pearson": 0.36223610402113543,
+      "cnn_minus_best_scalar_pearson": 0.12318729663944178,
+      "verdict_pass_overall": true,
+      "verdict_pass_relaxed": true
+    }
+  }
+}

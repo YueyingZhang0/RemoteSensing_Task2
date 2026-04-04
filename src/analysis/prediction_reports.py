@@ -31,6 +31,7 @@ def save_top_bottom_predictions(
     save_path: str | Path,
     top_k: int = 20,
     descending: bool = True,
+    target_col: str = "sci_res2_norm",
 ) -> None:
     order = np.argsort(-preds if descending else preds)
     lines = []
@@ -42,7 +43,7 @@ def save_top_bottom_predictions(
             lines.append(f"{name}\tpred={p:.6f}\t(no metadata)\n")
             continue
         r = sub.iloc[0]
-        gt = float(r.get("sci_res2_norm", float("nan")))
+        gt = float(r.get(target_col, float("nan")))
         lines.append(
             f"{name}\tpred={p:.6f}\tgt={gt:.6f}\t"
             f"vessel_area={int(r['vessel_area'])}\tfov_ratio={float(r['fov_ratio']):.4f}\t"

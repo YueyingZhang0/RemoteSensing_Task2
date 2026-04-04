@@ -8,7 +8,7 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 
-# 忽略大型权重文件 (如果你不想传模型的话)
+# 忽略大型权重文件 (全局)
 *.pth
 *.onnx
 *.weights
@@ -16,3 +16,19 @@ __pycache__/
 # 忽略 Cursor/VS Code 配置
 .vscode/
 .cursor/
+
+# 本地调试导出（全尺寸 triplet 图，体积大）
+debug_triplets/
+
+# --- outputs：只跟踪 JSON / CSV / TXT 等小摘要；排除大块二进制与图 ---
+# Task 1 滑窗 patch 图（images / masks / fov）
+outputs/**/patches/
+
+# outputs 下的模型检查点
+outputs/**/*.pt
+
+# outputs 下由脚本再生的图像（曲线、散点、直方图等）
+outputs/**/*.png
+
+# 杂项大文件
+outputs/**/*.gif

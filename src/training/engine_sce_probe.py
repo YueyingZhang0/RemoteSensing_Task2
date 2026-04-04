@@ -12,7 +12,11 @@ from torch.utils.data import DataLoader
 from src.training.losses import regression_loss
 from src.training.metrics import regression_metrics
 from src.utils.io import save_json
-from src.utils.plotting import plot_scatter_gt_pred, plot_train_val_curves
+from src.utils.plotting import (
+    plot_histogram_1d,
+    plot_scatter_gt_pred,
+    plot_train_val_curves,
+)
 
 
 def train_one_epoch(
@@ -81,12 +85,19 @@ def fit_sce_probe(
     patience: int,
     output_dir: str | Path,
     target_col: str = "sci_res2_norm",
+    log_epoch_metrics: bool = False,
+    plot_train_debug: bool = False,
+    plot_diagnostic_split: bool = False,
 ) -> Dict[str, Any]:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
     train_losses: List[float] = []
     val_losses: List[float] = []
+    train_pearsons: List[float] = []
+    val_pearsons: List[float] = []
+    train_spearmans: List[float] = []
+    val_spearmans: List[float] = []
     best_val_loss = float("inf")
     best_epoch = -1
     patience_left = patience
@@ -94,7 +105,16 @@ def fit_sce_probe(
 
     for epoch in range(epochs):
         tr = train_one_epoch(model, train_loader, optimizer, device)
-        va = validate_one_epoch(model, val_loader, device)
+        if log_epoch_metrics:
+            tr_eval = validate_one_epoch(model, train_loader, device)
+            va = validate_one_epoch(model, val_loader, device)
+            train_pearsons.append(float(tr_eval["pearson"]))
+            val_pearsons.append(float(va["pearson"]))
+            train_spearmans.append(float(tr_eval["spearman"]))
+            val_spearmans.append(float(va["spearman"]))
+        else:
+            va = validate_one_epoch(model, val_loader, device)
+
         if scheduler is not None:
             scheduler.step()
 
@@ -138,12 +158,47 @@ def fit_sce_probe(
     }
     save_json(metrics, out / "metrics.json")
 
-    history = {"train_loss": train_losses, "val_loss": val_losses}
+    history: Dict[str, Any] = {"train_loss": train_losses, "val_loss": val_losses}
+    if log_epoch_metrics:
+        history["train_pearson"] = train_pearsons
+        history["val_pearson"] = val_pearsons
+        history["train_spearman"] = train_spearmans
+        history["val_spearman"] = val_spearmans
     save_json(history, out / "history.json")
 
     plot_train_val_curves(train_losses, val_losses, out / "train_curve.png")
     plot_scatter_gt_pred(va_final["y_true"], va_final["y_pred"], out / "best_scatter.png", "SCE probe: val", target_col)
     plot_scatter_gt_pred(va_final["y_true"], va_final["y_pred"], out / "pred_vs_gt.png", "SCE probe: pred vs GT", target_col)
+
+    if log_epoch_metrics and train_pearsons:
+        plot_train_val_curves(
+            train_pearsons, val_pearsons, out / "epoch_pearson.png",
+            title="Pearson per epoch", ylabel="Pearson r",
+        )
+        plot_train_val_curves(
+            train_spearmans, val_spearmans, out / "epoch_spearman.png",
+            title="Spearman per epoch", ylabel="Spearman rho",
+        )
+
+    if plot_train_debug:
+        plot_scatter_gt_pred(
+            tr_final["y_true"], tr_final["y_pred"], out / "pred_vs_gt_train.png",
+            "SCE probe: train (debug)", target_col,
+        )
+        plot_histogram_1d(tr_final["y_true"], out / "y_true_hist_train.png", f"Train GT {target_col}", target_col)
+        plot_histogram_1d(tr_final["y_pred"], out / "y_pred_hist_train.png", f"Train pred {target_col}", target_col)
+
+    if plot_diagnostic_split:
+        plot_scatter_gt_pred(
+            tr_final["y_true"], tr_final["y_pred"], out / "pred_vs_gt_train.png",
+            "SCE probe: train", target_col,
+        )
+        plot_scatter_gt_pred(
+            va_final["y_true"], va_final["y_pred"], out / "pred_vs_gt_val.png",
+            "SCE probe: val", target_col,
+        )
+        plot_histogram_1d(va_final["y_true"], out / "y_true_hist_val.png", f"Val GT {target_col}", target_col)
+        plot_histogram_1d(va_final["y_pred"], out / "y_pred_hist_val.png", f"Val pred {target_col}", target_col)
 
     return {
         "metrics": metrics,
