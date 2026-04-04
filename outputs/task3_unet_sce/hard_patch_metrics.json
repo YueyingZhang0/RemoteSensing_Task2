@@ -1,0 +1,6 @@
+{
+  "hard_dice_mean": 0.7268522824559893,
+  "hard_recall_mean": 0.7076163437706572,
+  "n_hard_patches_note": "subset of val where is_hard=True (top sci_res2_norm)",
+  "val_sci_corr_full_val": 0.32354761475759414
+}

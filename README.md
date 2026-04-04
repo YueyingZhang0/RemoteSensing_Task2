@@ -16,6 +16,13 @@
 
 完整训练与作图可在本地重新运行生成。
 
+## Task 3（最小闭环）
+
+- 固定 `sci_res2_norm`；数据与 Task 2 同源（patch 图 + `patches/masks` + CSV）。
+- Baseline：`python -m src.main.train_task3 --config configs/task3.yaml --model baseline`
+- UNet + SCE（bottleneck 分支 + 最浅 skip 软调制）：`python -m src.main.train_task3 --config configs/task3.yaml --model ours`
+- 产物目录：`outputs/task3_unet_baseline/`、`outputs/task3_unet_sce/`（`best_model.pt`、`history.json`、`train_curves.png`、`val_metrics.json`、`hard_patch_metrics.json`）。
+
 ## Task 2 入口（摘要）
 
 - 正式训练：`python -m src.main.train_sce_probe --config configs/sce_probe.yaml`

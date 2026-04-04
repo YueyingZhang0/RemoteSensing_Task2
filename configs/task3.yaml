@@ -1,0 +1,20 @@
+# Task 3 minimal: U-Net seg + optional SCE (sci_res2_norm fixed)
+metadata_csv: "outputs/task1_topo_v3/patch_metadata.csv"
+patch_image_dir: "outputs/task1_topo_v3/patches/images"
+patch_mask_dir: "outputs/task1_topo_v3/patches/masks"
+output_dir_baseline: "outputs/task3_unet_baseline"
+output_dir_ours: "outputs/task3_unet_sce"
+target_col: "sci_res2_norm"
+group_col: "sample_id"
+val_ratio: 0.2
+random_state: 42
+hard_ratio: 0.2
+image_size: 128
+batch_size: 16
+lr: 0.001
+weight_decay: 0.0001
+warmup_epochs: 30
+joint_epochs: 50
+lambda_sce: 0.5
+num_workers: 0
+device: null
