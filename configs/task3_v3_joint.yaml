@@ -1,9 +1,10 @@
-experiment_name: task3_v2_oracle_weighted
+# Task 3 v3 joint: UNet + difficulty head; calibrate then pred-weighted seg + aux SCI loss.
+experiment_name: task3_v3_joint
 split_json: "outputs/task3_split/split_info.json"
 metadata_csv: "outputs/task1_topo_v3/patch_metadata.csv"
 patch_image_dir: "outputs/task1_topo_v3/patches/images"
 patch_mask_dir: "outputs/task1_topo_v3/patches/masks"
-output_dir: "outputs/task3_v2_oracle_weighted"
+output_dir: "outputs/task3_v3_joint"
 target_col: "sci_res2_norm"
 group_col: "sample_id"
 val_ratio: 0.2
@@ -20,7 +21,7 @@ device: null
 
 difficulty_weighting:
   enabled: true
-  mode: oracle
+  mode: joint
   tau: 0.7
   alpha: 1.0
   gamma: 2.0
@@ -28,6 +29,10 @@ difficulty_weighting:
   min_weight: 1.0
   max_weight: 2.0
   normalize_weights_in_batch: true
+  joint_calib_epochs: 10
+  joint_oracle_weight_epochs: 0
+  lambda_diff: 0.5
+  pred_weight_detach: true
 
 logging:
   save_weight_stats: true

@@ -14,15 +14,18 @@ import numpy as np
 import pandas as pd
 import torch
 import yaml
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from src.datasets.seg_sce_patch_dataset import SegSCEPatchDataset
-from src.models.task3_unet import UNetBaseline, UNetWithSCE
+from src.models.task3_unet import UNetBaseline, UNetBaselineJointDifficulty, UNetWithSCE
 from src.training.splits import load_or_create_group_split, make_group_train_val_split, mark_hard_patches
 from src.training.task3_engine import (
     collate_seg_sce,
+    load_frozen_sce_probe,
     train_task3,
     train_task3_baseline_oracle_weighted,
+    train_task3_baseline_probe_weighted,
+    train_task3_joint_difficulty,
 )
 from src.utils.io import ensure_dir, load_yaml
 from src.utils.seed import set_global_seed
@@ -38,7 +41,53 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Override output_dir_baseline / output_dir_ours for this run (relative paths from project root).",
     )
+    p.add_argument(
+        "--random_state",
+        type=int,
+        default=None,
+        help="Override config random_state (DataLoader/model init via set_global_seed).",
+    )
+    p.add_argument(
+        "--shuffle_score_ablation",
+        action="store_true",
+        help="When difficulty_weighting is enabled (oracle mode), shuffle GT scores within each batch (ablation).",
+    )
+    p.add_argument(
+        "--threshold_sweep",
+        action="store_true",
+        help="Force-run validation threshold sweep (uses config threshold_sweep.thresholds).",
+    )
+    p.add_argument(
+        "--weight_mode",
+        type=str,
+        default=None,
+        choices=("oracle_linear", "oracle_smart"),
+        help="Override difficulty_weighting.weight_mode (oracle branch only).",
+    )
+    p.add_argument(
+        "--use_weighted_sampler",
+        action="store_true",
+        help="Override sampling.use_weighted_sampler to true (oracle branch only).",
+    )
     return p.parse_args()
+
+
+def _build_weighted_sampler_weights(
+    df_tr: pd.DataFrame,
+    target_col: str,
+    tau: float,
+    fov_min: float,
+    hard_sampling_weight: float,
+) -> WeightedRandomSampler:
+    if "fov_ratio" not in df_tr.columns:
+        raise ValueError("Weighted sampler requires fov_ratio column in metadata (train split).")
+    s = df_tr[target_col].astype(np.float64).values
+    f = df_tr["fov_ratio"].astype(np.float64).values
+    weights = np.ones(len(df_tr), dtype=np.float64)
+    hard_mask = (f >= fov_min) & (s > tau)
+    weights[hard_mask] = float(hard_sampling_weight)
+    w_t = torch.from_numpy(weights).double()
+    return WeightedRandomSampler(w_t, num_samples=len(df_tr), replacement=True)
 
 
 def _apply_hard_labels(df_tr: pd.DataFrame, df_va: pd.DataFrame, target_col: str, hard_ratio: float):
@@ -129,6 +178,8 @@ def main() -> None:
     args = parse_args()
     cfg_path = Path(args.config)
     cfg = load_yaml(cfg_path) if cfg_path.is_file() else {}
+    if args.random_state is not None:
+        cfg["random_state"] = int(args.random_state)
     set_global_seed(cfg.get("random_state", 42))
 
     root = Path(__file__).resolve().parents[2]
@@ -169,13 +220,35 @@ def main() -> None:
 
     train_ds = SegSCEPatchDataset(df_tr, img_dir, msk_dir, target_col, isz, augment=True)
     val_ds = SegSCEPatchDataset(df_va, img_dir, msk_dir, target_col, isz, augment=False)
-    train_loader = DataLoader(
-        train_ds, batch_size=bs, shuffle=True, num_workers=nw, collate_fn=collate_seg_sce,
-        pin_memory=torch.cuda.is_available(),
-    )
+
+    dw_pre = cfg.get("difficulty_weighting") or {}
+    sam_pre = cfg.get("sampling") or {}
+    use_weighted_sampler = bool(sam_pre.get("use_weighted_sampler", False)) or bool(args.use_weighted_sampler)
+    use_weighted_sampler = use_weighted_sampler and bool(dw_pre.get("enabled")) and str(dw_pre.get("mode", "oracle")).lower() == "oracle"
+
+    pin = torch.cuda.is_available()
+    if use_weighted_sampler:
+        tau_s = float(dw_pre.get("tau", 0.7))
+        fov_min_s = float(dw_pre.get("fov_min", 0.8))
+        hsw = float(sam_pre.get("hard_sampling_weight", 2.0))
+        sampler = _build_weighted_sampler_weights(df_tr, target_col, tau_s, fov_min_s, hsw)
+        train_loader = DataLoader(
+            train_ds,
+            batch_size=bs,
+            sampler=sampler,
+            shuffle=False,
+            num_workers=nw,
+            collate_fn=collate_seg_sce,
+            pin_memory=pin,
+        )
+    else:
+        train_loader = DataLoader(
+            train_ds, batch_size=bs, shuffle=True, num_workers=nw, collate_fn=collate_seg_sce,
+            pin_memory=pin,
+        )
     val_loader = DataLoader(
         val_ds, batch_size=bs, shuffle=False, num_workers=nw, collate_fn=collate_seg_sce,
-        pin_memory=torch.cuda.is_available(),
+        pin_memory=pin,
     )
 
     dev_s = cfg.get("device")
@@ -184,7 +257,10 @@ def main() -> None:
     dw = cfg.get("difficulty_weighting") or {}
     if dw.get("enabled"):
         if args.model != "baseline":
-            raise ValueError("difficulty_weighting.enabled requires --model baseline (no SCE v2 path).")
+            raise ValueError("difficulty_weighting.enabled requires --model baseline (no SCE v1 path).")
+        mode = str(dw.get("mode", "oracle")).lower()
+        if mode not in ("oracle", "frozen_probe", "joint"):
+            raise ValueError("difficulty_weighting.mode must be oracle | frozen_probe | joint")
         out_dir = Path(args.output_dir) if args.output_dir else Path(cfg["output_dir"])
         if not out_dir.is_absolute():
             out_dir = root / out_dir
@@ -193,8 +269,21 @@ def main() -> None:
         log_cfg = cfg.get("logging") or {}
         w_ep = int(cfg.get("warmup_epochs", 30))
         j_ep = int(cfg.get("joint_epochs", 50))
+        total_ep = w_ep + j_ep
+        shuffle_ab = bool(dw.get("shuffle_scores_in_batch", False)) or bool(args.shuffle_score_ablation)
+        weight_mode = (args.weight_mode or str(dw.get("weight_mode", "oracle_linear"))).lower()
+        if weight_mode not in ("oracle_linear", "oracle_smart"):
+            raise ValueError("difficulty_weighting.weight_mode must be oracle_linear | oracle_smart")
+        fov_min_v = float(dw.get("fov_min", 0.8))
+        ts_cfg = cfg.get("threshold_sweep") or {}
+        sweep_on = bool(ts_cfg.get("enabled")) or bool(args.threshold_sweep)
+        th_list: list[float] | None = list(ts_cfg["thresholds"]) if sweep_on and ts_cfg.get("thresholds") else None
+
         dw_eff: Dict[str, Any] = {
             "enabled": True,
+            "mode": mode,
+            "weight_mode": weight_mode,
+            "fov_min": fov_min_v,
             "tau": float(dw.get("tau", 0.7)),
             "alpha": float(dw.get("alpha", 1.0)),
             "gamma": float(dw.get("gamma", 2.0)),
@@ -203,30 +292,60 @@ def main() -> None:
             "max_weight": float(dw.get("max_weight", 2.0)),
             "normalize_weights_in_batch": bool(dw.get("normalize_weights_in_batch", True)),
             "save_weight_stats": bool(log_cfg.get("save_weight_stats", True)),
+            "shuffle_scores_in_batch": shuffle_ab,
+            "threshold_sweep": {"enabled": sweep_on, "thresholds": th_list},
+            "sampling": {
+                "use_weighted_sampler": use_weighted_sampler,
+                "hard_sampling_weight": float(sam_pre.get("hard_sampling_weight", 2.0)),
+            },
+            "debug_save_first_weighted_batch": bool(dw.get("debug_save_first_weighted_batch", False)),
         }
-        _dump_config_used(
-            out_dir,
-            _build_config_used(
-                cfg,
-                project_root=root,
-                out_dir=out_dir,
-                config_path=cfg_path,
-                metadata_csv=meta,
-                patch_image_dir=img_dir,
-                patch_mask_dir=msk_dir,
-                model="baseline",
-                warmup_epochs=w_ep,
-                joint_epochs=j_ep,
-                difficulty_weighting_effective=dw_eff,
-            ),
+        probe_cfg = dw.get("probe") or {}
+        if mode == "frozen_probe":
+            ck = dw.get("probe_checkpoint")
+            if not ck:
+                raise ValueError("difficulty_weighting.probe_checkpoint required for mode frozen_probe")
+            ck_path = Path(ck)
+            if not ck_path.is_absolute():
+                ck_path = root / ck_path
+            if not ck_path.is_file():
+                raise FileNotFoundError(f"probe_checkpoint not found: {ck_path}")
+            dw_eff["probe_checkpoint"] = str(ck_path.resolve())
+            dw_eff["probe"] = {
+                "in_channels": int(probe_cfg.get("in_channels", 3)),
+                "base_channels": int(probe_cfg.get("base_channels", 32)),
+                "mlp_hidden": int(probe_cfg.get("mlp_hidden", 64)),
+                "dropout": float(probe_cfg.get("dropout", 0.0)),
+            }
+        if mode == "joint":
+            dw_eff["joint_calib_epochs"] = int(dw.get("joint_calib_epochs", 10))
+            dw_eff["joint_oracle_weight_epochs"] = int(dw.get("joint_oracle_weight_epochs", 0))
+            dw_eff["lambda_diff"] = float(dw.get("lambda_diff", 0.5))
+            dw_eff["pred_weight_detach"] = bool(dw.get("pred_weight_detach", True))
+
+        doc_oracle = _build_config_used(
+            cfg,
+            project_root=root,
+            out_dir=out_dir,
+            config_path=cfg_path,
+            metadata_csv=meta,
+            patch_image_dir=img_dir,
+            patch_mask_dir=msk_dir,
+            model="baseline",
+            warmup_epochs=w_ep,
+            joint_epochs=j_ep,
+            difficulty_weighting_effective=dw_eff,
         )
-        train_task3_baseline_oracle_weighted(
-            model=UNetBaseline(in_channels=3, base=32).to(device),
+        doc_oracle["sampling_effective"] = dw_eff["sampling"]
+        doc_oracle["threshold_sweep_effective"] = dw_eff["threshold_sweep"]
+        _dump_config_used(out_dir, doc_oracle)
+
+        dw_common = dict(
             train_loader=train_loader,
             val_loader=val_loader,
             device=device,
             out_dir=out_dir,
-            total_epochs=w_ep + j_ep,
+            total_epochs=total_ep,
             lr=float(cfg.get("lr", 1e-3)),
             weight_decay=float(cfg.get("weight_decay", 1e-4)),
             tau=float(dw.get("tau", 0.7)),
@@ -238,7 +357,43 @@ def main() -> None:
             normalize_weights_in_batch=bool(dw.get("normalize_weights_in_batch", True)),
             save_weight_stats=bool(log_cfg.get("save_weight_stats", True)),
         )
-        print(f"Done (oracle-weighted baseline). Artifacts in {out_dir}")
+
+        if mode == "oracle":
+            train_task3_baseline_oracle_weighted(
+                model=UNetBaseline(in_channels=3, base=32).to(device),
+                shuffle_scores_in_batch=shuffle_ab,
+                weight_mode=weight_mode,
+                fov_min=fov_min_v,
+                threshold_sweep_thresholds=th_list,
+                debug_save_first_weighted_batch=bool(dw.get("debug_save_first_weighted_batch", False)),
+                **dw_common,
+            )
+            print(f"Done (oracle-weighted baseline). Artifacts in {out_dir}")
+        elif mode == "frozen_probe":
+            probe = load_frozen_sce_probe(
+                ck_path,
+                device,
+                in_channels=int(probe_cfg.get("in_channels", 3)),
+                base_channels=int(probe_cfg.get("base_channels", 32)),
+                mlp_hidden=int(probe_cfg.get("mlp_hidden", 64)),
+                dropout=float(probe_cfg.get("dropout", 0.0)),
+            )
+            train_task3_baseline_probe_weighted(
+                model=UNetBaseline(in_channels=3, base=32).to(device),
+                probe=probe,
+                **dw_common,
+            )
+            print(f"Done (frozen-probe-weighted baseline). Artifacts in {out_dir}")
+        else:
+            train_task3_joint_difficulty(
+                model=UNetBaselineJointDifficulty(in_channels=3, base=32).to(device),
+                joint_calib_epochs=int(dw.get("joint_calib_epochs", 10)),
+                joint_oracle_weight_epochs=int(dw.get("joint_oracle_weight_epochs", 0)),
+                lambda_diff=float(dw.get("lambda_diff", 0.5)),
+                pred_weight_detach=bool(dw.get("pred_weight_detach", True)),
+                **dw_common,
+            )
+            print(f"Done (joint-difficulty baseline). Artifacts in {out_dir}")
         return
 
     out_key = "output_dir_baseline" if args.model == "baseline" else "output_dir_ours"
@@ -253,22 +408,29 @@ def main() -> None:
     dw_eff: Dict[str, Any] = {"enabled": False}
     if raw_dw is not None:
         dw_eff["config_as_loaded"] = deepcopy(raw_dw)
-    _dump_config_used(
-        out_dir,
-        _build_config_used(
-            cfg,
-            project_root=root,
-            out_dir=out_dir,
-            config_path=cfg_path,
-            metadata_csv=meta,
-            patch_image_dir=img_dir,
-            patch_mask_dir=msk_dir,
-            model=args.model,
-            warmup_epochs=w_ep,
-            joint_epochs=j_ep,
-            difficulty_weighting_effective=dw_eff,
-        ),
+    ts_cfg_b = cfg.get("threshold_sweep") or {}
+    sweep_b = bool(ts_cfg_b.get("enabled")) or bool(args.threshold_sweep)
+    th_list_b: list[float] | None = list(ts_cfg_b["thresholds"]) if sweep_b and ts_cfg_b.get("thresholds") else None
+    doc_bl = _build_config_used(
+        cfg,
+        project_root=root,
+        out_dir=out_dir,
+        config_path=cfg_path,
+        metadata_csv=meta,
+        patch_image_dir=img_dir,
+        patch_mask_dir=msk_dir,
+        model=args.model,
+        warmup_epochs=w_ep,
+        joint_epochs=j_ep,
+        difficulty_weighting_effective=dw_eff,
     )
+    doc_bl["threshold_sweep_effective"] = {"enabled": sweep_b, "thresholds": th_list_b}
+    doc_bl["sampling_effective"] = {
+        "use_weighted_sampler": use_weighted_sampler,
+        "hard_sampling_weight": float(sam_pre.get("hard_sampling_weight", 2.0)),
+        "note": "Weighted sampler only applies when difficulty_weighting.mode=oracle and enabled.",
+    }
+    _dump_config_used(out_dir, doc_bl)
 
     if args.model == "baseline":
         model = UNetBaseline(in_channels=3, base=32).to(device)
@@ -289,6 +451,7 @@ def main() -> None:
         lr=float(cfg.get("lr", 1e-3)),
         weight_decay=float(cfg.get("weight_decay", 1e-4)),
         lambda_sce=float(cfg.get("lambda_sce", 0.5)),
+        threshold_sweep_thresholds=th_list_b,
     )
     print(f"Done. Artifacts in {out_dir}")
 

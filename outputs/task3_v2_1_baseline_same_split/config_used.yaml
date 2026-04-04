@@ -1,0 +1,69 @@
+experiment_name: task3_v2_1_baseline
+split_json: C:\Users\zhang\Desktop\vessel\outputs\task3_split\split_info.json
+metadata_csv: C:\Users\zhang\Desktop\vessel\outputs\task1_topo_v3\patch_metadata.csv
+patch_image_dir: C:\Users\zhang\Desktop\vessel\outputs\task1_topo_v3\patches\images
+patch_mask_dir: C:\Users\zhang\Desktop\vessel\outputs\task1_topo_v3\patches\masks
+output_dir_baseline: outputs/task3_v2_1_baseline_same_split
+target_col: sci_res2_norm
+group_col: sample_id
+val_ratio: 0.2
+random_state: 42
+hard_ratio: 0.2
+image_size: 128
+batch_size: 16
+lr: 0.001
+weight_decay: 0.0001
+warmup_epochs: 30
+joint_epochs: 50
+num_workers: 0
+device: null
+threshold_sweep:
+  enabled: true
+  thresholds:
+  - 0.3
+  - 0.35
+  - 0.4
+  - 0.45
+  - 0.5
+  - 0.55
+  - 0.6
+  - 0.65
+  - 0.7
+sampling:
+  use_weighted_sampler: false
+  hard_sampling_weight: 2.0
+model: baseline
+output_dir: C:\Users\zhang\Desktop\vessel\outputs\task3_v2_1_baseline_same_split
+epochs: 80
+hard_patch:
+  target_col: sci_res2_norm
+  hard_ratio: 0.2
+  definition: Mark hardest hard_ratio fraction of val patches by target_col (quantile
+    threshold); train is_hard uses the same threshold.
+difficulty_weighting:
+  enabled: false
+config_file: C:\Users\zhang\Desktop\vessel\configs\task3_v2_1_baseline.yaml
+cli_args:
+- C:\Users\zhang\Desktop\vessel\src\main\train_task3.py
+- --config
+- configs/task3_v2_1_baseline.yaml
+- --model
+- baseline
+git_commit: 6b09e0478e16d6b8a8ff1079bb246f2f69638ae1
+timestamp: '2026-04-04T11:00:47.164907+00:00'
+threshold_sweep_effective:
+  enabled: true
+  thresholds:
+  - 0.3
+  - 0.35
+  - 0.4
+  - 0.45
+  - 0.5
+  - 0.55
+  - 0.6
+  - 0.65
+  - 0.7
+sampling_effective:
+  use_weighted_sampler: false
+  hard_sampling_weight: 2.0
+  note: Weighted sampler only applies when difficulty_weighting.mode=oracle and enabled.

@@ -11,7 +11,7 @@ from torch.utils.data import Dataset
 
 
 class SegSCEPatchDataset(Dataset):
-    """RGB patch + vessel mask (binary) + sci_res2_norm scalar."""
+    """RGB patch + vessel mask (binary) + difficulty score from metadata (target_col)."""
 
     def __init__(
         self,
@@ -56,15 +56,18 @@ class SegSCEPatchDataset(Dataset):
 
         image = torch.from_numpy(img).permute(2, 0, 1)
         mask = torch.from_numpy(msk).unsqueeze(0)
-        sce = torch.tensor([float(row[self.target_col])], dtype=torch.float32)
+        score = float(row[self.target_col])
+        sce = torch.tensor([score], dtype=torch.float32)
 
-        out: Dict[str, Any] = {
+        is_hard = bool(row["is_hard"]) if "is_hard" in row.index else False
+
+        return {
             "image": image,
             "mask": mask,
             "sce": sce,
+            "sci_res2_norm": score,
+            "fov_ratio": float(row["fov_ratio"]) if "fov_ratio" in row.index and pd.notna(row.get("fov_ratio")) else 1.0,
             "patch_name": name,
             "sample_id": str(row.get("sample_id", "")),
+            "is_hard": is_hard,
         }
-        if "is_hard" in row.index:
-            out["is_hard"] = bool(row["is_hard"])
-        return out

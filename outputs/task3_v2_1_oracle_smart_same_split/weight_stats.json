@@ -1,0 +1,495 @@
+{
+  "tau": 0.6,
+  "alpha": 0.8,
+  "gamma": 2.0,
+  "warmup_epochs": 5,
+  "min_weight": 1.0,
+  "max_weight": 1.8,
+  "normalize_weights_in_batch": true,
+  "shuffle_scores_in_batch": false,
+  "weight_mode": "oracle_smart",
+  "fov_min": 0.9,
+  "debug_save_first_weighted_batch": false,
+  "by_epoch": [
+    {
+      "epoch": 0,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0
+    },
+    {
+      "epoch": 1,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0
+    },
+    {
+      "epoch": 2,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0
+    },
+    {
+      "epoch": 3,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0
+    },
+    {
+      "epoch": 4,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0
+    },
+    {
+      "epoch": 5,
+      "train_weight_mean": 0.999999998201584,
+      "train_weight_std": 0.10640403675314554,
+      "train_weight_max": 1.7140525579452515
+    },
+    {
+      "epoch": 6,
+      "train_weight_mean": 0.999999998201584,
+      "train_weight_std": 0.10963436019016648,
+      "train_weight_max": 1.714277982711792
+    },
+    {
+      "epoch": 7,
+      "train_weight_mean": 0.9999999949473074,
+      "train_weight_std": 0.11121853643479558,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 8,
+      "train_weight_mean": 1.0000000021409714,
+      "train_weight_std": 0.10698129314534337,
+      "train_weight_max": 1.7133924961090088
+    },
+    {
+      "epoch": 9,
+      "train_weight_mean": 1.0000000080500526,
+      "train_weight_std": 0.10754121113221561,
+      "train_weight_max": 1.7086446285247803
+    },
+    {
+      "epoch": 10,
+      "train_weight_mean": 1.000000005395248,
+      "train_weight_std": 0.10658738456240437,
+      "train_weight_max": 1.7140592336654663
+    },
+    {
+      "epoch": 11,
+      "train_weight_mean": 0.9999999973451954,
+      "train_weight_std": 0.10685739403817862,
+      "train_weight_max": 1.711054801940918
+    },
+    {
+      "epoch": 12,
+      "train_weight_mean": 0.9999999988866949,
+      "train_weight_std": 0.10845976028099635,
+      "train_weight_max": 1.7133827209472656
+    },
+    {
+      "epoch": 13,
+      "train_weight_mean": 1.0000000044532207,
+      "train_weight_std": 0.10902266257852425,
+      "train_weight_max": 1.713315725326538
+    },
+    {
+      "epoch": 14,
+      "train_weight_mean": 0.9999999971739177,
+      "train_weight_std": 0.1092399076974799,
+      "train_weight_max": 1.7141915559768677
+    },
+    {
+      "epoch": 15,
+      "train_weight_mean": 0.9999999993148891,
+      "train_weight_std": 0.10962654535772529,
+      "train_weight_max": 1.7142623662948608
+    },
+    {
+      "epoch": 16,
+      "train_weight_mean": 1.0000000010276664,
+      "train_weight_std": 0.10834068588323276,
+      "train_weight_max": 1.7070140838623047
+    },
+    {
+      "epoch": 17,
+      "train_weight_mean": 1.0000000002569165,
+      "train_weight_std": 0.10979968271147317,
+      "train_weight_max": 1.7054578065872192
+    },
+    {
+      "epoch": 18,
+      "train_weight_mean": 1.0000000036824708,
+      "train_weight_std": 0.10994162954917057,
+      "train_weight_max": 1.7142281532287598
+    },
+    {
+      "epoch": 19,
+      "train_weight_mean": 0.999999996403168,
+      "train_weight_std": 0.1097792672518922,
+      "train_weight_max": 1.7135546207427979
+    },
+    {
+      "epoch": 20,
+      "train_weight_mean": 1.0000000002569165,
+      "train_weight_std": 0.10991355169646524,
+      "train_weight_max": 1.7048397064208984
+    },
+    {
+      "epoch": 21,
+      "train_weight_mean": 1.000000016185744,
+      "train_weight_std": 0.10868663290673759,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 22,
+      "train_weight_mean": 1.000000003596832,
+      "train_weight_std": 0.1077424575264159,
+      "train_weight_max": 1.7089439630508423
+    },
+    {
+      "epoch": 23,
+      "train_weight_mean": 0.999999992806336,
+      "train_weight_std": 0.1070904425429334,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 24,
+      "train_weight_mean": 0.9999999944334743,
+      "train_weight_std": 0.10856199524201016,
+      "train_weight_max": 1.7126400470733643
+    },
+    {
+      "epoch": 25,
+      "train_weight_mean": 1.00000000299736,
+      "train_weight_std": 0.10916995839569826,
+      "train_weight_max": 1.7142161130905151
+    },
+    {
+      "epoch": 26,
+      "train_weight_mean": 1.000000007193664,
+      "train_weight_std": 0.10477326112442988,
+      "train_weight_max": 1.7140191793441772
+    },
+    {
+      "epoch": 27,
+      "train_weight_mean": 1.0000000075362194,
+      "train_weight_std": 0.10992215119459903,
+      "train_weight_max": 1.713789939880371
+    },
+    {
+      "epoch": 28,
+      "train_weight_mean": 0.9999999923781416,
+      "train_weight_std": 0.10947572327482066,
+      "train_weight_max": 1.712424397468567
+    },
+    {
+      "epoch": 29,
+      "train_weight_mean": 1.000000010191024,
+      "train_weight_std": 0.1082311107346932,
+      "train_weight_max": 1.7135499715805054
+    },
+    {
+      "epoch": 30,
+      "train_weight_mean": 0.9999999992292503,
+      "train_weight_std": 0.10738760458699116,
+      "train_weight_max": 1.713950514793396
+    },
+    {
+      "epoch": 31,
+      "train_weight_mean": 1.000000001884055,
+      "train_weight_std": 0.10731072374169856,
+      "train_weight_max": 1.7135546207427979
+    },
+    {
+      "epoch": 32,
+      "train_weight_mean": 1.0000000106192184,
+      "train_weight_std": 0.10632135175126169,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 33,
+      "train_weight_mean": 1.0000000032542766,
+      "train_weight_std": 0.10757737291253473,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 34,
+      "train_weight_mean": 0.9999999991436114,
+      "train_weight_std": 0.11087302573807557,
+      "train_weight_max": 1.7141168117523193
+    },
+    {
+      "epoch": 35,
+      "train_weight_mean": 1.000000004196304,
+      "train_weight_std": 0.10753334674331651,
+      "train_weight_max": 1.6955686807632446
+    },
+    {
+      "epoch": 36,
+      "train_weight_mean": 1.0000000104479405,
+      "train_weight_std": 0.10917455248320386,
+      "train_weight_max": 1.7115893363952637
+    },
+    {
+      "epoch": 37,
+      "train_weight_mean": 1.0000000098484687,
+      "train_weight_std": 0.10712451456113747,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 38,
+      "train_weight_mean": 1.0000000001712777,
+      "train_weight_std": 0.10481308327944704,
+      "train_weight_max": 1.7098960876464844
+    },
+    {
+      "epoch": 39,
+      "train_weight_mean": 0.9999999996574446,
+      "train_weight_std": 0.10779550558174561,
+      "train_weight_max": 1.7142822742462158
+    },
+    {
+      "epoch": 40,
+      "train_weight_mean": 0.9999999955467794,
+      "train_weight_std": 0.11045202833481134,
+      "train_weight_max": 1.7139209508895874
+    },
+    {
+      "epoch": 41,
+      "train_weight_mean": 0.999999992806336,
+      "train_weight_std": 0.10824653572070443,
+      "train_weight_max": 1.7126400470733643
+    },
+    {
+      "epoch": 42,
+      "train_weight_mean": 1.0000000065085533,
+      "train_weight_std": 0.10762113587612979,
+      "train_weight_max": 1.699053406715393
+    },
+    {
+      "epoch": 43,
+      "train_weight_mean": 0.9999999952898628,
+      "train_weight_std": 0.10954353688364579,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 44,
+      "train_weight_mean": 1.0000000003425555,
+      "train_weight_std": 0.10695788642866691,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 45,
+      "train_weight_mean": 0.999999995204224,
+      "train_weight_std": 0.10986710668641206,
+      "train_weight_max": 1.7138258218765259
+    },
+    {
+      "epoch": 46,
+      "train_weight_mean": 0.9999999873254491,
+      "train_weight_std": 0.10878927474183658,
+      "train_weight_max": 1.7132878303527832
+    },
+    {
+      "epoch": 47,
+      "train_weight_mean": 0.9999999909222811,
+      "train_weight_std": 0.10792576933144679,
+      "train_weight_max": 1.7142822742462158
+    },
+    {
+      "epoch": 48,
+      "train_weight_mean": 1.0000000027404434,
+      "train_weight_std": 0.10597216550481545,
+      "train_weight_max": 1.7024739980697632
+    },
+    {
+      "epoch": 49,
+      "train_weight_mean": 1.0000000028260823,
+      "train_weight_std": 0.10841076259234038,
+      "train_weight_max": 1.7038806676864624
+    },
+    {
+      "epoch": 50,
+      "train_weight_mean": 1.0000000039393875,
+      "train_weight_std": 0.10821884686165285,
+      "train_weight_max": 1.7138934135437012
+    },
+    {
+      "epoch": 51,
+      "train_weight_mean": 1.0000000080500526,
+      "train_weight_std": 0.11013551705030437,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 52,
+      "train_weight_mean": 1.0000000125889121,
+      "train_weight_std": 0.10940842755634228,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 53,
+      "train_weight_mean": 0.9999999938340023,
+      "train_weight_std": 0.10707928203889647,
+      "train_weight_max": 1.711212396621704
+    },
+    {
+      "epoch": 54,
+      "train_weight_mean": 1.0000000129314675,
+      "train_weight_std": 0.10753145165690307,
+      "train_weight_max": 1.7134850025177002
+    },
+    {
+      "epoch": 55,
+      "train_weight_mean": 0.999999997602112,
+      "train_weight_std": 0.10728765861434837,
+      "train_weight_max": 1.713552713394165
+    },
+    {
+      "epoch": 56,
+      "train_weight_mean": 0.9999999970882788,
+      "train_weight_std": 0.1092383529293701,
+      "train_weight_max": 1.7142717838287354
+    },
+    {
+      "epoch": 57,
+      "train_weight_mean": 1.0000000076218583,
+      "train_weight_std": 0.10588699225779635,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 58,
+      "train_weight_mean": 1.0000000064229142,
+      "train_weight_std": 0.10513967270962636,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 59,
+      "train_weight_mean": 0.999999995803696,
+      "train_weight_std": 0.10997894836860526,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 60,
+      "train_weight_mean": 1.0000000091633579,
+      "train_weight_std": 0.10494087228332605,
+      "train_weight_max": 1.7046515941619873
+    },
+    {
+      "epoch": 61,
+      "train_weight_mean": 1.0000000052239704,
+      "train_weight_std": 0.10878750793255296,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 62,
+      "train_weight_mean": 0.9999999967457234,
+      "train_weight_std": 0.10762486966991042,
+      "train_weight_max": 1.7083218097686768
+    },
+    {
+      "epoch": 63,
+      "train_weight_mean": 1.0000000006851109,
+      "train_weight_std": 0.10771613832292337,
+      "train_weight_max": 1.7090201377868652
+    },
+    {
+      "epoch": 64,
+      "train_weight_mean": 1.0000000046244983,
+      "train_weight_std": 0.10918638400902647,
+      "train_weight_max": 1.7134519815444946
+    },
+    {
+      "epoch": 65,
+      "train_weight_mean": 1.0000000002569165,
+      "train_weight_std": 0.10958712764039721,
+      "train_weight_max": 1.7128700017929077
+    },
+    {
+      "epoch": 66,
+      "train_weight_mean": 1.0000000037681098,
+      "train_weight_std": 0.10900818252580476,
+      "train_weight_max": 1.7128043174743652
+    },
+    {
+      "epoch": 67,
+      "train_weight_mean": 1.0000000006851109,
+      "train_weight_std": 0.10990617252812641,
+      "train_weight_max": 1.7142627239227295
+    },
+    {
+      "epoch": 68,
+      "train_weight_mean": 1.0000000111330514,
+      "train_weight_std": 0.10598482494224912,
+      "train_weight_max": 1.7057867050170898
+    },
+    {
+      "epoch": 69,
+      "train_weight_mean": 0.9999999974308342,
+      "train_weight_std": 0.10783152619918684,
+      "train_weight_max": 1.7140765190124512
+    },
+    {
+      "epoch": 70,
+      "train_weight_mean": 1.0000000011133052,
+      "train_weight_std": 0.10761859448472581,
+      "train_weight_max": 1.7141557931900024
+    },
+    {
+      "epoch": 71,
+      "train_weight_mean": 1.0000000010276664,
+      "train_weight_std": 0.10774091907997367,
+      "train_weight_max": 1.7108087539672852
+    },
+    {
+      "epoch": 72,
+      "train_weight_mean": 0.9999999976877508,
+      "train_weight_std": 0.10610558909363695,
+      "train_weight_max": 1.7115893363952637
+    },
+    {
+      "epoch": 73,
+      "train_weight_mean": 0.9999999980303063,
+      "train_weight_std": 0.10840223230609825,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 74,
+      "train_weight_mean": 0.9999999838998948,
+      "train_weight_std": 0.10845231955035453,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 75,
+      "train_weight_mean": 0.9999999970882788,
+      "train_weight_std": 0.10865352726632657,
+      "train_weight_max": 1.7133827209472656
+    },
+    {
+      "epoch": 76,
+      "train_weight_mean": 1.00000000899208,
+      "train_weight_std": 0.11055666815885214,
+      "train_weight_max": 1.7132362127304077
+    },
+    {
+      "epoch": 77,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.10978746840832947,
+      "train_weight_max": 1.7137649059295654
+    },
+    {
+      "epoch": 78,
+      "train_weight_mean": 1.0000000015414994,
+      "train_weight_std": 0.10776898479799005,
+      "train_weight_max": 1.7142857313156128
+    },
+    {
+      "epoch": 79,
+      "train_weight_mean": 1.0000000121607178,
+      "train_weight_std": 0.10609037108589078,
+      "train_weight_max": 1.713731288909912
+    }
+  ]
+}
