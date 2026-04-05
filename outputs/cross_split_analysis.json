@@ -1,0 +1,139 @@
+{
+  "per_split": {
+    "splitA_rs42": {
+      "P0_baseline": {
+        "primary_hard_dice_mean": 0.7346782118357121,
+        "hard_dice_mean_at_0_5": 0.7309914610311695,
+        "val_dice_mean_at_0_5": 0.8103641556678753,
+        "best_hard_dice_threshold": 0.3
+      },
+      "P5_oracle_matched_trigger": {
+        "primary_hard_dice_mean": 0.7374339064055633,
+        "hard_dice_mean_at_0_5": 0.7346934449304218,
+        "val_dice_mean_at_0_5": 0.8107983588242674,
+        "best_hard_dice_threshold": 0.3
+      },
+      "J3_joint_detach_false": {
+        "primary_hard_dice_mean": 0.7385778641003746,
+        "hard_dice_mean_at_0_5": 0.7365392505023658,
+        "val_dice_mean_at_0_5": 0.8110656916385035,
+        "best_hard_dice_threshold": 0.35
+      }
+    },
+    "splitB_rs100_seed42": {
+      "P0_baseline": {
+        "primary_hard_dice_mean": 0.7030658295684444,
+        "hard_dice_mean_at_0_5": 0.7022546102891828,
+        "val_dice_mean_at_0_5": 0.786587412855862,
+        "best_hard_dice_threshold": 0.4
+      },
+      "P5_oracle_matched_trigger": {
+        "primary_hard_dice_mean": 0.6996799475543485,
+        "hard_dice_mean_at_0_5": 0.6966920887750415,
+        "val_dice_mean_at_0_5": 0.7867337132859794,
+        "best_hard_dice_threshold": 0.35
+      },
+      "J3_joint_detach_false": {
+        "primary_hard_dice_mean": 0.6992573030301981,
+        "hard_dice_mean_at_0_5": 0.6986663740401837,
+        "val_dice_mean_at_0_5": 0.785875112975408,
+        "best_hard_dice_threshold": 0.4
+      }
+    },
+    "splitB_rs100_seed40": {
+      "P0_baseline": {
+        "primary_hard_dice_mean": 0.6977112722143923,
+        "hard_dice_mean_at_0_5": 0.696425571605852,
+        "val_dice_mean_at_0_5": 0.7836650649101926,
+        "best_hard_dice_threshold": 0.3
+      },
+      "P5_oracle_matched_trigger": {
+        "primary_hard_dice_mean": 0.7014938583541314,
+        "hard_dice_mean_at_0_5": 0.6993076997825248,
+        "val_dice_mean_at_0_5": 0.7860974365927575,
+        "best_hard_dice_threshold": 0.3
+      },
+      "J3_joint_detach_false": {
+        "primary_hard_dice_mean": 0.7009040193786922,
+        "hard_dice_mean_at_0_5": 0.6995944726232527,
+        "val_dice_mean_at_0_5": 0.7873202290435355,
+        "best_hard_dice_threshold": 0.4
+      }
+    },
+    "splitC_rs200": {
+      "P0_baseline": {
+        "primary_hard_dice_mean": 0.7158234015654393,
+        "hard_dice_mean_at_0_5": 0.7124825869001817,
+        "val_dice_mean_at_0_5": 0.7742286672234238,
+        "best_hard_dice_threshold": 0.3
+      },
+      "P5_oracle_matched_trigger": {
+        "primary_hard_dice_mean": 0.7201438228843526,
+        "hard_dice_mean_at_0_5": 0.7153771794956266,
+        "val_dice_mean_at_0_5": 0.7820773938442102,
+        "best_hard_dice_threshold": 0.3
+      },
+      "J3_joint_detach_false": {
+        "primary_hard_dice_mean": 0.7212344756799666,
+        "hard_dice_mean_at_0_5": 0.7200708429329049,
+        "val_dice_mean_at_0_5": 0.7782433496241,
+        "best_hard_dice_threshold": 0.4
+      }
+    }
+  },
+  "aggregate": {
+    "P0_baseline": {
+      "primary_mean": 0.7128196787959971,
+      "primary_std": 0.014232176057378643,
+      "hd05_mean": 0.7105385574565966,
+      "hd05_std": 0.013132980101676522,
+      "vd05_mean": 0.7887113251643385,
+      "vd05_std": 0.013309472152334845
+    },
+    "P5_oracle_matched_trigger": {
+      "primary_mean": 0.7146878837995989,
+      "primary_std": 0.015382370375569008,
+      "hd05_mean": 0.7115176032459036,
+      "hd05_std": 0.015173114285835043,
+      "vd05_mean": 0.7914267256368036,
+      "vd05_std": 0.011325809727759272
+    },
+    "J3_joint_detach_false": {
+      "primary_mean": 0.7149934155473079,
+      "primary_std": 0.016134693727175742,
+      "hd05_mean": 0.7137177350246768,
+      "hd05_std": 0.015709818244787153,
+      "vd05_mean": 0.7906260958203868,
+      "vd05_std": 0.012294410047956759
+    }
+  },
+  "deltas": {
+    "j3_vs_p5_primary": [
+      0.0011439576948113483,
+      -0.0004226445241504173,
+      -0.0005898389754391831,
+      0.0010906527956139334
+    ],
+    "j3_vs_p0_primary": [
+      0.00389965226466249,
+      -0.0038085265382463707,
+      0.0031927471642998473,
+      0.005411074114527237
+    ],
+    "j3_vs_p5_hd05": [
+      0.0018458055719440258,
+      0.001974285265142206,
+      0.0002867728407278669,
+      0.004693663437278284
+    ],
+    "j3_vs_p0_hd05": [
+      0.005547789471196274,
+      -0.003588236248999066,
+      0.0031689010174007493,
+      0.007588256032723173
+    ],
+    "j3_wins_vs_p5": 2,
+    "j3_wins_vs_p0": 3
+  },
+  "verdict": "WEAK PASS: J3 > P0 on majority of splits, no collapses, but not always > P5"
+}

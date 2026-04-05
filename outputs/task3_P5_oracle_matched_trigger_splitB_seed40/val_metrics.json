@@ -1,0 +1,8 @@
+{
+  "val_dice_mean": 0.7860974365927575,
+  "val_recall_mean": 0.818982298648496,
+  "hard_dice_mean": 0.6993076997825248,
+  "hard_recall_mean": 0.7127727680610026,
+  "val_sci_corr": null,
+  "loss_mode": "oracle_quadratic"
+}

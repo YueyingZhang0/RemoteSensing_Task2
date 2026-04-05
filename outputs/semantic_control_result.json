@@ -1,0 +1,8 @@
+{
+  "J3_primary_hd": 0.7385778641003746,
+  "semantic_control_primary_hd": 0.7304323272386496,
+  "P0_primary_hd": 0.7346782118357121,
+  "delta_J3_minus_SC": 0.008145536861725033,
+  "delta_SC_minus_P0": -0.004245884597062544,
+  "conclusion": "PASS: difficulty signal is meaningful"
+}

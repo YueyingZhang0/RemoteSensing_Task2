@@ -1,0 +1,657 @@
+{
+  "tau": 0.6,
+  "alpha": 0.5,
+  "gamma": 2.0,
+  "difficulty_warmup_epochs": 5,
+  "joint_calib_epochs": 15,
+  "joint_oracle_weight_epochs": 0,
+  "ramp_epochs": 10,
+  "lambda_diff": 0.0,
+  "pred_weight_detach": false,
+  "min_weight": 1.0,
+  "max_weight": 1.5,
+  "normalize_weights_in_batch": true,
+  "score_source": "joint_head",
+  "by_epoch": [
+    {
+      "epoch": 0,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 1,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 2,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 3,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 4,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 5,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 6,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 7,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 8,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 9,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 10,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 11,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 12,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 13,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 14,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 15,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 16,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 17,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 18,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 19,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 20,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.0
+    },
+    {
+      "epoch": 21,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.1
+    },
+    {
+      "epoch": 22,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.2
+    },
+    {
+      "epoch": 23,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.3
+    },
+    {
+      "epoch": 24,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.4
+    },
+    {
+      "epoch": 25,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.5
+    },
+    {
+      "epoch": 26,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.6
+    },
+    {
+      "epoch": 27,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.7
+    },
+    {
+      "epoch": 28,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.8
+    },
+    {
+      "epoch": 29,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.9
+    },
+    {
+      "epoch": 30,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 31,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 32,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 33,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 34,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 35,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 36,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 37,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 38,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 39,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 40,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 41,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 42,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 43,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 44,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 45,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 46,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 47,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 48,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 49,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 50,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 51,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 52,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 53,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 54,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 55,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 56,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 57,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 58,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 59,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 60,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 61,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 62,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 63,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 64,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 65,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 66,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 67,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 68,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 69,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 70,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 71,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 72,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 73,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 74,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 75,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 76,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 77,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 78,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 79,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    }
+  ]
+}
