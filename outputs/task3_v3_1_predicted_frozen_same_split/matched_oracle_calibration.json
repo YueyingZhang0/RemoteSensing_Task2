@@ -1,0 +1,54 @@
+{
+  "n_train_patches": 696,
+  "tau_probe_for_trigger": 0.6,
+  "pct_probe_pred_above_tau_on_train": 0.104885,
+  "matched_trigger_oracle_tau": 0.7075536060093464,
+  "matched_trigger_note": "oracle_quadratic: pct(gt_sci > tau) on train ~= pct(probe_pred > tau_probe) on train",
+  "frozen_probe_weight_targets_from_train_preds": {
+    "tau": 0.6,
+    "alpha": 0.5,
+    "max_weight": 1.5,
+    "pooled_mean": 1.0000000027404434,
+    "pooled_std": 0.012194531893253088,
+    "pooled_max": 1.245657205581665
+  },
+  "matched_strength_recommended_for_p6": {
+    "tau": 0.96,
+    "alpha": 0.2573033707865168,
+    "max_weight": 1.2615384615384617,
+    "simulated_mean": 0.9999999987154171,
+    "simulated_std": 0.025571129409677693,
+    "simulated_max": 1.2374041080474854,
+    "source": "joint_grid_refinement"
+  },
+  "matched_strength_joint_grid": {
+    "tau": 0.96,
+    "alpha": 0.2573033707865168,
+    "max_weight": 1.2615384615384617,
+    "simulated_mean": 0.9999999987154171,
+    "simulated_std": 0.025571129409677693,
+    "simulated_max": 1.2374041080474854,
+    "refinement_error": 0.0011417137856072328
+  },
+  "matched_strength_same_alpha_max_tau_scan": {
+    "tau": 0.35,
+    "alpha": 0.5,
+    "max_weight": 1.5,
+    "simulated_mean": 0.99999999700264,
+    "simulated_std": 0.06440024248191704,
+    "simulated_max": 1.326172947883606,
+    "tau_scan_error": 0.004670271645597107
+  },
+  "matched_strength_coarse_grid": {
+    "tau": 0.95,
+    "alpha": 0.27499999999999997,
+    "max_weight": 1.2523076923076923,
+    "simulated_std": 0.025480108830228648,
+    "simulated_max": 1.2328662872314453
+  },
+  "p2_reference": {
+    "tau": 0.6,
+    "alpha": 0.8,
+    "max_weight": 1.8
+  }
+}

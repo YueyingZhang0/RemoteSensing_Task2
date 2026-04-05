@@ -1,0 +1,26 @@
+{
+  "train_sample_ids": [
+    23,
+    24,
+    25,
+    26,
+    28,
+    29,
+    31,
+    32,
+    34,
+    35,
+    37,
+    39,
+    40
+  ],
+  "val_sample_ids": [
+    27,
+    30,
+    33
+  ],
+  "random_state": 123,
+  "val_ratio": 0.15,
+  "train_patches": 565,
+  "val_patches": 131
+}

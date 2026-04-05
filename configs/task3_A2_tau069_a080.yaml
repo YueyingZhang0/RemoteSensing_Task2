@@ -1,0 +1,44 @@
+# Line A local search: tau=0.69, alpha=0.80 (around P5)
+experiment_name: task3_A2_tau069_a080
+split_json: "outputs/task3_split/split_info.json"
+metadata_csv: "outputs/task1_topo_v3/patch_metadata.csv"
+patch_image_dir: "outputs/task1_topo_v3/patches/images"
+patch_mask_dir: "outputs/task1_topo_v3/patches/masks"
+output_dir: "outputs/task3_A2_tau069_a080"
+target_col: "sci_res2_norm"
+group_col: "sample_id"
+val_ratio: 0.2
+random_state: 42
+hard_ratio: 0.2
+image_size: 128
+batch_size: 16
+lr: 0.001
+weight_decay: 0.0001
+warmup_epochs: 30
+joint_epochs: 50
+num_workers: 0
+device: null
+
+difficulty_weighting:
+  enabled: true
+  mode: oracle
+  weight_mode: oracle_quadratic
+  tau: 0.69
+  alpha: 0.80
+  gamma: 2.0
+  fov_min: 0.80
+  warmup_epochs: 5
+  min_weight: 1.0
+  max_weight: 1.80
+  normalize_weights_in_batch: true
+
+sampling:
+  use_weighted_sampler: false
+  hard_sampling_weight: 2.0
+
+threshold_sweep:
+  enabled: true
+  thresholds: [0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70]
+
+logging:
+  save_weight_stats: true

@@ -1,0 +1,6 @@
+{
+  "hard_dice_mean": 0.7349983973277358,
+  "hard_recall_mean": 0.7358031806407515,
+  "n_hard_patches_note": "subset of val where is_hard=True (top sci_res2_norm)",
+  "loss_mode": "frozen_probe_weighted"
+}

@@ -1,0 +1,92 @@
+experiment_name: task3_v3_1_predicted_frozen
+split_json: C:\Users\zhang\Desktop\vessel\outputs\task3_split\split_info.json
+metadata_csv: C:\Users\zhang\Desktop\vessel\outputs\task1_topo_v3\patch_metadata.csv
+patch_image_dir: C:\Users\zhang\Desktop\vessel\outputs\task1_topo_v3\patches\images
+patch_mask_dir: C:\Users\zhang\Desktop\vessel\outputs\task1_topo_v3\patches\masks
+output_dir: C:\Users\zhang\Desktop\vessel\outputs\task3_v3_1_predicted_frozen_same_split
+target_col: sci_res2_norm
+group_col: sample_id
+val_ratio: 0.2
+random_state: 42
+hard_ratio: 0.2
+image_size: 128
+batch_size: 16
+lr: 0.001
+weight_decay: 0.0001
+warmup_epochs: 30
+joint_epochs: 50
+num_workers: 0
+device: null
+difficulty_weighting:
+  enabled: true
+  mode: frozen_probe
+  weight_mode: oracle_linear
+  fov_min: 0.8
+  tau: 0.6
+  alpha: 0.5
+  gamma: 2.0
+  gamma_effective: 2.0
+  weight_warmup_epochs: 30
+  min_weight: 1.0
+  max_weight: 1.5
+  normalize_weights_in_batch: true
+  save_weight_stats: true
+  shuffle_scores_in_batch: false
+  threshold_sweep: &id002
+    enabled: true
+    thresholds:
+    - 0.3
+    - 0.35
+    - 0.4
+    - 0.45
+    - 0.5
+    - 0.55
+    - 0.6
+    - 0.65
+    - 0.7
+  sampling: &id001
+    use_weighted_sampler: false
+    hard_sampling_weight: 2.0
+    weighted_sampler_hard_mask: n/a
+  debug_save_first_weighted_batch: true
+  probe_checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_difficulty_probe\best_sce_branch.pt
+  probe:
+    in_channels: 3
+    base_channels: 32
+    mlp_hidden: 64
+    dropout: 0.0
+  ramp_epochs: 20
+sampling:
+  use_weighted_sampler: false
+threshold_sweep:
+  enabled: true
+  thresholds:
+  - 0.3
+  - 0.35
+  - 0.4
+  - 0.45
+  - 0.5
+  - 0.55
+  - 0.6
+  - 0.65
+  - 0.7
+logging:
+  save_weight_stats: true
+model: baseline
+epochs: 80
+hard_patch:
+  target_col: sci_res2_norm
+  hard_ratio: 0.2
+  definition: Mark hardest hard_ratio fraction of val patches by target_col (quantile
+    threshold); train is_hard uses the same threshold.
+config_file: C:\Users\zhang\Desktop\vessel\configs\task3_v3_1_predicted_frozen.yaml
+cli_args:
+- C:\Users\zhang\Desktop\vessel\src\main\train_task3.py
+- --config
+- configs/task3_v3_1_predicted_frozen.yaml
+- --model
+- baseline
+git_commit: 321ec946f46a569e46a265e3183a66b7a5af9f67
+timestamp: '2026-04-04T22:28:01.652280+00:00'
+sampling_effective: *id001
+threshold_sweep_effective: *id002

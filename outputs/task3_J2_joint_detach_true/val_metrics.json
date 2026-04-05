@@ -1,0 +1,8 @@
+{
+  "val_dice_mean": 0.8098929495733491,
+  "val_recall_mean": 0.813069430447616,
+  "hard_dice_mean": 0.7291302996529824,
+  "hard_recall_mean": 0.7437402247855799,
+  "val_sci_corr": null,
+  "loss_mode": "joint_difficulty"
+}

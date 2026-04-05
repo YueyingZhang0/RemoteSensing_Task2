@@ -1,0 +1,19 @@
+{
+  "purpose": "Difficulty probe for Task 3 frozen_probe_weighted; trained only on seg-train patches.",
+  "nested_split": {
+    "probe_val_ratio": 0.15,
+    "probe_random_state": 123,
+    "n_probe_train_patches": 565,
+    "n_probe_val_patches": 131,
+    "n_probe_train_groups": 13,
+    "n_probe_val_groups": 3
+  },
+  "seg_split_reference": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_split\\split_info.json",
+  "seg_val_sample_ids": [
+    "21",
+    "22",
+    "36",
+    "38"
+  ],
+  "note": "Probe train+val patch sample_ids are subsets of seg train; disjoint from seg_val_sample_ids by construction."
+}

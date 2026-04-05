@@ -1,0 +1,45 @@
+{
+  "tau": 0.6,
+  "groups": [
+    {
+      "group": "pred_only",
+      "n_patches": 8,
+      "mean_gt_sci_res2_norm": 0.5278959944844246,
+      "mean_pred_sci": 0.6612464413046837,
+      "mean_delta_dice_frozen_vs_baseline": 0.0075539460004943465,
+      "mean_delta_recall_frozen_vs_baseline": 0.04629272714226199,
+      "mean_fov_ratio": 0.862884625,
+      "mean_vessel_area": 2318.25
+    },
+    {
+      "group": "oracle_only",
+      "n_patches": 18,
+      "mean_gt_sci_res2_norm": 0.7029746803972456,
+      "mean_pred_sci": 0.4344240443574058,
+      "mean_delta_dice_frozen_vs_baseline": 0.005776610245109109,
+      "mean_delta_recall_frozen_vs_baseline": 0.02665272125943763,
+      "mean_fov_ratio": 0.999705,
+      "mean_vessel_area": 1331.611111111111
+    },
+    {
+      "group": "both",
+      "n_patches": 8,
+      "mean_gt_sci_res2_norm": 0.7778987213969231,
+      "mean_pred_sci": 0.6580351963639259,
+      "mean_delta_dice_frozen_vs_baseline": 0.0025989050871749186,
+      "mean_delta_recall_frozen_vs_baseline": 0.026878615858675528,
+      "mean_fov_ratio": 0.852546625,
+      "mean_vessel_area": 1815.625
+    },
+    {
+      "group": "neither",
+      "n_patches": 138,
+      "mean_gt_sci_res2_norm": 0.4785231276266817,
+      "mean_pred_sci": 0.4583369795826898,
+      "mean_delta_dice_frozen_vs_baseline": 0.0015604662069966053,
+      "mean_delta_recall_frozen_vs_baseline": 0.020002359404869673,
+      "mean_fov_ratio": 0.9709764710144928,
+      "mean_vessel_area": 2266.7971014492755
+    }
+  ]
+}

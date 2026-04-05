@@ -1,0 +1,108 @@
+{
+  "runs": [
+    {
+      "run_id": "P0_baseline",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_baseline_same_split",
+      "loss_mode": null,
+      "val_dice_mean_at_0_5": 0.8103641556678753,
+      "val_recall_mean_at_0_5": 0.7928871741671296,
+      "hard_dice_mean_at_0_5": 0.7309914610311695,
+      "hard_recall_mean_at_0_5": 0.711265403608769,
+      "best_val_dice_threshold": 0.3,
+      "best_val_dice_mean": 0.8136493465651342,
+      "best_hard_dice_threshold": 0.3,
+      "primary_hard_dice_mean": 0.7346782118357121,
+      "hard_recall_at_best_hard_dice_threshold": 0.7445685276719971,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8136493465651342
+    },
+    {
+      "run_id": "P2_oracle_quadratic",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_oracle_quadratic_same_split",
+      "loss_mode": "oracle_quadratic",
+      "val_dice_mean_at_0_5": 0.8111360777777413,
+      "val_recall_mean_at_0_5": 0.8272893647856553,
+      "hard_dice_mean_at_0_5": 0.7345565544419441,
+      "hard_recall_mean_at_0_5": 0.7491657741841089,
+      "best_val_dice_threshold": 0.55,
+      "best_val_dice_mean": 0.8113293557608482,
+      "best_hard_dice_threshold": 0.5,
+      "primary_hard_dice_mean": 0.7345565544419441,
+      "hard_recall_at_best_hard_dice_threshold": 0.7491657741841089,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8113293557608482
+    },
+    {
+      "run_id": "P3_best_plus_sampler",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_best_plus_sampler_same_split",
+      "loss_mode": "oracle_quadratic",
+      "val_dice_mean_at_0_5": 0.8099301956127531,
+      "val_recall_mean_at_0_5": 0.8127399470181892,
+      "hard_dice_mean_at_0_5": 0.7350319050192884,
+      "hard_recall_mean_at_0_5": 0.7442153564544456,
+      "best_val_dice_threshold": 0.4,
+      "best_val_dice_mean": 0.8103470380314337,
+      "best_hard_dice_threshold": 0.45,
+      "primary_hard_dice_mean": 0.7354089038502344,
+      "hard_recall_at_best_hard_dice_threshold": 0.7515098289537985,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8103470380314337
+    },
+    {
+      "run_id": "P4_frozen_probe",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v3_1_predicted_frozen_same_split",
+      "loss_mode": "frozen_probe_weighted",
+      "val_dice_mean_at_0_5": 0.8126929122357758,
+      "val_recall_mean_at_0_5": 0.81512813535637,
+      "hard_dice_mean_at_0_5": 0.7349983973277358,
+      "hard_recall_mean_at_0_5": 0.7358031806407515,
+      "best_val_dice_threshold": 0.45,
+      "best_val_dice_mean": 0.8127349367446824,
+      "best_hard_dice_threshold": 0.35,
+      "primary_hard_dice_mean": 0.7361483200233386,
+      "hard_recall_at_best_hard_dice_threshold": 0.7578379149233485,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8127349367446824
+    },
+    {
+      "run_id": "P5_oracle_matched_trigger",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v3_1_oracle_matched_trigger_same_split",
+      "loss_mode": "oracle_quadratic",
+      "val_dice_mean_at_0_5": 0.8107983588242674,
+      "val_recall_mean_at_0_5": 0.7997806077295188,
+      "hard_dice_mean_at_0_5": 0.7346934449304218,
+      "hard_recall_mean_at_0_5": 0.7201585513184885,
+      "best_val_dice_threshold": 0.3,
+      "best_val_dice_mean": 0.812314850728918,
+      "best_hard_dice_threshold": 0.3,
+      "primary_hard_dice_mean": 0.7374339064055633,
+      "hard_recall_at_best_hard_dice_threshold": 0.7508093193922433,
+      "val_dice_mean_at_best_val_dice_threshold": 0.812314850728918
+    },
+    {
+      "run_id": "P6_oracle_matched_strength",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v3_1_oracle_matched_strength_same_split",
+      "loss_mode": "oracle_quadratic",
+      "val_dice_mean_at_0_5": 0.8144016430988475,
+      "val_recall_mean_at_0_5": 0.8171140946490693,
+      "hard_dice_mean_at_0_5": 0.7343919091408279,
+      "hard_recall_mean_at_0_5": 0.7379429916081417,
+      "best_val_dice_threshold": 0.45,
+      "best_val_dice_mean": 0.8147278352675167,
+      "best_hard_dice_threshold": 0.4,
+      "primary_hard_dice_mean": 0.7351385490330736,
+      "hard_recall_at_best_hard_dice_threshold": 0.7539582505463006,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8147278352675167
+    }
+  ],
+  "primary_metric": "hard_dice_mean_at_best_hard_dice_threshold",
+  "frozen_probe_vs_baseline": {
+    "delta_primary_hard_dice_vs_P0": 0.0014701081876264954,
+    "delta_hard_dice_at_0_5_vs_P0": 0.0040069362965662325,
+    "delta_val_dice_at_0_5_vs_P0": 0.0023287565679004363
+  },
+  "frozen_probe_vs_oracle_quadratic": {
+    "delta_primary_hard_dice_vs_P2": 0.0015917655813945109
+  },
+  "interpretation_hints": {
+    "fixed_at_0_5_check": "Compare hard_dice_mean_at_0_5 and val_dice_mean_at_0_5 across runs",
+    "primary_check": "Compare primary_hard_dice_mean (best hard-dice threshold on val)",
+    "matched_controls": "If P5/P6 ~= P4 on primary, sparse/regularization story; if P4 >> P5/P6, prediction-specific story"
+  }
+}

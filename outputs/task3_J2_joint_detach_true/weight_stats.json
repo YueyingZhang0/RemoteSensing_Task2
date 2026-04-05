@@ -1,0 +1,657 @@
+{
+  "tau": 0.6,
+  "alpha": 0.5,
+  "gamma": 2.0,
+  "difficulty_warmup_epochs": 5,
+  "joint_calib_epochs": 15,
+  "joint_oracle_weight_epochs": 0,
+  "ramp_epochs": 10,
+  "lambda_diff": 0.5,
+  "pred_weight_detach": true,
+  "min_weight": 1.0,
+  "max_weight": 1.5,
+  "normalize_weights_in_batch": true,
+  "score_source": "joint_head",
+  "by_epoch": [
+    {
+      "epoch": 0,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 1,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 2,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 3,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 4,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "weight_warmup",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 5,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 6,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 7,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 8,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 9,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 10,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 11,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 12,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 13,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 14,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 15,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 16,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 17,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 18,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 19,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_calib",
+      "ramp_lambda": null
+    },
+    {
+      "epoch": 20,
+      "train_weight_mean": 1.0,
+      "train_weight_std": 0.0,
+      "train_weight_max": 1.0,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.0
+    },
+    {
+      "epoch": 21,
+      "train_weight_mean": 1.0006246544506359,
+      "train_weight_std": 0.0027379568378528975,
+      "train_weight_max": 1.044101595878601,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.1
+    },
+    {
+      "epoch": 22,
+      "train_weight_mean": 1.0010628249795956,
+      "train_weight_std": 0.004219615214695828,
+      "train_weight_max": 1.0473048686981201,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.2
+    },
+    {
+      "epoch": 23,
+      "train_weight_mean": 1.0015267263883831,
+      "train_weight_std": 0.00753421889002329,
+      "train_weight_max": 1.114879846572876,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.3
+    },
+    {
+      "epoch": 24,
+      "train_weight_mean": 1.0019710576054695,
+      "train_weight_std": 0.008452486692268658,
+      "train_weight_max": 1.1018877029418945,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.4
+    },
+    {
+      "epoch": 25,
+      "train_weight_mean": 1.0026255794640244,
+      "train_weight_std": 0.01301524125382272,
+      "train_weight_max": 1.2204797267913818,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.5
+    },
+    {
+      "epoch": 26,
+      "train_weight_mean": 1.0031531588442024,
+      "train_weight_std": 0.012192588260546694,
+      "train_weight_max": 1.1299127340316772,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.6
+    },
+    {
+      "epoch": 27,
+      "train_weight_mean": 1.003581338572776,
+      "train_weight_std": 0.01493884113336516,
+      "train_weight_max": 1.1634228229522705,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.7
+    },
+    {
+      "epoch": 28,
+      "train_weight_mean": 1.0052537844441403,
+      "train_weight_std": 0.024095303169231207,
+      "train_weight_max": 1.3636363744735718,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.8
+    },
+    {
+      "epoch": 29,
+      "train_weight_mean": 1.0062156854004696,
+      "train_weight_std": 0.027334226111529632,
+      "train_weight_max": 1.3889741897583008,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 0.9
+    },
+    {
+      "epoch": 30,
+      "train_weight_mean": 1.0060707579056423,
+      "train_weight_std": 0.02716752952319607,
+      "train_weight_max": 1.4208855628967285,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 31,
+      "train_weight_mean": 1.005983732726382,
+      "train_weight_std": 0.02721258377657648,
+      "train_weight_max": 1.451518177986145,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 32,
+      "train_weight_mean": 1.0057492795689353,
+      "train_weight_std": 0.026065398704855743,
+      "train_weight_max": 1.3294793367385864,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 33,
+      "train_weight_mean": 1.0053542021704815,
+      "train_weight_std": 0.02112349341143231,
+      "train_weight_max": 1.2150388956069946,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 34,
+      "train_weight_mean": 1.0079601600594905,
+      "train_weight_std": 0.03430512404536102,
+      "train_weight_max": 1.447724461555481,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 35,
+      "train_weight_mean": 1.0078605086296455,
+      "train_weight_std": 0.031672114667464064,
+      "train_weight_max": 1.2963330745697021,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 36,
+      "train_weight_mean": 1.0074721266483437,
+      "train_weight_std": 0.036707930114545366,
+      "train_weight_max": 1.4487031698226929,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 37,
+      "train_weight_mean": 1.0065162103066498,
+      "train_weight_std": 0.03365041963791258,
+      "train_weight_max": 1.4473224878311157,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 38,
+      "train_weight_mean": 1.0063653804104904,
+      "train_weight_std": 0.027470864181314062,
+      "train_weight_max": 1.3613077402114868,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 39,
+      "train_weight_mean": 1.0084002718500706,
+      "train_weight_std": 0.03286329881686477,
+      "train_weight_max": 1.3213226795196533,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 40,
+      "train_weight_mean": 1.0070652749346591,
+      "train_weight_std": 0.03123044078203606,
+      "train_weight_max": 1.409757137298584,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 41,
+      "train_weight_mean": 1.0102690816268154,
+      "train_weight_std": 0.045451821860105227,
+      "train_weight_max": 1.4511656761169434,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 42,
+      "train_weight_mean": 1.0060725659132004,
+      "train_weight_std": 0.027618899510306646,
+      "train_weight_max": 1.4127451181411743,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 43,
+      "train_weight_mean": 1.0077465988438705,
+      "train_weight_std": 0.03738562080281954,
+      "train_weight_max": 1.452073574066162,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 44,
+      "train_weight_mean": 1.0087239968365636,
+      "train_weight_std": 0.037207092310721813,
+      "train_weight_max": 1.4545165300369263,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 45,
+      "train_weight_mean": 1.008467555388637,
+      "train_weight_std": 0.037517217160075396,
+      "train_weight_max": 1.421576976776123,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 46,
+      "train_weight_mean": 1.0043104200185031,
+      "train_weight_std": 0.02006062526705992,
+      "train_weight_max": 1.2350090742111206,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 47,
+      "train_weight_mean": 1.0041138730172454,
+      "train_weight_std": 0.017876442431884475,
+      "train_weight_max": 1.271311640739441,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 48,
+      "train_weight_mean": 1.007290364168156,
+      "train_weight_std": 0.029253984311792224,
+      "train_weight_max": 1.3658523559570312,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 49,
+      "train_weight_mean": 1.0083470616875023,
+      "train_weight_std": 0.03908623110707243,
+      "train_weight_max": 1.4459267854690552,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 50,
+      "train_weight_mean": 1.0088816923999238,
+      "train_weight_std": 0.037430820582450036,
+      "train_weight_max": 1.4475221633911133,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 51,
+      "train_weight_mean": 1.0074699449128117,
+      "train_weight_std": 0.0314762458457882,
+      "train_weight_max": 1.453661561012268,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 52,
+      "train_weight_mean": 1.0091698856531888,
+      "train_weight_std": 0.041322795212294205,
+      "train_weight_max": 1.4118062257766724,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 53,
+      "train_weight_mean": 1.0095406032499226,
+      "train_weight_std": 0.04158638825808818,
+      "train_weight_max": 1.4326437711715698,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 54,
+      "train_weight_mean": 1.0099921951006199,
+      "train_weight_std": 0.03954809430646696,
+      "train_weight_max": 1.428214430809021,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 55,
+      "train_weight_mean": 1.0094533475308582,
+      "train_weight_std": 0.03909475965110611,
+      "train_weight_max": 1.4393887519836426,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 56,
+      "train_weight_mean": 1.008346795693211,
+      "train_weight_std": 0.037942215584898846,
+      "train_weight_max": 1.4486050605773926,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 57,
+      "train_weight_mean": 1.0083984898767253,
+      "train_weight_std": 0.031966898877522944,
+      "train_weight_max": 1.3866374492645264,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 58,
+      "train_weight_mean": 1.0102583187064906,
+      "train_weight_std": 0.043761738254000836,
+      "train_weight_max": 1.4518979787826538,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 59,
+      "train_weight_mean": 1.0103830472491253,
+      "train_weight_std": 0.042347470961838725,
+      "train_weight_max": 1.4446898698806763,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 60,
+      "train_weight_mean": 1.0090894318860153,
+      "train_weight_std": 0.04115543731454359,
+      "train_weight_max": 1.4539886713027954,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 61,
+      "train_weight_mean": 1.0118418969642158,
+      "train_weight_std": 0.04779114708428327,
+      "train_weight_max": 1.4523327350616455,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 62,
+      "train_weight_mean": 1.0082427518463684,
+      "train_weight_std": 0.036768458721329826,
+      "train_weight_max": 1.4238969087600708,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 63,
+      "train_weight_mean": 1.008280316474794,
+      "train_weight_std": 0.03664514627912111,
+      "train_weight_max": 1.4527283906936646,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 64,
+      "train_weight_mean": 1.010886997498315,
+      "train_weight_std": 0.04403180455641917,
+      "train_weight_max": 1.3958193063735962,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 65,
+      "train_weight_mean": 1.0101632775588967,
+      "train_weight_std": 0.04151582022252924,
+      "train_weight_max": 1.4292742013931274,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 66,
+      "train_weight_mean": 1.0106221882776283,
+      "train_weight_std": 0.0426763721269879,
+      "train_weight_max": 1.4523780345916748,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 67,
+      "train_weight_mean": 1.0120352032198303,
+      "train_weight_std": 0.049787981106585805,
+      "train_weight_max": 1.4517611265182495,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 68,
+      "train_weight_mean": 1.0105888156712741,
+      "train_weight_std": 0.04255952584748877,
+      "train_weight_max": 1.4404927492141724,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 69,
+      "train_weight_mean": 1.0091060336636402,
+      "train_weight_std": 0.04035840707906808,
+      "train_weight_max": 1.452478289604187,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 70,
+      "train_weight_mean": 1.0106396073925084,
+      "train_weight_std": 0.043965048135174364,
+      "train_weight_max": 1.4509975910186768,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 71,
+      "train_weight_mean": 1.0106526736555428,
+      "train_weight_std": 0.041199929478636176,
+      "train_weight_max": 1.454545497894287,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 72,
+      "train_weight_mean": 1.0123615090189308,
+      "train_weight_std": 0.049904411842940165,
+      "train_weight_max": 1.4517854452133179,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 73,
+      "train_weight_mean": 1.01081296356245,
+      "train_weight_std": 0.04669907135799223,
+      "train_weight_max": 1.4521279335021973,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 74,
+      "train_weight_mean": 1.0109671688285367,
+      "train_weight_std": 0.04215473227707938,
+      "train_weight_max": 1.4380056858062744,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 75,
+      "train_weight_mean": 1.0117252645478851,
+      "train_weight_std": 0.05102041825251895,
+      "train_weight_max": 1.4545447826385498,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 76,
+      "train_weight_mean": 1.0103620345565094,
+      "train_weight_std": 0.04293890538517478,
+      "train_weight_max": 1.448472499847412,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 77,
+      "train_weight_mean": 1.0120579888080727,
+      "train_weight_std": 0.05136141583122027,
+      "train_weight_max": 1.453966736793518,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 78,
+      "train_weight_mean": 1.010695084415633,
+      "train_weight_std": 0.04349296346786294,
+      "train_weight_max": 1.4046761989593506,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    },
+    {
+      "epoch": 79,
+      "train_weight_mean": 1.0104569986291316,
+      "train_weight_std": 0.04578186607069662,
+      "train_weight_max": 1.4497328996658325,
+      "phase": "joint_pred_weight",
+      "ramp_lambda": 1.0
+    }
+  ]
+}
