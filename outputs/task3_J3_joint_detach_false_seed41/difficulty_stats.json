@@ -1,0 +1,13 @@
+{
+  "val_sci_corr_pearson": 0.5604377691830277,
+  "val_sci_corr_spearman": 0.586826657987892,
+  "pred_sci_mean": 0.5757008593442828,
+  "pred_sci_std": 0.08342990653526187,
+  "gt_sci_mean": 0.5182331022481586,
+  "gt_sci_std": 0.12273313032475339,
+  "pct_pred_above_tau": 0.407,
+  "pct_pred_above_tau_on_true_hard": 0.8857,
+  "n_val": 172,
+  "n_hard": 35,
+  "tau": 0.6
+}

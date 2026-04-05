@@ -1,0 +1,87 @@
+{
+  "threshold": 0.5,
+  "n_val": 172,
+  "n_hard": 35,
+  "j3_vs_p0": {
+    "mean_delta_dice": 0.000702,
+    "mean_delta_recall": 0.012951,
+    "groups": [
+      {
+        "group": "better",
+        "count": 48,
+        "pct": 27.9,
+        "is_hard_pct": 39.6,
+        "j3_dice_mean": 0.777233,
+        "p0_dice_mean": 0.763214,
+        "p5_dice_mean": 0.775212,
+        "sci_mean": 0.5673,
+        "fov_mean": 0.9633
+      },
+      {
+        "group": "tied",
+        "count": 73,
+        "pct": 42.4,
+        "is_hard_pct": 11.0,
+        "j3_dice_mean": 0.824281,
+        "p0_dice_mean": 0.823492,
+        "p5_dice_mean": 0.82574,
+        "sci_mean": 0.5042,
+        "fov_mean": 0.9698
+      },
+      {
+        "group": "worse",
+        "count": 51,
+        "pct": 29.7,
+        "is_hard_pct": 15.7,
+        "j3_dice_mean": 0.823993,
+        "p0_dice_mean": 0.83595,
+        "p5_dice_mean": 0.822904,
+        "sci_mean": 0.4921,
+        "fov_mean": 0.9545
+      }
+    ]
+  },
+  "j3_vs_p5": {
+    "mean_delta_dice": 0.000267,
+    "mean_delta_recall": 0.006057,
+    "groups": [
+      {
+        "group": "better",
+        "count": 35,
+        "pct": 20.3,
+        "is_hard_pct": 31.4,
+        "j3_dice_mean": 0.781145,
+        "p0_dice_mean": 0.77718,
+        "p5_dice_mean": 0.764403,
+        "sci_mean": 0.5652,
+        "fov_mean": 0.9577
+      },
+      {
+        "group": "tied",
+        "count": 90,
+        "pct": 52.3,
+        "is_hard_pct": 15.6,
+        "j3_dice_mean": 0.827368,
+        "p0_dice_mean": 0.82751,
+        "p5_dice_mean": 0.827259,
+        "sci_mean": 0.5003,
+        "fov_mean": 0.9625
+      },
+      {
+        "group": "worse",
+        "count": 47,
+        "pct": 27.3,
+        "is_hard_pct": 21.3,
+        "j3_dice_mean": 0.802131,
+        "p0_dice_mean": 0.802244,
+        "p5_dice_mean": 0.813828,
+        "sci_mean": 0.5176,
+        "fov_mean": 0.9695
+      }
+    ]
+  },
+  "hard_subset": {
+    "j3_vs_p0_mean_delta": 0.005548,
+    "j3_vs_p5_mean_delta": 0.001846
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "hard_dice_mean": 0.7352927943900732,
+  "hard_recall_mean": 0.7491558903348214,
+  "n_hard_patches_note": "subset of val where is_hard=True (top sci_res2_norm)"
+}

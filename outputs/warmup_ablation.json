@@ -1,0 +1,45 @@
+{
+  "runs": [
+    {
+      "run_id": "J3_calib15 (reference)",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_joint_detach_false",
+      "loss_mode": "joint_difficulty",
+      "val_dice_mean_at_0_5": 0.8110656916385035,
+      "val_recall_mean_at_0_5": 0.805837897625956,
+      "hard_dice_mean_at_0_5": 0.7365392505023658,
+      "hard_recall_mean_at_0_5": 0.7411360782789799,
+      "best_val_dice_threshold": 0.3,
+      "best_val_dice_mean": 0.8128331347120975,
+      "best_hard_dice_threshold": 0.35,
+      "primary_hard_dice_mean": 0.7385778641003746,
+      "hard_recall_at_best_hard_dice_threshold": 0.7641069577840771,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8128331347120975,
+      "calib_epochs": 15,
+      "val_sci_corr_pearson": 0.5919465957022505,
+      "val_sci_corr_spearman": 0.5728250590180249,
+      "pct_pred_above_tau": 0.093,
+      "pct_pred_above_tau_on_true_hard": 0.2857
+    },
+    {
+      "run_id": "J3_calib0",
+      "output_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_calib0",
+      "loss_mode": "joint_difficulty",
+      "val_dice_mean_at_0_5": 0.8094690833254274,
+      "val_recall_mean_at_0_5": 0.8252451592260441,
+      "hard_dice_mean_at_0_5": 0.7306065205645679,
+      "hard_recall_mean_at_0_5": 0.7617523078420756,
+      "best_val_dice_threshold": 0.55,
+      "best_val_dice_mean": 0.8095569834309018,
+      "best_hard_dice_threshold": 0.55,
+      "primary_hard_dice_mean": 0.7307784487621157,
+      "hard_recall_at_best_hard_dice_threshold": 0.7552549586296425,
+      "val_dice_mean_at_best_val_dice_threshold": 0.8095569834309018,
+      "calib_epochs": 0,
+      "val_sci_corr_pearson": 0.5348374825119335,
+      "val_sci_corr_spearman": 0.587067210976763,
+      "pct_pred_above_tau": 0.5349,
+      "pct_pred_above_tau_on_true_hard": 0.8857
+    }
+  ],
+  "delta_calib0_minus_calib15": -0.007799415338258897
+}
