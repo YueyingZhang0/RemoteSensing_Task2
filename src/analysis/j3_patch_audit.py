@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Patch-level audit: J3 vs baseline and J3 vs P5 on seed=42 val set."""
+"""Patch-level audit: J3 vs P0 and J3 vs P5; optional full metadata join; writes analysis/ by default."""
 from __future__ import annotations
 
 import argparse
@@ -62,14 +62,29 @@ def collect_per_patch(
     })
 
 
+def merge_metadata(audit: pd.DataFrame, meta_csv: Path) -> pd.DataFrame:
+    meta_full = pd.read_csv(meta_csv)
+    if "patch_name" not in meta_full.columns:
+        return audit
+    meta_full = meta_full.drop_duplicates(subset=["patch_name"], keep="first")
+    idx = meta_full.set_index("patch_name")
+    for col in meta_full.columns:
+        if col == "patch_name" or col in audit.columns:
+            continue
+        audit[col] = audit["patch_name"].map(idx[col])
+    audit["is_true_hard"] = audit["is_hard"].astype(bool)
+    return audit
+
+
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--config", default="configs/task3_J3_joint_detach_false.yaml")
     p.add_argument("--j3_ckpt", default="outputs/task3_J3_joint_detach_false/best_model.pt")
     p.add_argument("--p0_ckpt", default="outputs/task3_v2_1_baseline_same_split/best_model.pt")
     p.add_argument("--p5_ckpt", default="outputs/task3_v3_1_oracle_matched_trigger_same_split/best_model.pt")
-    p.add_argument("--out_dir", default="outputs/task3_J3_patch_audit")
+    p.add_argument("--out_dir", default="analysis")
     p.add_argument("--threshold", type=float, default=0.5)
+    p.add_argument("--no_meta_merge", action="store_true")
     args = p.parse_args()
 
     root = Path(__file__).resolve().parents[2]
@@ -126,10 +141,19 @@ def main() -> None:
     audit["p0_recall"] = p0_df["recall"].values
     audit["p5_dice"] = p5_df["dice"].values
     audit["p5_recall"] = p5_df["recall"].values
-    audit["delta_j3_p0_dice"] = audit["j3_dice"] - audit["p0_dice"]
-    audit["delta_j3_p0_recall"] = audit["j3_recall"] - audit["p0_recall"]
-    audit["delta_j3_p5_dice"] = audit["j3_dice"] - audit["p5_dice"]
-    audit["delta_j3_p5_recall"] = audit["j3_recall"] - audit["p5_recall"]
+    audit["baseline_dice"] = audit["p0_dice"]
+    audit["baseline_recall"] = audit["p0_recall"]
+    audit["delta_dice_j3_vs_p0"] = audit["j3_dice"] - audit["p0_dice"]
+    audit["delta_dice_j3_vs_p5"] = audit["j3_dice"] - audit["p5_dice"]
+    audit["delta_recall_j3_vs_p0"] = audit["j3_recall"] - audit["p0_recall"]
+    audit["delta_recall_j3_vs_p5"] = audit["j3_recall"] - audit["p5_recall"]
+    audit.rename(columns={target_col: "gt_sci_res2_norm"}, inplace=True)
+
+    if not args.no_meta_merge:
+        audit = merge_metadata(audit, meta)
+
+    out_dir = root / args.out_dir
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     def classify_vs(delta_col: str, threshold: float = 0.005) -> pd.Series:
         return pd.cut(
@@ -138,14 +162,12 @@ def main() -> None:
             labels=["worse", "tied", "better"],
         )
 
-    audit["j3_vs_p0"] = classify_vs("delta_j3_p0_dice")
-    audit["j3_vs_p5"] = classify_vs("delta_j3_p5_dice")
+    audit["j3_vs_p0"] = classify_vs("delta_dice_j3_vs_p0")
+    audit["j3_vs_p5"] = classify_vs("delta_dice_j3_vs_p5")
 
-    out_dir = root / args.out_dir
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    audit.to_csv(out_dir / "j3_patch_audit.csv", index=False)
-    print(f"Saved: {out_dir / 'j3_patch_audit.csv'}")
+    out_csv = out_dir / "j3_patch_audit.csv"
+    audit.to_csv(out_csv, index=False)
+    print(f"Saved: {out_csv}")
 
     def group_summary(group_col_name: str) -> List[Dict[str, Any]]:
         rows = []
@@ -160,64 +182,77 @@ def main() -> None:
                 "p0_dice_mean": round(float(sub["p0_dice"].mean()), 6) if len(sub) else None,
                 "p5_dice_mean": round(float(sub["p5_dice"].mean()), 6) if len(sub) else None,
             }
-            if target_col in sub.columns:
-                row["sci_mean"] = round(float(sub[target_col].mean()), 4) if len(sub) else None
+            if "gt_sci_res2_norm" in sub.columns and len(sub):
+                row["sci_mean"] = round(float(sub["gt_sci_res2_norm"].mean()), 4)
+            else:
+                row["sci_mean"] = None
             if "fov_ratio" in sub.columns:
                 row["fov_mean"] = round(float(sub["fov_ratio"].mean()), 4) if len(sub) else None
+            else:
+                row["fov_mean"] = None
             rows.append(row)
         return rows
 
     j3_vs_p0_summary = group_summary("j3_vs_p0")
     j3_vs_p5_summary = group_summary("j3_vs_p5")
 
+    top_p0 = audit.nlargest(8, "delta_dice_j3_vs_p0")["patch_name"].tolist()
+    top_p5 = audit.nlargest(8, "delta_dice_j3_vs_p5")["patch_name"].tolist()
+    fail_p0 = audit.nsmallest(5, "delta_dice_j3_vs_p0")["patch_name"].tolist()
+
     summary = {
         "threshold": args.threshold,
         "n_val": len(audit),
         "n_hard": int(audit["is_hard"].sum()),
         "j3_vs_p0": {
-            "mean_delta_dice": round(float(audit["delta_j3_p0_dice"].mean()), 6),
-            "mean_delta_recall": round(float(audit["delta_j3_p0_recall"].mean()), 6),
+            "mean_delta_dice": round(float(audit["delta_dice_j3_vs_p0"].mean()), 6),
+            "mean_delta_recall": round(float(audit["delta_recall_j3_vs_p0"].mean()), 6),
             "groups": j3_vs_p0_summary,
         },
         "j3_vs_p5": {
-            "mean_delta_dice": round(float(audit["delta_j3_p5_dice"].mean()), 6),
-            "mean_delta_recall": round(float(audit["delta_j3_p5_recall"].mean()), 6),
+            "mean_delta_dice": round(float(audit["delta_dice_j3_vs_p5"].mean()), 6),
+            "mean_delta_recall": round(float(audit["delta_recall_j3_vs_p5"].mean()), 6),
             "groups": j3_vs_p5_summary,
         },
         "hard_subset": {
-            "j3_vs_p0_mean_delta": round(float(audit[audit["is_hard"]]["delta_j3_p0_dice"].mean()), 6),
-            "j3_vs_p5_mean_delta": round(float(audit[audit["is_hard"]]["delta_j3_p5_dice"].mean()), 6),
+            "j3_vs_p0_mean_delta": round(float(audit[audit["is_hard"]]["delta_dice_j3_vs_p0"].mean()), 6),
+            "j3_vs_p5_mean_delta": round(float(audit[audit["is_hard"]]["delta_dice_j3_vs_p5"].mean()), 6),
+        },
+        "representative_patches": {
+            "top_delta_j3_vs_p0": top_p0,
+            "top_delta_j3_vs_p5": top_p5,
+            "worst_delta_j3_vs_p0": fail_p0,
         },
     }
-    save_json(summary, out_dir / "j3_patch_groups_summary.json")
+    save_json(summary, out_dir / "j3_patch_audit_summary.json")
 
-    print(f"\n  J3 vs P0 (baseline):")
+    print(f"\n  Saved: {out_dir / 'j3_patch_audit_summary.json'}")
+    print("\n  J3 vs P0 (baseline):")
     for g in j3_vs_p0_summary:
-        print(f"    {g['group']:>8}: {g['count']:>3} patches ({g['pct']:>5.1f}%), "
-              f"hard={g['is_hard_pct']:.0f}%, sci={g.get('sci_mean','N/A')}, fov={g.get('fov_mean','N/A')}")
-
-    print(f"\n  J3 vs P5 (oracle_matched_trigger):")
+        print(
+            f"    {g['group']:>8}: {g['count']:>3} patches ({g['pct']:>5.1f}%), "
+            f"hard={g['is_hard_pct']:.0f}%, sci={g.get('sci_mean', 'N/A')}"
+        )
+    print("\n  J3 vs P5:")
     for g in j3_vs_p5_summary:
-        print(f"    {g['group']:>8}: {g['count']:>3} patches ({g['pct']:>5.1f}%), "
-              f"hard={g['is_hard_pct']:.0f}%, sci={g.get('sci_mean','N/A')}, fov={g.get('fov_mean','N/A')}")
-
+        print(
+            f"    {g['group']:>8}: {g['count']:>3} patches ({g['pct']:>5.1f}%), "
+            f"hard={g['is_hard_pct']:.0f}%, sci={g.get('sci_mean', 'N/A')}"
+        )
     h = audit[audit["is_hard"]]
-    print(f"\n  Hard subset ({len(h)} patches):")
-    print(f"    J3 vs P0 mean delta dice: {h['delta_j3_p0_dice'].mean():+.6f}")
-    print(f"    J3 vs P5 mean delta dice: {h['delta_j3_p5_dice'].mean():+.6f}")
+    print(f"\n  Hard subset ({len(h)} patches): mean Δ(J3−P0)={h['delta_dice_j3_vs_p0'].mean():+.6f}, Δ(J3−P5)={h['delta_dice_j3_vs_p5'].mean():+.6f}")
 
     with open(out_dir / "j3_patch_groups_summary.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["comparison"] + list(j3_vs_p0_summary[0].keys()))
         w.writeheader()
         for g in j3_vs_p0_summary:
-            g["comparison"] = "j3_vs_p0"
-            w.writerow(g)
+            g2 = dict(g)
+            g2["comparison"] = "j3_vs_p0"
+            w.writerow(g2)
         for g in j3_vs_p5_summary:
-            g["comparison"] = "j3_vs_p5"
-            w.writerow(g)
-
-    print(f"\n  Saved: {out_dir / 'j3_patch_groups_summary.json'}")
-    print(f"  Saved: {out_dir / 'j3_patch_groups_summary.csv'}")
+            g2 = dict(g)
+            g2["comparison"] = "j3_vs_p5"
+            w.writerow(g2)
 
 
 if __name__ == "__main__":

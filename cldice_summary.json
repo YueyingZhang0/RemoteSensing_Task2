@@ -1,0 +1,18 @@
+{
+  "threshold_fixed": 0.5,
+  "methods": {
+    "P0_baseline": {
+      "cldice_global_0.5": 0.9281791495281706,
+      "cldice_hard_0.5": 0.8915060422414806
+    },
+    "P5_oracle_matched_trigger": {
+      "cldice_global_0.5": 0.930964838187202,
+      "cldice_hard_0.5": 0.897332499243852
+    },
+    "J3_joint_detach_false": {
+      "cldice_global_0.5": 0.9338754085835848,
+      "cldice_hard_0.5": 0.9039364139790917
+    }
+  },
+  "narrative": "clDice is supplementary; rankings may differ from primary hard-Dice endpoint. Hard subset = is_hard on val (top sci_res2_norm quantile)."
+}

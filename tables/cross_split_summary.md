@@ -1,0 +1,18 @@
+## Cross-split summary
+
+Interpret within-split deltas; absolute primary across splits not comparable (hard subset changes).
+
+| split | method | primary_hd | hd_0.5 | vd_0.5 | best_hard_th |
+| --- | --- | --- | --- | --- | --- |
+| splitA_rs42 | P0_baseline | 0.7346782118357121 | 0.7309914610311695 | 0.8103641556678753 | 0.3 |
+| splitA_rs42 | P5_oracle_matched_trigger | 0.7374339064055633 | 0.7346934449304218 | 0.8107983588242674 | 0.3 |
+| splitA_rs42 | J3_joint_detach_false | 0.7385778641003746 | 0.7365392505023658 | 0.8110656916385035 | 0.35 |
+| splitB_rs100_seed42 | P0_baseline | 0.7030658295684444 | 0.7022546102891828 | 0.786587412855862 | 0.4 |
+| splitB_rs100_seed42 | P5_oracle_matched_trigger | 0.6996799475543485 | 0.6966920887750415 | 0.7867337132859794 | 0.35 |
+| splitB_rs100_seed42 | J3_joint_detach_false | 0.6992573030301981 | 0.6986663740401837 | 0.785875112975408 | 0.4 |
+| splitB_rs100_seed40 | P0_baseline | 0.6977112722143923 | 0.696425571605852 | 0.7836650649101926 | 0.3 |
+| splitB_rs100_seed40 | P5_oracle_matched_trigger | 0.7014938583541314 | 0.6993076997825248 | 0.7860974365927575 | 0.3 |
+| splitB_rs100_seed40 | J3_joint_detach_false | 0.7009040193786922 | 0.6995944726232527 | 0.7873202290435355 | 0.4 |
+| splitC_rs200 | P0_baseline | 0.7158234015654393 | 0.7124825869001817 | 0.7742286672234238 | 0.3 |
+| splitC_rs200 | P5_oracle_matched_trigger | 0.7201438228843526 | 0.7153771794956266 | 0.7820773938442102 | 0.3 |
+| splitC_rs200 | J3_joint_detach_false | 0.7212344756799666 | 0.7200708429329049 | 0.7782433496241 | 0.4 |

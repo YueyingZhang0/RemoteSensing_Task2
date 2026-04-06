@@ -1,0 +1,71 @@
+{
+  "j3_history": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_joint_detach_false\\history.json",
+  "calib0_history": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_calib0\\history.json",
+  "phase_spans": [
+    {
+      "phase": "weight_warmup",
+      "epoch_start": 0,
+      "epoch_end": 4
+    },
+    {
+      "phase": "joint_calib",
+      "epoch_start": 5,
+      "epoch_end": 19
+    },
+    {
+      "phase": "joint_pred_weight",
+      "epoch_start": 20,
+      "epoch_end": 79
+    }
+  ],
+  "figures": {
+    "j3_training_dynamics": "C:\\Users\\zhang\\Desktop\\vessel\\figures\\j3_training_dynamics.png",
+    "j3_calibration_ablation": "C:\\Users\\zhang\\Desktop\\vessel\\figures\\j3_calibration_ablation_curves.png"
+  },
+  "val_sci_corr_pearson_per_epoch_available": false,
+  "config_snippet": {
+    "warmup_epochs": 30,
+    "joint_epochs": 50,
+    "difficulty_weighting": {
+      "enabled": true,
+      "mode": "joint",
+      "weight_mode": "oracle_linear",
+      "fov_min": 0.8,
+      "tau": 0.6,
+      "alpha": 0.5,
+      "gamma": 2.0,
+      "gamma_effective": 2.0,
+      "weight_warmup_epochs": 5,
+      "min_weight": 1.0,
+      "max_weight": 1.5,
+      "normalize_weights_in_batch": true,
+      "save_weight_stats": true,
+      "shuffle_scores_in_batch": false,
+      "threshold_sweep": {
+        "enabled": true,
+        "thresholds": [
+          0.3,
+          0.35,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6,
+          0.65,
+          0.7
+        ]
+      },
+      "sampling": {
+        "use_weighted_sampler": false,
+        "hard_sampling_weight": 2.0,
+        "weighted_sampler_hard_mask": "n/a"
+      },
+      "debug_save_first_weighted_batch": true,
+      "ramp_epochs": 10,
+      "joint_calib_epochs": 15,
+      "joint_oracle_weight_epochs": 0,
+      "lambda_diff": 0.5,
+      "pred_weight_detach": false
+    }
+  }
+}

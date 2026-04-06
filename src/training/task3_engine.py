@@ -316,6 +316,34 @@ def plot_threshold_curves(threshold_metrics: Dict[str, Any], out_dir: Path) -> N
 
 
 @torch.no_grad()
+def difficulty_pearson_on_loader(
+    model: nn.Module,
+    loader: DataLoader,
+    device: torch.device,
+) -> Optional[float]:
+    """Val-set Pearson r(pred difficulty, GT sci) without saving plots. For per-epoch logging."""
+    model.eval()
+    preds: List[float] = []
+    gts: List[float] = []
+    with torch.no_grad():
+        for batch in loader:
+            img = batch["image"].to(device)
+            gt = batch["sci_res2_norm"]
+            out = model(img)
+            if not isinstance(out, tuple):
+                return None
+            diff = out[1].squeeze(1).detach().cpu()
+            preds.extend(diff.numpy().ravel().tolist())
+            gts.extend(gt.numpy().ravel().tolist() if isinstance(gt, torch.Tensor) else [float(g) for g in gt])
+    if len(preds) < 3:
+        return None
+    pa = np.asarray(preds, dtype=np.float64)
+    ga = np.asarray(gts, dtype=np.float64)
+    if np.std(pa) <= 1e-12 or np.std(ga) <= 1e-12:
+        return None
+    return float(pearsonr(ga, pa)[0])
+
+
 def evaluate_difficulty_predictions(
     model: nn.Module,
     loader: DataLoader,
@@ -1093,6 +1121,8 @@ def train_task3_joint_difficulty(
         model.train()
         ep_loss = 0.0
         n_batches = 0
+        ep_diff_aux = 0.0
+        n_diff_batches = 0
         all_w: List[float] = []
 
         for batch_idx, batch in enumerate(train_loader):
@@ -1108,12 +1138,18 @@ def train_task3_joint_difficulty(
             if ph == "weight_warmup":
                 loss = li.mean()
             elif ph == "joint_calib":
-                loss = li.mean() + lambda_diff * F.smooth_l1_loss(d, gt_scores)
+                diff_l = F.smooth_l1_loss(d, gt_scores)
+                ep_diff_aux += float(diff_l.detach())
+                n_diff_batches += 1
+                loss = li.mean() + lambda_diff * diff_l
             elif ph == "joint_oracle_weight":
                 w = oracle_sample_weights(
                     gt_scores, tau, alpha, gamma, min_weight, max_weight, normalize_weights_in_batch
                 )
-                loss = (li * w).sum() / w.sum().clamp_min(1e-8) + lambda_diff * F.smooth_l1_loss(d, gt_scores)
+                diff_l = F.smooth_l1_loss(d, gt_scores)
+                ep_diff_aux += float(diff_l.detach())
+                n_diff_batches += 1
+                loss = (li * w).sum() / w.sum().clamp_min(1e-8) + lambda_diff * diff_l
                 all_w.extend(w.detach().float().cpu().numpy().tolist())
             else:
                 s_for_w = d.detach() if pred_weight_detach else d
@@ -1123,7 +1159,10 @@ def train_task3_joint_difficulty(
                 )
                 w = 1.0 + lam_t * (w_raw - 1.0)
                 w = w.clamp(1.0, max_weight)
-                loss = (li * w).sum() / w.sum().clamp_min(1e-8) + lambda_diff * F.smooth_l1_loss(d, gt_scores)
+                diff_l = F.smooth_l1_loss(d, gt_scores)
+                ep_diff_aux += float(diff_l.detach())
+                n_diff_batches += 1
+                loss = (li * w).sum() / w.sum().clamp_min(1e-8) + lambda_diff * diff_l
                 all_w.extend(w.detach().float().cpu().numpy().tolist())
 
                 if debug_save_first_weighted_batch and not first_pred_batch_saved and batch_idx == 0:
@@ -1155,6 +1194,7 @@ def train_task3_joint_difficulty(
             n_batches += 1
 
         train_loss_mean = ep_loss / max(n_batches, 1)
+        train_diff_loss_mean = ep_diff_aux / max(n_diff_batches, 1) if n_diff_batches else None
         val_metrics = evaluate_loader(model, val_loader, device, ours=False)
         if ph in ("joint_oracle_weight", "joint_pred_weight") and all_w:
             arr = np.asarray(all_w, dtype=np.float64)
@@ -1162,16 +1202,20 @@ def train_task3_joint_difficulty(
         else:
             tw_m, tw_s, tw_x = 1.0, 0.0, 1.0
 
+        val_pearson = difficulty_pearson_on_loader(model, val_loader, device)
+
         row = {
             "epoch": epoch,
             "phase": ph,
             "ramp_lambda": round(lam_t, 4) if ph == "joint_pred_weight" else None,
             "train_seg_loss": train_loss_mean,
+            "train_diff_loss_mean": train_diff_loss_mean,
             "val_dice_mean": val_metrics["val_dice_mean"],
             "val_recall_mean": val_metrics["val_recall_mean"],
             "hard_dice_mean": val_metrics["hard_dice_mean"],
             "hard_recall_mean": val_metrics["hard_recall_mean"],
-            "val_sci_corr": None,
+            "val_sci_corr": val_pearson,
+            "val_sci_corr_pearson": val_pearson,
             "train_weight_mean": tw_m,
             "train_weight_std": tw_s,
             "train_weight_max": tw_x,
