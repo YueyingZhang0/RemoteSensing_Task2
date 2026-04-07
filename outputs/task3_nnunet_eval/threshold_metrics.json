@@ -1,0 +1,73 @@
+{
+  "thresholds": [
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7
+  ],
+  "per_threshold": {
+    "0.30": {
+      "val_dice_mean": 0.8072186320445656,
+      "val_recall_mean": 0.799613560589305,
+      "hard_dice_mean": 0.728503779293305,
+      "hard_recall_mean": 0.7144326891595845
+    },
+    "0.35": {
+      "val_dice_mean": 0.8065522178296484,
+      "val_recall_mean": 0.7956513525671245,
+      "hard_dice_mean": 0.7276948507430578,
+      "hard_recall_mean": 0.7090055340574267
+    },
+    "0.40": {
+      "val_dice_mean": 0.8059864498455591,
+      "val_recall_mean": 0.7919747837005985,
+      "hard_dice_mean": 0.7265875508993469,
+      "hard_recall_mean": 0.7036747089478476
+    },
+    "0.45": {
+      "val_dice_mean": 0.80540940419476,
+      "val_recall_mean": 0.7883731927507246,
+      "hard_dice_mean": 0.7257748766532787,
+      "hard_recall_mean": 0.6984705827447611
+    },
+    "0.50": {
+      "val_dice_mean": 0.8046709604885081,
+      "val_recall_mean": 0.7847042415735234,
+      "hard_dice_mean": 0.7242107365010573,
+      "hard_recall_mean": 0.6927036513361399
+    },
+    "0.55": {
+      "val_dice_mean": 0.8038801051129484,
+      "val_recall_mean": 0.7809769161558456,
+      "hard_dice_mean": 0.7226413669886361,
+      "hard_recall_mean": 0.687192351108331
+    },
+    "0.60": {
+      "val_dice_mean": 0.802888486180055,
+      "val_recall_mean": 0.7770462028125511,
+      "hard_dice_mean": 0.7211292157912591,
+      "hard_recall_mean": 0.6815287519741294
+    },
+    "0.65": {
+      "val_dice_mean": 0.801625407027788,
+      "val_recall_mean": 0.7729045515312282,
+      "hard_dice_mean": 0.718462327259623,
+      "hard_recall_mean": 0.6748367478695776
+    },
+    "0.70": {
+      "val_dice_mean": 0.8006307085952986,
+      "val_recall_mean": 0.7687677279693851,
+      "hard_dice_mean": 0.7166470527663473,
+      "hard_recall_mean": 0.6688658024204822
+    }
+  },
+  "best_hard_dice_threshold": 0.3,
+  "best_val_dice_threshold": 0.3,
+  "fixed_threshold_reporting": 0.5,
+  "note": "nnU-Net external predictions; prob from .npz if present else binary .png."
+}

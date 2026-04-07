@@ -1,0 +1,6 @@
+{
+  "hard_dice_mean": 0.7242107365010573,
+  "hard_recall_mean": 0.6927036513361399,
+  "n_hard_patches_note": "subset of val where is_hard=True (top sci_res2_norm)",
+  "source": "nnunet_external"
+}

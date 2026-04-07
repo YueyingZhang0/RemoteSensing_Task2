@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Task 3 minimal: U-Net baseline or UNet+SCE (sci_res2_norm fixed)."""
+"""Task 3: U-Net / Attention U-Net / Swin-UNet-style baseline, oracle-weighted paths, or UNet+SCE (ours)."""
 from __future__ import annotations
 
 import argparse
@@ -17,7 +17,8 @@ import yaml
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from src.datasets.seg_sce_patch_dataset import SegSCEPatchDataset
-from src.models.task3_unet import UNetBaseline, UNetBaselineJointDifficulty, UNetWithSCE
+from src.models.task3_seg_factory import build_task3_seg_model
+from src.models.task3_unet import UNetBaselineJointDifficulty, UNetWithSCE
 from src.training.splits import load_or_create_group_split, make_group_train_val_split, mark_hard_patches
 from src.training.task3_engine import (
     _effective_oracle_score_gamma,
@@ -32,10 +33,25 @@ from src.utils.io import ensure_dir, load_yaml
 from src.utils.seed import set_global_seed
 
 
+def _seg_factory_arch(model: str) -> str:
+    m = (model or "baseline").lower()
+    if m == "baseline":
+        return "unet"
+    if m in ("attention_unet", "swin_unet"):
+        return m
+    raise ValueError(f"No segmentation factory arch for model={model!r}")
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Task 3: U-Net seg (+ SCE ours).")
     p.add_argument("--config", type=str, default="configs/task3.yaml")
-    p.add_argument("--model", type=str, choices=("baseline", "ours"), required=True)
+    p.add_argument(
+        "--model",
+        type=str,
+        choices=("baseline", "ours", "attention_unet", "swin_unet"),
+        required=True,
+        help="baseline=UNetBaseline; attention_unet/swin_unet=external backbones (see task3_seg_factory); ours=SCE v1.",
+    )
     p.add_argument(
         "--output_dir",
         type=str,
@@ -256,11 +272,19 @@ def main() -> None:
 
     dw = cfg.get("difficulty_weighting") or {}
     if dw.get("enabled"):
-        if args.model != "baseline":
-            raise ValueError("difficulty_weighting.enabled requires --model baseline (no SCE v1 path).")
+        if args.model == "ours":
+            raise ValueError("difficulty_weighting.enabled cannot be used with --model ours (SCE v1).")
+        if args.model not in ("baseline", "attention_unet", "swin_unet"):
+            raise ValueError(
+                "difficulty_weighting.enabled requires --model baseline | attention_unet | swin_unet."
+            )
         mode = str(dw.get("mode", "oracle")).lower()
         if mode not in ("oracle", "frozen_probe", "joint"):
             raise ValueError("difficulty_weighting.mode must be oracle | frozen_probe | joint")
+        if mode == "joint" and args.model != "baseline":
+            raise ValueError(
+                "difficulty_weighting mode joint requires --model baseline (UNetBaselineJointDifficulty only)."
+            )
         out_dir = Path(args.output_dir) if args.output_dir else Path(cfg["output_dir"])
         if not out_dir.is_absolute():
             out_dir = root / out_dir
@@ -341,7 +365,7 @@ def main() -> None:
             metadata_csv=meta,
             patch_image_dir=img_dir,
             patch_mask_dir=msk_dir,
-            model="baseline",
+            model=args.model,
             warmup_epochs=w_ep,
             joint_epochs=j_ep,
             difficulty_weighting_effective=dw_eff,
@@ -369,8 +393,11 @@ def main() -> None:
         )
 
         if mode == "oracle":
+            seg = build_task3_seg_model(
+                _seg_factory_arch(args.model), in_channels=3, image_size=int(isz)
+            ).to(device)
             train_task3_baseline_oracle_weighted(
-                model=UNetBaseline(in_channels=3, base=32).to(device),
+                model=seg,
                 shuffle_scores_in_batch=shuffle_ab,
                 weight_mode=weight_mode,
                 fov_min=fov_min_v,
@@ -380,6 +407,9 @@ def main() -> None:
             )
             print(f"Done (oracle-weighted baseline). Artifacts in {out_dir}")
         elif mode == "frozen_probe":
+            seg = build_task3_seg_model(
+                _seg_factory_arch(args.model), in_channels=3, image_size=int(isz)
+            ).to(device)
             probe = load_frozen_sce_probe(
                 ck_path,
                 device,
@@ -389,7 +419,7 @@ def main() -> None:
                 dropout=float(probe_cfg.get("dropout", 0.0)),
             )
             train_task3_baseline_probe_weighted(
-                model=UNetBaseline(in_channels=3, base=32).to(device),
+                model=seg,
                 probe=probe,
                 ramp_epochs=int(dw.get("ramp_epochs", 0)),
                 threshold_sweep_thresholds=th_list,
@@ -412,7 +442,7 @@ def main() -> None:
             print(f"Done (joint-difficulty baseline). Artifacts in {out_dir}")
         return
 
-    out_key = "output_dir_baseline" if args.model == "baseline" else "output_dir_ours"
+    out_key = "output_dir_ours" if args.model == "ours" else "output_dir_baseline"
     out_dir = Path(args.output_dir) if args.output_dir else Path(cfg[out_key])
     if not out_dir.is_absolute():
         out_dir = root / out_dir
@@ -448,12 +478,14 @@ def main() -> None:
     }
     _dump_config_used(out_dir, doc_bl)
 
-    if args.model == "baseline":
-        model = UNetBaseline(in_channels=3, base=32).to(device)
-        ours = False
-    else:
+    if args.model == "ours":
         model = UNetWithSCE(in_channels=3, base=32).to(device)
         ours = True
+    else:
+        model = build_task3_seg_model(
+            _seg_factory_arch(args.model), in_channels=3, image_size=int(isz)
+        ).to(device)
+        ours = False
 
     train_task3(
         model=model,

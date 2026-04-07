@@ -6,4 +6,6 @@ Fixed threshold = 0.5.
 | --- | --- | --- | --- |
 | P0_baseline | 0.928179 | 0.891506 |  |
 | P5_oracle_matched_trigger | 0.930965 | 0.897332 |  |
-| J3_joint_detach_false | 0.933875 | 0.903936 |  |
+| J3_joint_detach_false | 0.936067 | 0.903561 |  |
+| attention_unet_baseline | 0.925964 | 0.890725 |  |
+| swin_unet_baseline | 0.925874 | 0.884654 |  |

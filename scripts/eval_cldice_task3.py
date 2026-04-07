@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate mean clDice on val set for P0, P5, J3. Writes tables/ and cldice_summary.json."""
+"""Evaluate mean clDice on val set for P0, P5, J3, Attention U-Net, Swin U-Net. Writes tables/ and cldice_summary.json."""
 from __future__ import annotations
 
 import csv
@@ -20,17 +20,24 @@ os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
 from src.datasets.seg_sce_patch_dataset import SegSCEPatchDataset
 from src.main.train_task3 import _apply_hard_labels
 from src.metrics.cldice import cldice_score
+from src.models.task3_seg_factory import build_task3_seg_model
 from src.models.task3_unet import UNetBaseline, UNetBaselineJointDifficulty
 from src.training.splits import load_or_create_group_split
 from src.training.task3_engine import collate_seg_sce
 from src.utils.io import load_yaml
 
 
-def load_model(ckpt: Path, kind: str, device: torch.device) -> torch.nn.Module:
+def load_model(ckpt: Path, kind: str, device: torch.device, *, image_size: int = 128) -> torch.nn.Module:
     if kind == "joint":
         m = UNetBaselineJointDifficulty(in_channels=3, base=32).to(device)
-    else:
+    elif kind == "baseline":
         m = UNetBaseline(in_channels=3, base=32).to(device)
+    elif kind == "attention_unet":
+        m = build_task3_seg_model("attention_unet", in_channels=3, image_size=image_size).to(device)
+    elif kind == "swin_unet":
+        m = build_task3_seg_model("swin_unet", in_channels=3, image_size=image_size).to(device)
+    else:
+        raise ValueError(f"Unknown model kind={kind!r}")
     state = torch.load(ckpt, map_location=device, weights_only=False)
     m.load_state_dict(state["model_state_dict"])
     m.eval()
@@ -102,6 +109,16 @@ def main() -> None:
         ("P0_baseline", ROOT / "outputs" / "task3_v2_1_baseline_same_split" / "best_model.pt", "baseline"),
         ("P5_oracle_matched_trigger", ROOT / "outputs" / "task3_v3_1_oracle_matched_trigger_same_split" / "best_model.pt", "baseline"),
         ("J3_joint_detach_false", ROOT / "outputs" / "task3_J3_joint_detach_false" / "best_model.pt", "joint"),
+        (
+            "attention_unet_baseline",
+            ROOT / "outputs" / "task3_attention_unet_baseline" / "best_model.pt",
+            "attention_unet",
+        ),
+        (
+            "swin_unet_baseline",
+            ROOT / "outputs" / "task3_swin_unet_baseline" / "best_model.pt",
+            "swin_unet",
+        ),
     ]
 
     rows = []
@@ -113,7 +130,7 @@ def main() -> None:
             rows.append({"method": name, "cldice_global_0.5": "N/A", "cldice_hard_0.5": "N/A", "note": "checkpoint missing"})
             summary["methods"][name] = {"error": "checkpoint missing"}
             continue
-        model = load_model(ckpt, kind, device)
+        model = load_model(ckpt, kind, device, image_size=isz)
         g_mean, _ = collect_cldice(model, val_loader, device, th05, None)
         h_mean, _ = collect_cldice(model, val_loader, device, th05, hard_list)
         rows.append(

@@ -84,7 +84,8 @@ cli_args:
 - configs/task3_J3_joint_detach_false.yaml
 - --model
 - baseline
-git_commit: 321ec946f46a569e46a265e3183a66b7a5af9f67
-timestamp: '2026-04-05T01:36:55.760207+00:00'
+- --threshold_sweep
+git_commit: d078976e3acfc7d6f0d7797e329f55167c27b94a
+timestamp: '2026-04-06T00:57:50.653426+00:00'
 sampling_effective: *id001
 threshold_sweep_effective: *id002

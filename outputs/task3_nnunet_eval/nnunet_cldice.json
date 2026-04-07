@@ -1,0 +1,13 @@
+{
+  "method": "nnunet_v2",
+  "pred_dir": "C:\\Users\\zhang\\Desktop\\vessel\\nnUNet_predictions\\task3_fold0_prob",
+  "used_seg_png_only": false,
+  "cldice": {
+    "threshold": 0.5,
+    "cldice_global": 0.9360247932876691,
+    "cldice_hard": 0.902926998852092,
+    "n_val": 172,
+    "n_hard": 35,
+    "note": "Topology-oriented supplement; same definition as eval_cldice_task3.py."
+  }
+}

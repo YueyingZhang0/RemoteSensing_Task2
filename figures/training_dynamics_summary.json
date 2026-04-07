@@ -22,7 +22,7 @@
     "j3_training_dynamics": "C:\\Users\\zhang\\Desktop\\vessel\\figures\\j3_training_dynamics.png",
     "j3_calibration_ablation": "C:\\Users\\zhang\\Desktop\\vessel\\figures\\j3_calibration_ablation_curves.png"
   },
-  "val_sci_corr_pearson_per_epoch_available": false,
+  "val_sci_corr_pearson_per_epoch_available": true,
   "config_snippet": {
     "warmup_epochs": 30,
     "joint_epochs": 50,

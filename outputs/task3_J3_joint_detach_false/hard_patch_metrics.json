@@ -1,6 +1,6 @@
 {
-  "hard_dice_mean": 0.7365392505023658,
-  "hard_recall_mean": 0.7411360782789799,
+  "hard_dice_mean": 0.731845955881178,
+  "hard_recall_mean": 0.7522019071314152,
   "n_hard_patches_note": "subset of val where is_hard=True (top sci_res2_norm)",
   "loss_mode": "joint_difficulty"
 }

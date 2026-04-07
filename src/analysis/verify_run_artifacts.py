@@ -10,16 +10,51 @@ import yaml
 
 def _load_config_used(d: Path) -> dict:
     p = d / "config_used.yaml"
+    sample: list[str] = []
+    try:
+        if d.is_dir():
+            sample = sorted([x.name for x in d.iterdir()])[:12]
+    except OSError:
+        sample = ["<listdir failed>"]
     if not p.is_file():
-        raise FileNotFoundError(f"Missing config_used.yaml in {d}")
+        parts: list[str] = [f"Missing config_used.yaml in {d}"]
+        if not d.exists():
+            parts.append(
+                "Directory does not exist. For Task3 v2.1 oracle-linear, the default output_dir is "
+                "`outputs/task3_v2_1_oracle_linear_same_split` (see configs/task3_v2_1_oracle_linear.yaml)."
+            )
+        elif d.is_dir():
+            parts.append(f"Directory exists but config_used.yaml is missing. Sample entries: {sample[:8]!r}.")
+            parts.append(
+                "config_used.yaml is written at training start by train_task3._dump_config_used; re-run training "
+                "or point verify_run_artifacts at the correct outputs/<run> folder."
+            )
+        raise FileNotFoundError(" ".join(parts))
     with open(p, encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Verify two run dirs have distinct config_used and sane weight_mode.")
-    p.add_argument("dir_a", type=str, help="First run directory (e.g. oracle_linear)")
-    p.add_argument("dir_b", type=str, help="Second run directory (e.g. oracle_smart)")
+    p = argparse.ArgumentParser(
+        description="Verify two run dirs have distinct config_used and sane weight_mode.",
+        epilog=(
+            "Example:\n"
+            "  python -m src.analysis.verify_run_artifacts "
+            "outputs/task3_v2_1_oracle_linear_same_split "
+            "outputs/task3_v2_1_oracle_smart_same_split"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    p.add_argument(
+        "dir_a",
+        type=str,
+        help="First run directory (e.g. outputs/task3_v2_1_oracle_linear_same_split)",
+    )
+    p.add_argument(
+        "dir_b",
+        type=str,
+        help="Second run directory (e.g. outputs/task3_v2_1_oracle_smart_same_split)",
+    )
     p.add_argument("--root", type=str, default=".", help="Project root if paths are relative")
     args = p.parse_args()
     root = Path(args.root).resolve()

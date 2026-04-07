@@ -10,8 +10,16 @@
       "cldice_hard_0.5": 0.897332499243852
     },
     "J3_joint_detach_false": {
-      "cldice_global_0.5": 0.9338754085835848,
-      "cldice_hard_0.5": 0.9039364139790917
+      "cldice_global_0.5": 0.9360674082631644,
+      "cldice_hard_0.5": 0.9035612620698967
+    },
+    "attention_unet_baseline": {
+      "cldice_global_0.5": 0.9259640978766562,
+      "cldice_hard_0.5": 0.8907251281752023
+    },
+    "swin_unet_baseline": {
+      "cldice_global_0.5": 0.9258740046384717,
+      "cldice_hard_0.5": 0.884653568836394
     }
   },
   "narrative": "clDice is supplementary; rankings may differ from primary hard-Dice endpoint. Hard subset = is_hard on val (top sci_res2_norm quantile)."
