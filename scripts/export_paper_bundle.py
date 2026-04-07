@@ -202,6 +202,10 @@ def main() -> None:
         s = ROOT / sub
         if s.is_dir():
             shutil.copytree(s, pa / sub, dirs_exist_ok=True)
+    # Optional: copy any curated JSON/notes stored in repo-level paper_assets/ into bundle paper_assets/.
+    extra_pa = ROOT / "paper_assets"
+    if extra_pa.is_dir():
+        shutil.copytree(extra_pa, pa, dirs_exist_ok=True)
     for md in PAPER_MARKDOWN:
         f = ROOT / md
         if f.is_file():

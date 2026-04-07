@@ -1,0 +1,5 @@
+dataset,Method (paper),Dice @0.5 (mean),Recall @0.5 (mean),clDice @0.5 (mean),n_images,internal_id
+CHASE_DB1 (1st observer),Baseline (P0),0.1576242091197757,0.08969789480015113,0.49980359647484474,28,P0_baseline
+CHASE_DB1 (1st observer),CDC (proposed; internal J3),0.2576693519108445,0.16084702621966046,0.5262793762535855,28,J3_joint_detach_false
+HRF (all; manual1; FOV mask if present),Baseline (P0),0.029892961857632978,0.016055005106475742,0.46362607799585664,90,P0_baseline
+HRF (all; manual1; FOV mask if present),CDC (proposed; internal J3),0.07130389321266511,0.03967171200152328,0.4519557073460715,90,J3_joint_detach_false

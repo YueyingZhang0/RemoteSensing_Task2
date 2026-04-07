@@ -6,7 +6,9 @@ Use this file only for **wording discipline**. Do not invent experiments or numb
 
 **Completed (closed-loop) evidence** comes from the Task 3 **patch / group-split** protocol: `sci_res2_norm` difficulty, hard subset, threshold sweep, same-split / multi-seed / cross-split, J1/J2/J3 chain, clDice supplements.
 
-**Not completed** — only future / planned (do **not** state as done): whole-image DRIVE reruns; DRIVE→CHASE/HRF migration; **nnU-Net v2 formal baseline**; **SA-UNet formal baseline**; Betti errors; Focal/OHEM baselines; OCTA/ROSE/FIVES/remote-sensing transfer.
+**Not completed** — only future / planned (do **not** state as done): whole-image DRIVE reruns; DRIVE→CHASE/HRF migration; **SA-UNet formal baseline**; Betti errors; Focal/OHEM baselines; OCTA/ROSE/FIVES/remote-sensing transfer.
+
+**Main paper table**: treat `tables/main_results_task3.md` + `tables/main_results_task3.csv` + `paper_assets/main_results_task3.json` as the authoritative source for the canonical (patch / group-split) headline numbers and definitions. Do not copy numbers from memory.
 
 ## 1. One-line positioning
 

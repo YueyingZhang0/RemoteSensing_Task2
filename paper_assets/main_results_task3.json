@@ -1,0 +1,147 @@
+{
+  "protocol": "task3_patch_group_split_canonical",
+  "evaluation_type": "canonical_patch_group_split",
+  "fixed_threshold": 0.5,
+  "columns": [
+    "Method (paper)",
+    "Global Dice @0.5",
+    "Hard Dice @0.5",
+    "clDice Hard @0.5",
+    "Primary Hard Dice",
+    "best \u03c4",
+    "internal_id"
+  ],
+  "methods_manifest": [
+    {
+      "internal_id": "P0_baseline",
+      "paper_label": "Baseline (P0)",
+      "run_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_baseline_same_split",
+      "cldice_key": "P0_baseline",
+      "nnunet_cldice_path": null
+    },
+    {
+      "internal_id": "P5_oracle_matched_trigger",
+      "paper_label": "Oracle-weighted reference (P5)",
+      "run_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v3_1_oracle_matched_trigger_same_split",
+      "cldice_key": "P5_oracle_matched_trigger",
+      "nnunet_cldice_path": null
+    },
+    {
+      "internal_id": "J3_joint_detach_false",
+      "paper_label": "CDC (proposed; internal J3)",
+      "run_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_joint_detach_false",
+      "cldice_key": "J3_joint_detach_false",
+      "nnunet_cldice_path": null
+    },
+    {
+      "internal_id": "attention_unet_baseline",
+      "paper_label": "Attention U-Net baseline",
+      "run_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_attention_unet_baseline",
+      "cldice_key": "attention_unet_baseline",
+      "nnunet_cldice_path": null
+    },
+    {
+      "internal_id": "swin_unet_baseline",
+      "paper_label": "Swin-UNet baseline",
+      "run_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_swin_unet_baseline",
+      "cldice_key": "swin_unet_baseline",
+      "nnunet_cldice_path": null
+    },
+    {
+      "internal_id": "nnunet_v2",
+      "paper_label": "nnU-Net v2 baseline",
+      "run_dir": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_nnunet_eval",
+      "cldice_key": null,
+      "nnunet_cldice_path": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_nnunet_eval\\nnunet_cldice.json"
+    }
+  ],
+  "rows": [
+    {
+      "Method (paper)": "Baseline (P0)",
+      "internal_id": "P0_baseline",
+      "Global Dice @0.5": 0.8103641556678753,
+      "Hard Dice @0.5": 0.7309914610311695,
+      "Primary Hard Dice": 0.7346782118357121,
+      "best \u03c4": 0.3,
+      "clDice Hard @0.5": 0.8915060422414806,
+      "source_threshold_metrics": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_baseline_same_split\\threshold_metrics.json",
+      "source_cldice": "C:\\Users\\zhang\\Desktop\\vessel\\cldice_summary.json"
+    },
+    {
+      "Method (paper)": "Oracle-weighted reference (P5)",
+      "internal_id": "P5_oracle_matched_trigger",
+      "Global Dice @0.5": 0.8107983588242674,
+      "Hard Dice @0.5": 0.7346934449304218,
+      "Primary Hard Dice": 0.7374339064055633,
+      "best \u03c4": 0.3,
+      "clDice Hard @0.5": 0.897332499243852,
+      "source_threshold_metrics": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v3_1_oracle_matched_trigger_same_split\\threshold_metrics.json",
+      "source_cldice": "C:\\Users\\zhang\\Desktop\\vessel\\cldice_summary.json"
+    },
+    {
+      "Method (paper)": "CDC (proposed; internal J3)",
+      "internal_id": "J3_joint_detach_false",
+      "Global Dice @0.5": 0.8106581636587372,
+      "Hard Dice @0.5": 0.731845955881178,
+      "Primary Hard Dice": 0.7324110860420554,
+      "best \u03c4": 0.4,
+      "clDice Hard @0.5": 0.9035612620698967,
+      "source_threshold_metrics": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_joint_detach_false\\threshold_metrics.json",
+      "source_cldice": "C:\\Users\\zhang\\Desktop\\vessel\\cldice_summary.json"
+    },
+    {
+      "Method (paper)": "Attention U-Net baseline",
+      "internal_id": "attention_unet_baseline",
+      "Global Dice @0.5": 0.8052173844469089,
+      "Hard Dice @0.5": 0.7260491561290751,
+      "Primary Hard Dice": 0.7272088067915459,
+      "best \u03c4": 0.3,
+      "clDice Hard @0.5": 0.8907251281752023,
+      "source_threshold_metrics": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_attention_unet_baseline\\threshold_metrics.json",
+      "source_cldice": "C:\\Users\\zhang\\Desktop\\vessel\\cldice_summary.json"
+    },
+    {
+      "Method (paper)": "Swin-UNet baseline",
+      "internal_id": "swin_unet_baseline",
+      "Global Dice @0.5": 0.8043913828781576,
+      "Hard Dice @0.5": 0.7214856506311237,
+      "Primary Hard Dice": 0.7240115635794577,
+      "best \u03c4": 0.35,
+      "clDice Hard @0.5": 0.884653568836394,
+      "source_threshold_metrics": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_swin_unet_baseline\\threshold_metrics.json",
+      "source_cldice": "C:\\Users\\zhang\\Desktop\\vessel\\cldice_summary.json"
+    },
+    {
+      "Method (paper)": "nnU-Net v2 baseline",
+      "internal_id": "nnunet_v2",
+      "Global Dice @0.5": 0.8046709604885081,
+      "Hard Dice @0.5": 0.7242107365010573,
+      "Primary Hard Dice": 0.728503779293305,
+      "best \u03c4": 0.3,
+      "clDice Hard @0.5": 0.902926998852092,
+      "source_threshold_metrics": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_nnunet_eval\\threshold_metrics.json",
+      "source_cldice": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_nnunet_eval\\nnunet_cldice.json"
+    }
+  ],
+  "source_files": [
+    "C:\\Users\\zhang\\Desktop\\vessel\\cldice_summary.json",
+    "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_joint_detach_false\\threshold_metrics.json",
+    "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_attention_unet_baseline\\threshold_metrics.json",
+    "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_nnunet_eval\\nnunet_cldice.json",
+    "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_nnunet_eval\\threshold_metrics.json",
+    "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_swin_unet_baseline\\threshold_metrics.json",
+    "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_baseline_same_split\\threshold_metrics.json",
+    "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v3_1_oracle_matched_trigger_same_split\\threshold_metrics.json"
+  ],
+  "notes": {
+    "main_endpoints": [
+      "Global Dice @0.5",
+      "Hard Dice @0.5",
+      "clDice Hard @0.5 (supportive topology metric, not primary endpoint)"
+    ],
+    "supporting_endpoints": [
+      "Primary Hard Dice (at best_hard_dice_threshold)",
+      "best \u03c4 (best_hard_dice_threshold)"
+    ]
+  }
+}

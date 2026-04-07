@@ -1,0 +1,73 @@
+{
+  "evaluation_type": "external_transfer_zero_shot",
+  "threshold_fixed": 0.5,
+  "sliding_window": {
+    "patch": 128,
+    "stride": 64,
+    "batch_size": 6
+  },
+  "datasets": [
+    "CHASE_DB1 (1st observer)",
+    "HRF (all; manual1; FOV mask if present)"
+  ],
+  "methods": [
+    {
+      "internal_id": "P0_baseline",
+      "paper_label": "Baseline (P0)",
+      "checkpoint": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_v2_1_baseline_same_split\\best_model.pt",
+      "kind": "baseline"
+    },
+    {
+      "internal_id": "J3_joint_detach_false",
+      "paper_label": "CDC (proposed; internal J3)",
+      "checkpoint": "C:\\Users\\zhang\\Desktop\\vessel\\outputs\\task3_J3_joint_detach_false\\best_model.pt",
+      "kind": "joint"
+    }
+  ],
+  "summary_rows": [
+    {
+      "dataset": "CHASE_DB1 (1st observer)",
+      "Method (paper)": "Baseline (P0)",
+      "internal_id": "P0_baseline",
+      "Dice @0.5 (mean)": 0.1576242091197757,
+      "Recall @0.5 (mean)": 0.08969789480015113,
+      "clDice @0.5 (mean)": 0.49980359647484474,
+      "n_images": 28
+    },
+    {
+      "dataset": "CHASE_DB1 (1st observer)",
+      "Method (paper)": "CDC (proposed; internal J3)",
+      "internal_id": "J3_joint_detach_false",
+      "Dice @0.5 (mean)": 0.2576693519108445,
+      "Recall @0.5 (mean)": 0.16084702621966046,
+      "clDice @0.5 (mean)": 0.5262793762535855,
+      "n_images": 28
+    },
+    {
+      "dataset": "HRF (all; manual1; FOV mask if present)",
+      "Method (paper)": "Baseline (P0)",
+      "internal_id": "P0_baseline",
+      "Dice @0.5 (mean)": 0.029892961857632978,
+      "Recall @0.5 (mean)": 0.016055005106475742,
+      "clDice @0.5 (mean)": 0.46362607799585664,
+      "n_images": 90
+    },
+    {
+      "dataset": "HRF (all; manual1; FOV mask if present)",
+      "Method (paper)": "CDC (proposed; internal J3)",
+      "internal_id": "J3_joint_detach_false",
+      "Dice @0.5 (mean)": 0.07130389321266511,
+      "Recall @0.5 (mean)": 0.03967171200152328,
+      "clDice @0.5 (mean)": 0.4519557073460715,
+      "n_images": 90
+    }
+  ],
+  "per_image_csv": {
+    "CHASE_DB1": "C:\\Users\\zhang\\Desktop\\vessel\\paper_assets\\transfer_chase_db1_per_image.csv",
+    "HRF": "C:\\Users\\zhang\\Desktop\\vessel\\paper_assets\\transfer_hrf_per_image.csv"
+  },
+  "nnunet_note": {
+    "included": false,
+    "reason": "This script evaluates patch-trained PyTorch models only. nnU-Net transfer requires a separate reproducible inference pipeline for CHASE/HRF, which is not implemented here."
+  }
+}
