@@ -1,0 +1,6 @@
+{
+  "threshold_fixed": 0.5,
+  "cldice_mean": 0.8586265390071213,
+  "n_images": 16,
+  "note": "clDice is supportive; computed after applying FOV mask if available."
+}

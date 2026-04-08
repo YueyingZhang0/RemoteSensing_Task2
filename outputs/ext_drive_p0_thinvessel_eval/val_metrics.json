@@ -1,0 +1,8 @@
+{
+  "dataset": "DRIVE training (21-40; 1st_manual; FOV mask)",
+  "threshold": 0.5,
+  "val_dice_mean": 0.8303535329354194,
+  "val_recall_mean": 0.8052278119252321,
+  "cldice_mean": 0.9249111537345758,
+  "n_images": 20
+}

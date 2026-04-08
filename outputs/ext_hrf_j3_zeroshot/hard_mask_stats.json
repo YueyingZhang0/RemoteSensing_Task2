@@ -1,0 +1,343 @@
+{
+  "dataset": "HRF all (manual1; FOV mask)",
+  "thin_vessel_proxy": {
+    "r_th": 2,
+    "dilate_iters": 1
+  },
+  "per_image": [
+    {
+      "case_id": "01_dr",
+      "hard_pixel_ratio_in_fov": 0.006934914279506512,
+      "hard_vessel_ratio": 0.11526578620253561,
+      "counts": {
+        "fov_pixels": 6912991,
+        "vessel_pixels_in_fov": 415917,
+        "hard_pixels_in_fov": 47941,
+        "hard_vessel_pixels_in_fov": 47941
+      }
+    },
+    {
+      "case_id": "01_g",
+      "hard_pixel_ratio_in_fov": 0.011300758720601042,
+      "hard_vessel_ratio": 0.14275326839178318,
+      "counts": {
+        "fov_pixels": 6914403,
+        "vessel_pixels_in_fov": 547364,
+        "hard_pixels_in_fov": 78138,
+        "hard_vessel_pixels_in_fov": 78138
+      }
+    },
+    {
+      "case_id": "01_h",
+      "hard_pixel_ratio_in_fov": 0.005535030532488509,
+      "hard_vessel_ratio": 0.045891054913849344,
+      "counts": {
+        "fov_pixels": 6913783,
+        "vessel_pixels_in_fov": 833888,
+        "hard_pixels_in_fov": 38268,
+        "hard_vessel_pixels_in_fov": 38268
+      }
+    },
+    {
+      "case_id": "02_dr",
+      "hard_pixel_ratio_in_fov": 0.009303655345230906,
+      "hard_vessel_ratio": 0.12338942611977798,
+      "counts": {
+        "fov_pixels": 6915024,
+        "vessel_pixels_in_fov": 521398,
+        "hard_pixels_in_fov": 64335,
+        "hard_vessel_pixels_in_fov": 64335
+      }
+    },
+    {
+      "case_id": "02_h",
+      "hard_pixel_ratio_in_fov": 0.002780875593998527,
+      "hard_vessel_ratio": 0.0237846075440797,
+      "counts": {
+        "fov_pixels": 6914369,
+        "vessel_pixels_in_fov": 808422,
+        "hard_pixels_in_fov": 19228,
+        "hard_vessel_pixels_in_fov": 19228
+      }
+    },
+    {
+      "case_id": "03_dr",
+      "hard_pixel_ratio_in_fov": 0.007870783405607136,
+      "hard_vessel_ratio": 0.11011804213912181,
+      "counts": {
+        "fov_pixels": 6915830,
+        "vessel_pixels_in_fov": 494315,
+        "hard_pixels_in_fov": 54433,
+        "hard_vessel_pixels_in_fov": 54433
+      }
+    },
+    {
+      "case_id": "03_h",
+      "hard_pixel_ratio_in_fov": 0.00028414055872103184,
+      "hard_vessel_ratio": 0.0022728166957133567,
+      "counts": {
+        "fov_pixels": 6912072,
+        "vessel_pixels_in_fov": 864126,
+        "hard_pixels_in_fov": 1964,
+        "hard_vessel_pixels_in_fov": 1964
+      }
+    },
+    {
+      "case_id": "04_g",
+      "hard_pixel_ratio_in_fov": 0.008820102287842415,
+      "hard_vessel_ratio": 0.1157357052964859,
+      "counts": {
+        "fov_pixels": 6912845,
+        "vessel_pixels_in_fov": 526821,
+        "hard_pixels_in_fov": 60972,
+        "hard_vessel_pixels_in_fov": 60972
+      }
+    },
+    {
+      "case_id": "04_h",
+      "hard_pixel_ratio_in_fov": 0.0027244274999088675,
+      "hard_vessel_ratio": 0.024409178390217667,
+      "counts": {
+        "fov_pixels": 6913012,
+        "vessel_pixels_in_fov": 771595,
+        "hard_pixels_in_fov": 18834,
+        "hard_vessel_pixels_in_fov": 18834
+      }
+    },
+    {
+      "case_id": "05_dr",
+      "hard_pixel_ratio_in_fov": 0.009250946201695684,
+      "hard_vessel_ratio": 0.12565928580973268,
+      "counts": {
+        "fov_pixels": 6912374,
+        "vessel_pixels_in_fov": 508884,
+        "hard_pixels_in_fov": 63946,
+        "hard_vessel_pixels_in_fov": 63946
+      }
+    },
+    {
+      "case_id": "05_g",
+      "hard_pixel_ratio_in_fov": 0.009384327103391765,
+      "hard_vessel_ratio": 0.12128258955526601,
+      "counts": {
+        "fov_pixels": 6913655,
+        "vessel_pixels_in_fov": 534949,
+        "hard_pixels_in_fov": 64880,
+        "hard_vessel_pixels_in_fov": 64880
+      }
+    },
+    {
+      "case_id": "05_h",
+      "hard_pixel_ratio_in_fov": 0.002488677112301229,
+      "hard_vessel_ratio": 0.023284302113887607,
+      "counts": {
+        "fov_pixels": 6912106,
+        "vessel_pixels_in_fov": 738781,
+        "hard_pixels_in_fov": 17202,
+        "hard_vessel_pixels_in_fov": 17202
+      }
+    },
+    {
+      "case_id": "06_dr",
+      "hard_pixel_ratio_in_fov": 0.015369705265255773,
+      "hard_vessel_ratio": 0.1720013466182402,
+      "counts": {
+        "fov_pixels": 6914251,
+        "vessel_pixels_in_fov": 617844,
+        "hard_pixels_in_fov": 106270,
+        "hard_vessel_pixels_in_fov": 106270
+      }
+    },
+    {
+      "case_id": "06_g",
+      "hard_pixel_ratio_in_fov": 0.009188179310973347,
+      "hard_vessel_ratio": 0.1135116297772337,
+      "counts": {
+        "fov_pixels": 6912795,
+        "vessel_pixels_in_fov": 559555,
+        "hard_pixels_in_fov": 63516,
+        "hard_vessel_pixels_in_fov": 63516
+      }
+    },
+    {
+      "case_id": "06_h",
+      "hard_pixel_ratio_in_fov": 0.005387477024080153,
+      "hard_vessel_ratio": 0.04486967838336125,
+      "counts": {
+        "fov_pixels": 6911584,
+        "vessel_pixels_in_fov": 829870,
+        "hard_pixels_in_fov": 37236,
+        "hard_vessel_pixels_in_fov": 37236
+      }
+    },
+    {
+      "case_id": "07_dr",
+      "hard_pixel_ratio_in_fov": 0.0098204813464651,
+      "hard_vessel_ratio": 0.10672944992872445,
+      "counts": {
+        "fov_pixels": 6914936,
+        "vessel_pixels_in_fov": 636263,
+        "hard_pixels_in_fov": 67908,
+        "hard_vessel_pixels_in_fov": 67908
+      }
+    },
+    {
+      "case_id": "07_g",
+      "hard_pixel_ratio_in_fov": 0.01099148910687262,
+      "hard_vessel_ratio": 0.142642070465975,
+      "counts": {
+        "fov_pixels": 6913258,
+        "vessel_pixels_in_fov": 532711,
+        "hard_pixels_in_fov": 75987,
+        "hard_vessel_pixels_in_fov": 75987
+      }
+    },
+    {
+      "case_id": "08_g",
+      "hard_pixel_ratio_in_fov": 0.011692843616949264,
+      "hard_vessel_ratio": 0.14553647458274,
+      "counts": {
+        "fov_pixels": 6913716,
+        "vessel_pixels_in_fov": 555469,
+        "hard_pixels_in_fov": 80841,
+        "hard_vessel_pixels_in_fov": 80841
+      }
+    },
+    {
+      "case_id": "09_g",
+      "hard_pixel_ratio_in_fov": 0.011191291629341876,
+      "hard_vessel_ratio": 0.1428204995718799,
+      "counts": {
+        "fov_pixels": 6915645,
+        "vessel_pixels_in_fov": 541904,
+        "hard_pixels_in_fov": 77395,
+        "hard_vessel_pixels_in_fov": 77395
+      }
+    },
+    {
+      "case_id": "10_dr",
+      "hard_pixel_ratio_in_fov": 0.009359551672136014,
+      "hard_vessel_ratio": 0.09049918718750087,
+      "counts": {
+        "fov_pixels": 6911549,
+        "vessel_pixels_in_fov": 714802,
+        "hard_pixels_in_fov": 64689,
+        "hard_vessel_pixels_in_fov": 64689
+      }
+    },
+    {
+      "case_id": "11_dr",
+      "hard_pixel_ratio_in_fov": 0.010798962639842877,
+      "hard_vessel_ratio": 0.1077233484296118,
+      "counts": {
+        "fov_pixels": 6911775,
+        "vessel_pixels_in_fov": 692886,
+        "hard_pixels_in_fov": 74640,
+        "hard_vessel_pixels_in_fov": 74640
+      }
+    },
+    {
+      "case_id": "11_g",
+      "hard_pixel_ratio_in_fov": 0.011097821183078104,
+      "hard_vessel_ratio": 0.12264788867485672,
+      "counts": {
+        "fov_pixels": 6913339,
+        "vessel_pixels_in_fov": 625555,
+        "hard_pixels_in_fov": 76723,
+        "hard_vessel_pixels_in_fov": 76723
+      }
+    },
+    {
+      "case_id": "12_dr",
+      "hard_pixel_ratio_in_fov": 0.011969846071606468,
+      "hard_vessel_ratio": 0.14867343437591504,
+      "counts": {
+        "fov_pixels": 6914124,
+        "vessel_pixels_in_fov": 556663,
+        "hard_pixels_in_fov": 82761,
+        "hard_vessel_pixels_in_fov": 82761
+      }
+    },
+    {
+      "case_id": "13_dr",
+      "hard_pixel_ratio_in_fov": 0.009865182492425167,
+      "hard_vessel_ratio": 0.121916473774052,
+      "counts": {
+        "fov_pixels": 6914013,
+        "vessel_pixels_in_fov": 559465,
+        "hard_pixels_in_fov": 68208,
+        "hard_vessel_pixels_in_fov": 68208
+      }
+    },
+    {
+      "case_id": "13_g",
+      "hard_pixel_ratio_in_fov": 0.01069439468502941,
+      "hard_vessel_ratio": 0.1328108447796032,
+      "counts": {
+        "fov_pixels": 6916614,
+        "vessel_pixels_in_fov": 556950,
+        "hard_pixels_in_fov": 73969,
+        "hard_vessel_pixels_in_fov": 73969
+      }
+    },
+    {
+      "case_id": "13_h",
+      "hard_pixel_ratio_in_fov": 0.002804354568790521,
+      "hard_vessel_ratio": 0.027228341634571357,
+      "counts": {
+        "fov_pixels": 6912464,
+        "vessel_pixels_in_fov": 711942,
+        "hard_pixels_in_fov": 19385,
+        "hard_vessel_pixels_in_fov": 19385
+      }
+    },
+    {
+      "case_id": "14_dr",
+      "hard_pixel_ratio_in_fov": 0.01234561651643838,
+      "hard_vessel_ratio": 0.1366058039622373,
+      "counts": {
+        "fov_pixels": 6914033,
+        "vessel_pixels_in_fov": 624849,
+        "hard_pixels_in_fov": 85358,
+        "hard_vessel_pixels_in_fov": 85358
+      }
+    },
+    {
+      "case_id": "14_g",
+      "hard_pixel_ratio_in_fov": 0.01041595568815586,
+      "hard_vessel_ratio": 0.12460665779790644,
+      "counts": {
+        "fov_pixels": 6915352,
+        "vessel_pixels_in_fov": 578059,
+        "hard_pixels_in_fov": 72030,
+        "hard_vessel_pixels_in_fov": 72030
+      }
+    },
+    {
+      "case_id": "14_h",
+      "hard_pixel_ratio_in_fov": 0.002918682796963204,
+      "hard_vessel_ratio": 0.028246198058100143,
+      "counts": {
+        "fov_pixels": 6910309,
+        "vessel_pixels_in_fov": 714043,
+        "hard_pixels_in_fov": 20169,
+        "hard_vessel_pixels_in_fov": 20169
+      }
+    },
+    {
+      "case_id": "15_g",
+      "hard_pixel_ratio_in_fov": 0.01081093437382042,
+      "hard_vessel_ratio": 0.12472604969078877,
+      "counts": {
+        "fov_pixels": 6911891,
+        "vessel_pixels_in_fov": 599105,
+        "hard_pixels_in_fov": 74724,
+        "hard_vessel_pixels_in_fov": 74724
+      }
+    }
+  ],
+  "summary": {
+    "hard_pixel_ratio_in_fov_mean": 0.008446713620983941,
+    "hard_vessel_ratio_mean": 0.10025471469552498
+  }
+}

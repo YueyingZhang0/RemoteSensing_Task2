@@ -1,0 +1,14 @@
+evaluation_type: external_style_thinvessel_eval
+dataset: drive_training
+dataset_name: DRIVE training (21-40; 1st_manual; FOV mask)
+threshold: 0.5
+sliding_window:
+  patch: 128
+  stride: 64
+  batch_size: 6
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_v2_1_baseline_same_split\best_model.pt
+model_kind: baseline
+timestamp: '2026-04-07T13:43:45.674254+00:00'

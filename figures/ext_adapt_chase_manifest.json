@@ -1,0 +1,24 @@
+{
+  "dataset": "CHASE_DB1 (1st observer)",
+  "threshold": 0.5,
+  "cases": [
+    {
+      "case_id": "Image_09R",
+      "file": "figures\\ext_adapt_chase_case_01_Image_09R.png",
+      "image": "CHASE_DB1\\Image_09R.jpg",
+      "gt": "CHASE_DB1\\Image_09R_1stHO.png"
+    },
+    {
+      "case_id": "Image_02L",
+      "file": "figures\\ext_adapt_chase_case_02_Image_02L.png",
+      "image": "CHASE_DB1\\Image_02L.jpg",
+      "gt": "CHASE_DB1\\Image_02L_1stHO.png"
+    },
+    {
+      "case_id": "Image_06L",
+      "file": "figures\\ext_adapt_chase_case_03_Image_06L.png",
+      "image": "CHASE_DB1\\Image_06L.jpg",
+      "gt": "CHASE_DB1\\Image_06L_1stHO.png"
+    }
+  ]
+}

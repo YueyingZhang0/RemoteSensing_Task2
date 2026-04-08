@@ -1,0 +1,20 @@
+{
+  "ids": [
+    "02_g",
+    "08_dr",
+    "08_h",
+    "09_dr",
+    "09_h",
+    "10_h",
+    "11_h",
+    "12_g",
+    "15_dr",
+    "15_h"
+  ],
+  "dataset": "HRF/all",
+  "gt": "manual1",
+  "fov": "mask/*_mask.tif",
+  "seed": 42,
+  "n_total": 45,
+  "split": "train"
+}

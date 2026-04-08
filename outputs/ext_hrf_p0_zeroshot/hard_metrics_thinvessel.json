@@ -1,0 +1,11 @@
+{
+  "dataset": "HRF all (manual1; FOV mask)",
+  "thin_vessel_proxy": {
+    "r_th": 2,
+    "dilate_iters": 1
+  },
+  "threshold": 0.5,
+  "hard_dice_mean": 0.018023369452338855,
+  "n_images": 30,
+  "note": "Hard Dice computed on dataset-agnostic thin-vessel hard proxy mask derived from GT."
+}

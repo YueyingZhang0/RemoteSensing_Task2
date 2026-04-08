@@ -1,0 +1,15 @@
+evaluation_type: external_style_thinvessel_eval
+dataset: hrf_all
+dataset_name: HRF all (manual1; FOV mask)
+split_ids_json: outputs\ext_hrf_split_seed42\test_split_ids.json
+threshold: 0.5
+sliding_window:
+  patch: 128
+  stride: 64
+  batch_size: 6
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_J3_joint_detach_false\best_model.pt
+model_kind: joint
+timestamp: '2026-04-07T22:28:52.085473+00:00'

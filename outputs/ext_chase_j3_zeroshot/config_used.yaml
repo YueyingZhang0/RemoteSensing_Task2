@@ -1,0 +1,15 @@
+evaluation_type: external_style_thinvessel_eval
+dataset: chase_db1_1st
+dataset_name: CHASE_DB1 (1st observer; no FOV)
+split_ids_json: outputs\ext_chase_split_seed42\test_split_ids.json
+threshold: 0.5
+sliding_window:
+  patch: 128
+  stride: 64
+  batch_size: 6
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_J3_joint_detach_false\best_model.pt
+model_kind: joint
+timestamp: '2026-04-07T13:46:06.213690+00:00'

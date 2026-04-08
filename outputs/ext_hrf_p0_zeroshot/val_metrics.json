@@ -1,0 +1,8 @@
+{
+  "dataset": "HRF all (manual1; FOV mask)",
+  "threshold": 0.5,
+  "val_dice_mean": 0.02922794596595781,
+  "val_recall_mean": 0.015517484548311805,
+  "cldice_mean": 0.46805071967621326,
+  "n_images": 30
+}

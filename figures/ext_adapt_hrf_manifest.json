@@ -1,0 +1,27 @@
+{
+  "dataset": "HRF all (manual1; FOV mask)",
+  "threshold": 0.5,
+  "cases": [
+    {
+      "case_id": "06_dr",
+      "file": "figures\\ext_adapt_hrf_case_01_06_dr.png",
+      "image": "HRF\\all\\images\\06_dr.jpg",
+      "gt": "HRF\\all\\manual1\\06_dr.tif",
+      "fov": "HRF\\all\\mask\\06_dr_mask.tif"
+    },
+    {
+      "case_id": "01_dr",
+      "file": "figures\\ext_adapt_hrf_case_02_01_dr.png",
+      "image": "HRF\\all\\images\\01_dr.jpg",
+      "gt": "HRF\\all\\manual1\\01_dr.tif",
+      "fov": "HRF\\all\\mask\\01_dr_mask.tif"
+    },
+    {
+      "case_id": "13_dr",
+      "file": "figures\\ext_adapt_hrf_case_03_13_dr.png",
+      "image": "HRF\\all\\images\\13_dr.jpg",
+      "gt": "HRF\\all\\manual1\\13_dr.tif",
+      "fov": "HRF\\all\\mask\\13_dr_mask.tif"
+    }
+  ]
+}

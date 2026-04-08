@@ -1,0 +1,8 @@
+{
+  "dataset": "CHASE_DB1 (1st observer; no FOV)",
+  "threshold": 0.5,
+  "val_dice_mean": 0.2690236596725102,
+  "val_recall_mean": 0.16884077954644391,
+  "cldice_mean": 0.5408586588130924,
+  "n_images": 16
+}

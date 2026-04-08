@@ -1,0 +1,11 @@
+{
+  "dataset": "CHASE_DB1 (1st observer; no FOV)",
+  "thin_vessel_proxy": {
+    "r_th": 2,
+    "dilate_iters": 1
+  },
+  "threshold": 0.5,
+  "hard_dice_mean": 0.30792376912116043,
+  "n_images": 16,
+  "note": "Hard Dice computed on dataset-agnostic thin-vessel hard proxy mask derived from GT."
+}

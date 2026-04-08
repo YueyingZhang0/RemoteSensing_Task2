@@ -1,0 +1,31 @@
+run_type: fine_tune_smallshot
+dataset: HRF/all
+gt: manual1 + FOV
+method: CDC (proposed; internal J3)
+init_checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_J3_joint_detach_false\best_model.pt
+seed: 42
+epochs: 15
+lr: 0.0001
+weight_decay: 0.0001
+batch_size: 8
+image_size: 128
+crops_per_image: 12
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+  score: hard_vessel_ratio_in_crop
+difficulty_weighting:
+  mode: joint
+  tau: 0.6
+  alpha: 0.5
+  gamma: 2.0
+  weight_warmup_epochs: 5
+  joint_calib_epochs: 7
+  joint_oracle_weight_epochs: 0
+  lambda_diff: 0.5
+  pred_weight_detach: false
+  ramp_epochs: 5
+  min_weight: 1.0
+  max_weight: 1.5
+  normalize_weights_in_batch: true
+timestamp: '2026-04-07T23:21:32.171547+00:00'

@@ -1,0 +1,33 @@
+{
+  "ids": [
+    "Image_01L",
+    "Image_01R",
+    "Image_12L",
+    "Image_12R"
+  ],
+  "dataset": "CHASE_DB1",
+  "grouping": "subject_id (Image_XX)",
+  "seed": 42,
+  "n_subjects": 14,
+  "train_subjects": [
+    "04",
+    "07",
+    "08",
+    "10"
+  ],
+  "val_subjects": [
+    "01",
+    "12"
+  ],
+  "test_subjects": [
+    "02",
+    "03",
+    "05",
+    "06",
+    "09",
+    "11",
+    "13",
+    "14"
+  ],
+  "split": "val"
+}
