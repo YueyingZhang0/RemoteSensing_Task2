@@ -1,0 +1,189 @@
+{
+  "dataset": "CHASE_DB1 (1st observer; no FOV); nnU-Net v2 standard inference pipeline",
+  "thin_vessel_proxy": {
+    "r_th": 2,
+    "dilate_iters": 1
+  },
+  "per_image": [
+    {
+      "case_id": "Image_02L",
+      "hard_pixel_ratio_in_fov": 0.011324866533199867,
+      "hard_vessel_ratio": 0.1395656643536366,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 77820,
+        "hard_pixels_in_fov": 10861,
+        "hard_vessel_pixels_in_fov": 10861
+      }
+    },
+    {
+      "case_id": "Image_02R",
+      "hard_pixel_ratio_in_fov": 0.01384300967634301,
+      "hard_vessel_ratio": 0.17727333422352784,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 74890,
+        "hard_pixels_in_fov": 13276,
+        "hard_vessel_pixels_in_fov": 13276
+      }
+    },
+    {
+      "case_id": "Image_03L",
+      "hard_pixel_ratio_in_fov": 0.01310477143810477,
+      "hard_vessel_ratio": 0.1671365498164796,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 75196,
+        "hard_pixels_in_fov": 12568,
+        "hard_vessel_pixels_in_fov": 12568
+      }
+    },
+    {
+      "case_id": "Image_03R",
+      "hard_pixel_ratio_in_fov": 0.011684601267934601,
+      "hard_vessel_ratio": 0.15473412408003204,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 72421,
+        "hard_pixels_in_fov": 11206,
+        "hard_vessel_pixels_in_fov": 11206
+      }
+    },
+    {
+      "case_id": "Image_05L",
+      "hard_pixel_ratio_in_fov": 0.009132048715382049,
+      "hard_vessel_ratio": 0.11532637178862538,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 75941,
+        "hard_pixels_in_fov": 8758,
+        "hard_vessel_pixels_in_fov": 8758
+      }
+    },
+    {
+      "case_id": "Image_05R",
+      "hard_pixel_ratio_in_fov": 0.008925592258925592,
+      "hard_vessel_ratio": 0.10482103278106364,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 81663,
+        "hard_pixels_in_fov": 8560,
+        "hard_vessel_pixels_in_fov": 8560
+      }
+    },
+    {
+      "case_id": "Image_06L",
+      "hard_pixel_ratio_in_fov": 0.009034034034034034,
+      "hard_vessel_ratio": 0.11927969601850322,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 72636,
+        "hard_pixels_in_fov": 8664,
+        "hard_vessel_pixels_in_fov": 8664
+      }
+    },
+    {
+      "case_id": "Image_06R",
+      "hard_pixel_ratio_in_fov": 0.012031823490156824,
+      "hard_vessel_ratio": 0.1607819641065656,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 71768,
+        "hard_pixels_in_fov": 11539,
+        "hard_vessel_pixels_in_fov": 11539
+      }
+    },
+    {
+      "case_id": "Image_09L",
+      "hard_pixel_ratio_in_fov": 0.007247872872872873,
+      "hard_vessel_ratio": 0.14324870167339873,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 48524,
+        "hard_pixels_in_fov": 6951,
+        "hard_vessel_pixels_in_fov": 6951
+      }
+    },
+    {
+      "case_id": "Image_09R",
+      "hard_pixel_ratio_in_fov": 0.007795295295295295,
+      "hard_vessel_ratio": 0.153137098260923,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 48819,
+        "hard_pixels_in_fov": 7476,
+        "hard_vessel_pixels_in_fov": 7476
+      }
+    },
+    {
+      "case_id": "Image_11L",
+      "hard_pixel_ratio_in_fov": 0.010426051051051051,
+      "hard_vessel_ratio": 0.19560241788767385,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 51119,
+        "hard_pixels_in_fov": 9999,
+        "hard_vessel_pixels_in_fov": 9999
+      }
+    },
+    {
+      "case_id": "Image_11R",
+      "hard_pixel_ratio_in_fov": 0.009052802802802802,
+      "hard_vessel_ratio": 0.1697925019067921,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 51133,
+        "hard_pixels_in_fov": 8682,
+        "hard_vessel_pixels_in_fov": 8682
+      }
+    },
+    {
+      "case_id": "Image_13L",
+      "hard_pixel_ratio_in_fov": 0.010373915582248915,
+      "hard_vessel_ratio": 0.1686728604367286,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 58984,
+        "hard_pixels_in_fov": 9949,
+        "hard_vessel_pixels_in_fov": 9949
+      }
+    },
+    {
+      "case_id": "Image_13R",
+      "hard_pixel_ratio_in_fov": 0.012439522856189524,
+      "hard_vessel_ratio": 0.1967835051546392,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 60625,
+        "hard_pixels_in_fov": 11930,
+        "hard_vessel_pixels_in_fov": 11930
+      }
+    },
+    {
+      "case_id": "Image_14L",
+      "hard_pixel_ratio_in_fov": 0.011037078745412078,
+      "hard_vessel_ratio": 0.16034720433853938,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 66013,
+        "hard_pixels_in_fov": 10585,
+        "hard_vessel_pixels_in_fov": 10585
+      }
+    },
+    {
+      "case_id": "Image_14R",
+      "hard_pixel_ratio_in_fov": 0.008399024024024024,
+      "hard_vessel_ratio": 0.1435598567074801,
+      "counts": {
+        "fov_pixels": 959040,
+        "vessel_pixels_in_fov": 56109,
+        "hard_pixels_in_fov": 8055,
+        "hard_vessel_pixels_in_fov": 8055
+      }
+    }
+  ],
+  "summary": {
+    "hard_pixel_ratio_in_fov_mean": 0.010365769415248582,
+    "hard_vessel_ratio_mean": 0.15437893022091306
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "threshold_fixed": 0.5,
+  "primary_metric": "hard_dice_thinvessel@0.5 (see hard_metrics_thinvessel.json)",
+  "cldice_mean": 0.8322932655401332,
+  "n_images": 30,
+  "note": "clDice is a secondary (connectivity) metric; computed after applying FOV mask if available."
+}

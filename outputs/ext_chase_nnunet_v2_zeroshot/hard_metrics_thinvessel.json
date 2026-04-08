@@ -1,0 +1,12 @@
+{
+  "dataset": "CHASE_DB1 (1st observer; no FOV); nnU-Net v2 standard inference pipeline",
+  "thin_vessel_proxy": {
+    "r_th": 2,
+    "dilate_iters": 1
+  },
+  "threshold": 0.5,
+  "primary_metric": "hard_dice_mean",
+  "hard_dice_mean": 0.6810536660834774,
+  "n_images": 16,
+  "note": "nnU-Net v2 inference used its standard preprocessing, resampling, and normalization (not identical to the raw-image sliding-window PyTorch protocol used for P0/CDC/Attention/Swin). Probability maps were resized to CHASE GT resolution before thresholding at 0.5."
+}

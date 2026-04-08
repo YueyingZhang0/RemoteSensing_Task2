@@ -1,0 +1,16 @@
+{
+  "dataset": "CHASE_DB1 (1st observer; no FOV); nnU-Net v2 standard inference pipeline",
+  "threshold": 0.5,
+  "primary_metric": "hard_dice_thinvessel@0.5_mean",
+  "secondary_metrics": [
+    "val_dice_mean",
+    "val_recall_mean",
+    "cldice_mean"
+  ],
+  "val_dice_mean": 0.6258800933122128,
+  "val_recall_mean": 0.5905773792766427,
+  "cldice_mean": 0.7659073093543237,
+  "n_images": 16,
+  "inference_protocol": "nnunet_v2_standard",
+  "inference_protocol_note": "nnU-Net v2 inference used its standard preprocessing, resampling, and normalization (not identical to the raw-image sliding-window PyTorch protocol used for P0/CDC/Attention/Swin). Probability maps were resized to CHASE GT resolution before thresholding at 0.5."
+}

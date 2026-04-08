@@ -1,0 +1,221 @@
+{
+  "note": "Metrics are **test split** means (eval_external_thinvessel protocol @0.5), stored as external_test_* in fine-tune run dirs.",
+  "seeds_requested": [
+    42,
+    40
+  ],
+  "FT1_chase": [
+    {
+      "Method": "P0",
+      "seed": 42,
+      "Dice @0.5": 0.7861067646846156,
+      "Recall @0.5": 0.7735608264990792,
+      "clDice @0.5": 0.8586265390071213,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.6565534637795156,
+      "run_dir": "outputs\\ft_chase_p0_seed42"
+    },
+    {
+      "Method": "P0",
+      "seed": 40,
+      "Dice @0.5": 0.7791016270591449,
+      "Recall @0.5": 0.7351121279947562,
+      "clDice @0.5": 0.8540666172270066,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.6123848357429648,
+      "run_dir": "outputs\\ft_chase_p0_seed40"
+    },
+    {
+      "Method": "CDC (J3)",
+      "seed": 42,
+      "Dice @0.5": 0.7853921930204433,
+      "Recall @0.5": 0.7652380164362037,
+      "clDice @0.5": 0.8714039687013031,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.700834639472927,
+      "run_dir": "outputs\\ft_chase_j3_seed42"
+    },
+    {
+      "Method": "CDC (J3)",
+      "seed": 40,
+      "Dice @0.5": 0.7735806845518913,
+      "Recall @0.5": 0.7854860716779204,
+      "clDice @0.5": 0.8580112059080148,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.7097551436548873,
+      "run_dir": "outputs\\ft_chase_j3_seed40"
+    }
+  ],
+  "FT1_chase_summary": [
+    {
+      "Dataset": "CHASE_DB1 (1st observer)",
+      "Method": "P0",
+      "n_seeds": 2,
+      "Dice mean": 0.7826041958718802,
+      "Dice std": 0.0035025688127353627,
+      "Recall mean": 0.7543364772469177,
+      "Recall std": 0.019224349252161488,
+      "clDice mean": 0.8563465781170639,
+      "clDice std": 0.002279960890057331,
+      "Hard Dice mean": 0.6344691497612402,
+      "Hard Dice std": 0.02208431401827543
+    },
+    {
+      "Dataset": "CHASE_DB1 (1st observer)",
+      "Method": "CDC (J3)",
+      "n_seeds": 2,
+      "Dice mean": 0.7794864387861673,
+      "Dice std": 0.005905754234275973,
+      "Recall mean": 0.7753620440570621,
+      "Recall std": 0.010124027620858345,
+      "clDice mean": 0.864707587304659,
+      "clDice std": 0.0066963813966441355,
+      "Hard Dice mean": 0.7052948915639072,
+      "Hard Dice std": 0.004460252090980166
+    }
+  ],
+  "FT2_hrf": [
+    {
+      "Method": "P0",
+      "seed": 42,
+      "Dice @0.5": 0.7543155014134569,
+      "Recall @0.5": 0.7610084521074587,
+      "clDice @0.5": 0.8233798235900102,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.48744530741128467,
+      "run_dir": "outputs\\ft_hrf_p0_seed42"
+    },
+    {
+      "Method": "P0",
+      "seed": 40,
+      "Dice @0.5": 0.763106021244759,
+      "Recall @0.5": 0.7728181612688173,
+      "clDice @0.5": 0.8320381378654511,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.5148854720683463,
+      "run_dir": "outputs\\ft_hrf_p0_seed40"
+    },
+    {
+      "Method": "CDC (J3)",
+      "seed": 42,
+      "Dice @0.5": 0.7420074825598065,
+      "Recall @0.5": 0.7363788096827949,
+      "clDice @0.5": 0.8241054057386619,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.5140002452339634,
+      "run_dir": "outputs\\ft_hrf_j3_seed42"
+    },
+    {
+      "Method": "CDC (J3)",
+      "seed": 40,
+      "Dice @0.5": 0.7554865469129245,
+      "Recall @0.5": 0.7853177254849542,
+      "clDice @0.5": 0.8322932655401332,
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.5736423859740387,
+      "run_dir": "outputs\\ft_hrf_j3_seed40"
+    }
+  ],
+  "FT2_hrf_summary": [
+    {
+      "Dataset": "HRF all (manual1; FOV mask)",
+      "Method": "P0",
+      "n_seeds": 2,
+      "Dice mean": 0.758710761329108,
+      "Dice std": 0.00439525991565104,
+      "Recall mean": 0.766913306688138,
+      "Recall std": 0.005904854580679297,
+      "clDice mean": 0.8277089807277307,
+      "clDice std": 0.004329157137720474,
+      "Hard Dice mean": 0.5011653897398155,
+      "Hard Dice std": 0.013720082328530836
+    },
+    {
+      "Dataset": "HRF all (manual1; FOV mask)",
+      "Method": "CDC (J3)",
+      "n_seeds": 2,
+      "Dice mean": 0.7487470147363655,
+      "Dice std": 0.006739532176558982,
+      "Recall mean": 0.7608482675838746,
+      "Recall std": 0.024469457901079628,
+      "clDice mean": 0.8281993356393975,
+      "clDice std": 0.004093929900735649,
+      "Hard Dice mean": 0.543821315604001,
+      "Hard Dice std": 0.029821070370037672
+    }
+  ],
+  "FT3_delta": [
+    {
+      "Dataset": "CHASE_DB1 (1st observer)",
+      "Method": "P0",
+      "seed": 42,
+      "\u0394Dice": 0.6075028783571639,
+      "\u0394Recall": 0.6706627969152318,
+      "\u0394clDice": 0.3254439030817322,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.4228339149730602,
+      "run_dir": "outputs\\ft_chase_p0_seed42"
+    },
+    {
+      "Dataset": "CHASE_DB1 (1st observer)",
+      "Method": "P0",
+      "seed": 40,
+      "\u0394Dice": 0.6004977407316932,
+      "\u0394Recall": 0.6322140984109088,
+      "\u0394clDice": 0.32088398130161755,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.37866528693650936,
+      "run_dir": "outputs\\ft_chase_p0_seed40"
+    },
+    {
+      "Dataset": "CHASE_DB1 (1st observer)",
+      "Method": "CDC (J3)",
+      "seed": 42,
+      "\u0394Dice": 0.5163685333479331,
+      "\u0394Recall": 0.5963972368897598,
+      "\u0394clDice": 0.33054530988821074,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.3929108703517666,
+      "run_dir": "outputs\\ft_chase_j3_seed42"
+    },
+    {
+      "Dataset": "CHASE_DB1 (1st observer)",
+      "Method": "CDC (J3)",
+      "seed": 40,
+      "\u0394Dice": 0.5045570248793811,
+      "\u0394Recall": 0.6166452921314765,
+      "\u0394clDice": 0.31715254709492247,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.4018313745337269,
+      "run_dir": "outputs\\ft_chase_j3_seed40"
+    },
+    {
+      "Dataset": "HRF all (manual1; FOV mask)",
+      "Method": "P0",
+      "seed": 42,
+      "\u0394Dice": 0.7250875554474991,
+      "\u0394Recall": 0.7454909675591469,
+      "\u0394clDice": 0.3553291039137969,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.4694219379589458,
+      "run_dir": "outputs\\ft_hrf_p0_seed42"
+    },
+    {
+      "Dataset": "HRF all (manual1; FOV mask)",
+      "Method": "P0",
+      "seed": 40,
+      "\u0394Dice": 0.7338780752788012,
+      "\u0394Recall": 0.7573006767205055,
+      "\u0394clDice": 0.36398741818923785,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.4968621026160075,
+      "run_dir": "outputs\\ft_hrf_p0_seed40"
+    },
+    {
+      "Dataset": "HRF all (manual1; FOV mask)",
+      "Method": "CDC (J3)",
+      "seed": 42,
+      "\u0394Dice": 0.6724166829152235,
+      "\u0394Recall": 0.6979584176557446,
+      "\u0394clDice": 0.36412013066840526,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.4542420145266813,
+      "run_dir": "outputs\\ft_hrf_j3_seed42"
+    },
+    {
+      "Dataset": "HRF all (manual1; FOV mask)",
+      "Method": "CDC (J3)",
+      "seed": 40,
+      "\u0394Dice": 0.6858957472683415,
+      "\u0394Recall": 0.7468973334579039,
+      "\u0394clDice": 0.37230799046987656,
+      "\u0394Hard Dice (thin-vessel proxy)": 0.5138841552667567,
+      "run_dir": "outputs\\ft_hrf_j3_seed40"
+    }
+  ]
+}

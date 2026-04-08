@@ -1,0 +1,16 @@
+{
+  "dataset": "HRF all (manual1; FOV mask)",
+  "threshold": 0.5,
+  "primary_metric": "hard_dice_thinvessel@0.5_mean",
+  "secondary_metrics": [
+    "val_dice_mean",
+    "val_recall_mean",
+    "cldice_mean"
+  ],
+  "val_dice_mean": 0.7554865469129245,
+  "val_recall_mean": 0.7853177254849542,
+  "cldice_mean": 0.8322932655401332,
+  "n_images": 30,
+  "inference_protocol": "raw_image_sliding_window",
+  "inference_protocol_note": "P0/CDC/Attention/Swin: RGB [0,1], fixed threshold 0.5, averaged overlapping windows; same patch/stride/batch as config_used."
+}

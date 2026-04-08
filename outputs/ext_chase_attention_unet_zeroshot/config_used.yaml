@@ -1,0 +1,23 @@
+evaluation_type: external_style_thinvessel_eval
+dataset: chase_db1_1st
+dataset_name: CHASE_DB1 (1st observer; no FOV)
+split_ids_json: outputs\ext_chase_split_seed42\test_split_ids.json
+max_images: 0
+primary_metric_chase_matrix: Hard Dice @0.5 (thin-vessel proxy mean over evaluated
+  images)
+secondary_metrics_chase_matrix:
+- Dice @0.5
+- Recall @0.5
+- clDice @0.5
+threshold: 0.5
+sliding_window:
+  patch: 128
+  stride: 64
+  batch_size: 6
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_attention_unet_baseline\best_model.pt
+model_kind: attention_unet
+inference_protocol: raw_image_sliding_window
+timestamp: '2026-04-08T01:04:09.436578+00:00'

@@ -1,0 +1,28 @@
+run_type: fine_tune_smallshot
+dataset: CHASE_DB1
+gt: 1st observer
+method: P0 baseline
+init_checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_v2_1_baseline_same_split\best_model.pt
+seed: 40
+epochs: 25
+lr: 0.0001
+weight_decay: 0.0001
+batch_size: 16
+image_size: 128
+crops_per_image: 64
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+  score: hard_vessel_ratio_in_crop
+reproducibility:
+  torch_manual_seed: 40
+  numpy_seed: 40
+  python_random_seed: 40
+  train_dataloader_generator_seed: 40
+  external_crop_dataset_train_seed: 40
+  external_crop_dataset_val_seed: 10040
+  cudnn_deterministic: true
+  cudnn_benchmark: false
+  note: 'Test metrics after fine-tune: external_test_* JSON (test split, same protocol
+    as ext_*_zeroshot).'
+timestamp: '2026-04-08T02:03:52.091469+00:00'

@@ -1,0 +1,16 @@
+{
+  "dataset": "CHASE_DB1 (1st observer; no FOV)",
+  "threshold": 0.5,
+  "primary_metric": "hard_dice_thinvessel@0.5_mean",
+  "secondary_metrics": [
+    "val_dice_mean",
+    "val_recall_mean",
+    "cldice_mean"
+  ],
+  "val_dice_mean": 0.7791016270591449,
+  "val_recall_mean": 0.7351121279947562,
+  "cldice_mean": 0.8540666172270066,
+  "n_images": 16,
+  "inference_protocol": "raw_image_sliding_window",
+  "inference_protocol_note": "P0/CDC/Attention/Swin: RGB [0,1], fixed threshold 0.5, averaged overlapping windows; same patch/stride/batch as config_used."
+}

@@ -1,0 +1,42 @@
+run_type: fine_tune_smallshot
+dataset: CHASE_DB1
+gt: 1st observer
+method: CDC (proposed; internal J3)
+init_checkpoint: C:\Users\zhang\Desktop\vessel\outputs\task3_J3_joint_detach_false\best_model.pt
+seed: 40
+epochs: 25
+lr: 0.0001
+weight_decay: 0.0001
+batch_size: 16
+image_size: 128
+crops_per_image: 64
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+  score: hard_vessel_ratio_in_crop
+difficulty_weighting:
+  mode: joint
+  tau: 0.6
+  alpha: 0.5
+  gamma: 2.0
+  weight_warmup_epochs: 5
+  joint_calib_epochs: 12
+  joint_oracle_weight_epochs: 0
+  lambda_diff: 0.5
+  pred_weight_detach: false
+  ramp_epochs: 8
+  min_weight: 1.0
+  max_weight: 1.5
+  normalize_weights_in_batch: true
+reproducibility:
+  torch_manual_seed: 40
+  numpy_seed: 40
+  python_random_seed: 40
+  train_dataloader_generator_seed: 40
+  external_crop_dataset_train_seed: 40
+  external_crop_dataset_val_seed: 10040
+  cudnn_deterministic: true
+  cudnn_benchmark: false
+  note: 'Test metrics after fine-tune: external_test_* JSON (test split, same protocol
+    as ext_*_zeroshot).'
+timestamp: '2026-04-08T02:10:11.017304+00:00'

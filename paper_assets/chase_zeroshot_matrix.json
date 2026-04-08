@@ -1,0 +1,72 @@
+{
+  "primary_metric": "Hard Dice @0.5 (thin-vessel proxy mean)",
+  "secondary_metrics": [
+    "Dice @0.5",
+    "Recall @0.5",
+    "clDice @0.5"
+  ],
+  "table_notes": {
+    "protocol": "Primary metric for this matrix: **Hard Dice @0.5** (thin-vessel proxy mean). Dice / Recall / clDice @0.5 are secondary and were fixed a priori.",
+    "nnunet": "nnU-Net v2 row: standard nnU-Net preprocessing / resampling / normalization at inference; probabilities resized to CHASE GT size before @0.5 (not the raw sliding-window PyTorch protocol)."
+  },
+  "split_reference": "outputs/ext_chase_split_seed42/test_split_ids.json (CHASE_DB1 1stHO; 16 images unless split file changed).",
+  "rows": [
+    {
+      "Method": "P0 U-Net baseline (zero-shot)",
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.23371954880645537,
+      "Dice @0.5": 0.17860388632745175,
+      "Recall @0.5": 0.10289802958384746,
+      "clDice @0.5": 0.5331826359253891,
+      "internal_id": "p0_baseline_zeroshot_chase",
+      "inference_protocol": "raw_image_sliding_window",
+      "run_dir": "outputs\\ext_chase_p0_zeroshot"
+    },
+    {
+      "Method": "CDC / J3 joint (zero-shot)",
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.30792376912116043,
+      "Dice @0.5": 0.2690236596725102,
+      "Recall @0.5": 0.16884077954644391,
+      "clDice @0.5": 0.5408586588130924,
+      "internal_id": "cdc_j3_zeroshot_chase",
+      "inference_protocol": "raw_image_sliding_window",
+      "run_dir": "outputs\\ext_chase_j3_zeroshot"
+    },
+    {
+      "Method": "Attention U-Net baseline (zero-shot)",
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.4466372198976889,
+      "Dice @0.5": 0.3908234289209169,
+      "Recall @0.5": 0.29840737972137893,
+      "clDice @0.5": 0.5695640328516459,
+      "internal_id": "attention_unet_baseline_zeroshot_chase",
+      "inference_protocol": "raw_image_sliding_window",
+      "run_dir": "outputs\\ext_chase_attention_unet_zeroshot"
+    },
+    {
+      "Method": "Swin-UNet baseline (zero-shot)",
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.3793773124924635,
+      "Dice @0.5": 0.3221493692966503,
+      "Recall @0.5": 0.24500467308325996,
+      "clDice @0.5": 0.531789055358439,
+      "internal_id": "swin_unet_baseline_zeroshot_chase",
+      "inference_protocol": "raw_image_sliding_window",
+      "run_dir": "outputs\\ext_chase_swin_unet_zeroshot"
+    },
+    {
+      "Method": "nnU-Net v2 (zero-shot)",
+      "Hard Dice @0.5 (thin-vessel proxy)": 0.6810536660834774,
+      "Dice @0.5": 0.6258800933122128,
+      "Recall @0.5": 0.5905773792766427,
+      "clDice @0.5": 0.7659073093543237,
+      "internal_id": "nnunet_v2_zeroshot_chase",
+      "inference_protocol": "nnunet_v2_standard",
+      "run_dir": "outputs\\ext_chase_nnunet_v2_zeroshot"
+    }
+  ],
+  "missing_run_dirs": [],
+  "brief_conclusions": {
+    "1_cdc_vs_p0": "CDC/J3 \u76f8\u5bf9 P0 \u66f4\u5f3a\uff1aHard Dice 0.3079 vs 0.2337\uff1bDice 0.2690 vs 0.1786\uff1bclDice 0.5409 vs 0.5332\uff1bRecall 0.1688 vs 0.1029\u3002",
+    "2_cdc_vs_nnunet": "CDC/J3 \u76f8\u5bf9 nnU-Net v2 \u4e0d\u66f4\u5f3a\uff08nnU-Net \u5728 Hard Dice / Dice / clDice \u4e0a\u66f4\u9ad8\uff09\uff1bnnU-Net \u4f7f\u7528\u6807\u51c6\u9884\u5904\u7406\u534f\u8bae\uff0c\u89c1 table_notes.nnunet\u3002",
+    "3_cdc_vs_attention": "CDC/J3 \u76f8\u5bf9 Attention U-Net \u4e0d\u66f4\u5f3a\uff08Attention U-Net \u5728 Hard Dice / Dice / clDice \u4e0a\u66f4\u9ad8\uff09\uff1b\u4e8c\u8005\u5747\u4e3a raw-image \u6ed1\u7a97\u534f\u8bae\u3002",
+    "4_best_overall_connectivity_hard": "Dice\u3001clDice\u3001Hard Dice\uff08thin proxy\uff09\u4e09\u9879\u6700\u9ad8\u5747\u4e3a\uff1annU-Net v2 (zero-shot)\u3002"
+  }
+}

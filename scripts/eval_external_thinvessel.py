@@ -41,7 +41,10 @@ from src.metrics.thinvessel_proxy import (  # noqa: E402
     thin_vessel_hard_mask,
 )
 from src.external.hrf_paths import hrf_case_paths  # noqa: E402
+from src.models.task3_seg_factory import build_task3_seg_model  # noqa: E402
 from src.models.task3_unet import UNetBaseline, UNetBaselineJointDifficulty  # noqa: E402
+
+MODEL_KIND_CHOICES = ("baseline", "joint", "attention_unet", "swin_unet")
 
 
 def _read_rgb(path: Path) -> np.ndarray:
@@ -84,6 +87,8 @@ def _infer_sliding_window_prob(
     batch_size: int,
     device: torch.device,
 ) -> np.ndarray:
+    """Return vessel probability map aligned to the **original** image size (H,W) before any padding."""
+    h0, w0, _ = image_rgb01.shape
     h, w, _ = image_rgb01.shape
     if patch > h or patch > w:
         pad_h = max(0, patch - h)
@@ -117,7 +122,8 @@ def _infer_sliding_window_prob(
             acc[y : y + patch, x : x + patch] += prob[j, 0]
             cnt[y : y + patch, x : x + patch] += 1.0
 
-    return acc / np.maximum(cnt, 1.0)
+    full = acc / np.maximum(cnt, 1.0)
+    return full[:h0, :w0]
 
 
 def _dice_recall(pred: np.ndarray, gt: np.ndarray, fov: Optional[np.ndarray]) -> Tuple[float, float]:
@@ -135,13 +141,17 @@ def _dice_recall(pred: np.ndarray, gt: np.ndarray, fov: Optional[np.ndarray]) ->
     return float(dice), float(recall)
 
 
-def _load_model(kind: str, ckpt: Path, device: torch.device) -> torch.nn.Module:
+def _load_model(kind: str, ckpt: Path, device: torch.device, *, patch_size: int) -> torch.nn.Module:
     if kind == "baseline":
         m: torch.nn.Module = UNetBaseline(in_channels=3, base=32).to(device)
     elif kind == "joint":
         m = UNetBaselineJointDifficulty(in_channels=3, base=32).to(device)
+    elif kind == "attention_unet":
+        m = build_task3_seg_model("attention_unet", in_channels=3, image_size=int(patch_size)).to(device)
+    elif kind == "swin_unet":
+        m = build_task3_seg_model("swin_unet", in_channels=3, image_size=int(patch_size)).to(device)
     else:
-        raise ValueError(f"Unknown kind={kind!r}")
+        raise ValueError(f"Unknown kind={kind!r}; expected one of {MODEL_KIND_CHOICES}")
     s = torch.load(ckpt, map_location=device, weights_only=False)
     m.load_state_dict(s["model_state_dict"])
     m.eval()
@@ -162,7 +172,13 @@ def main() -> None:
         required=True,
     )
     ap.add_argument("--ckpt", type=Path, required=True)
-    ap.add_argument("--kind", type=str, choices=("baseline", "joint"), required=True)
+    ap.add_argument(
+        "--kind",
+        type=str,
+        choices=MODEL_KIND_CHOICES,
+        required=True,
+        help="baseline/joint: in-repo U-Nets; attention_unet/swin_unet: same sliding-window on raw RGB as P0.",
+    )
     ap.add_argument(
         "--out_dir",
         type=Path,
@@ -187,6 +203,12 @@ def main() -> None:
     ap.add_argument("--batch_size", type=int, default=6)
     ap.add_argument("--r_th", type=int, default=2)
     ap.add_argument("--dilate", type=int, default=1)
+    ap.add_argument(
+        "--max_images",
+        type=int,
+        default=0,
+        help="If >0, evaluate only the first N cases after split filtering (smoke test).",
+    )
     args = ap.parse_args()
 
     out_dir = (ROOT / args.out_dir).resolve() if not args.out_dir.is_absolute() else args.out_dir.resolve()
@@ -248,8 +270,11 @@ def main() -> None:
     else:
         raise SystemExit(f"Unsupported dataset {args.dataset!r}")
 
+    if int(args.max_images) > 0:
+        cases = cases[: int(args.max_images)]
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = _load_model(args.kind, args.ckpt, device)
+    model = _load_model(args.kind, args.ckpt, device, patch_size=int(args.patch))
 
     cfg = ThinVesselProxyConfig(r_th=int(args.r_th), dilate_iters=int(args.dilate))
 
@@ -264,6 +289,10 @@ def main() -> None:
         prob = _infer_sliding_window_prob(
             model, img, patch=int(args.patch), stride=int(args.stride), batch_size=int(args.batch_size), device=device
         )
+        if prob.shape[:2] != gt.shape[:2]:
+            raise RuntimeError(
+                f"prob shape {prob.shape[:2]} != gt shape {gt.shape[:2]} for case {c['case_id']}"
+            )
         pred = (prob >= float(args.threshold)).astype(np.uint8)
 
         dice, recall = _dice_recall(pred, gt, fov)
@@ -305,15 +334,23 @@ def main() -> None:
     val_metrics = {
         "dataset": dataset_name,
         "threshold": float(args.threshold),
+        "primary_metric": "hard_dice_thinvessel@0.5_mean",
+        "secondary_metrics": ["val_dice_mean", "val_recall_mean", "cldice_mean"],
         "val_dice_mean": float(np.mean(d)),
         "val_recall_mean": float(np.mean(rcl)),
         "cldice_mean": float(np.mean(cd)),
         "n_images": int(len(per_image)),
+        "inference_protocol": "raw_image_sliding_window",
+        "inference_protocol_note": (
+            "P0/CDC/Attention/Swin: RGB [0,1], fixed threshold 0.5, averaged overlapping windows; "
+            "same patch/stride/batch as config_used."
+        ),
     }
     hard_metrics = {
         "dataset": dataset_name,
         "thin_vessel_proxy": {"r_th": int(args.r_th), "dilate_iters": int(args.dilate)},
         "threshold": float(args.threshold),
+        "primary_metric": "hard_dice_mean",
         "hard_dice_mean": float(np.mean(hd)),
         "n_images": int(len(per_image)),
         "note": "Hard Dice computed on dataset-agnostic thin-vessel hard proxy mask derived from GT.",
@@ -335,9 +372,10 @@ def main() -> None:
     # clDice summary format (local)
     cldice_summary = {
         "threshold_fixed": float(args.threshold),
+        "primary_metric": "hard_dice_thinvessel@0.5 (see hard_metrics_thinvessel.json)",
         "cldice_mean": float(np.mean(cd)),
         "n_images": int(len(per_image)),
-        "note": "clDice is supportive; computed after applying FOV mask if available.",
+        "note": "clDice is a secondary (connectivity) metric; computed after applying FOV mask if available.",
     }
 
     # Split ids files (re-eval => N/A)
@@ -356,11 +394,15 @@ def main() -> None:
         "dataset": args.dataset,
         "dataset_name": dataset_name,
         "split_ids_json": (str(args.split_ids_json) if args.split_ids_json is not None else None),
+        "max_images": int(args.max_images),
+        "primary_metric_chase_matrix": "Hard Dice @0.5 (thin-vessel proxy mean over evaluated images)",
+        "secondary_metrics_chase_matrix": ["Dice @0.5", "Recall @0.5", "clDice @0.5"],
         "threshold": float(args.threshold),
         "sliding_window": {"patch": int(args.patch), "stride": int(args.stride), "batch_size": int(args.batch_size)},
         "thin_vessel_proxy": {"r_th": int(args.r_th), "dilate_iters": int(args.dilate)},
         "checkpoint": str(args.ckpt.resolve()),
         "model_kind": args.kind,
+        "inference_protocol": "raw_image_sliding_window",
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
     if not args.append_to_existing:

@@ -25,6 +25,12 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset-id", type=int, default=503)
     ap.add_argument(
+        "--input-dir",
+        type=str,
+        default=None,
+        help="Override input image folder (default: nnUNet_raw/Dataset{ID}_TASK3/imagesTr). Use for CHASE exports.",
+    )
+    ap.add_argument(
         "--out",
         type=str,
         default="nnUNet_predictions/task3_fold0_prob",
@@ -51,7 +57,12 @@ def main() -> None:
     os.environ.setdefault("nnUNet_results", str(os_res.resolve()))
 
     ds = f"Dataset{int(args.dataset_id):03d}_TASK3"
-    input_dir = os_raw / ds / "imagesTr"
+    if args.input_dir:
+        input_dir = Path(args.input_dir)
+        if not input_dir.is_absolute():
+            input_dir = root / input_dir
+    else:
+        input_dir = os_raw / ds / "imagesTr"
     model_dir = os_res / ds / "nnUNetTrainer__nnUNetPlans__2d"
     out_dir = Path(args.out)
     if not out_dir.is_absolute():

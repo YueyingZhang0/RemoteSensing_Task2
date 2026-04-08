@@ -1,0 +1,17 @@
+{
+  "thresholds": [
+    0.5
+  ],
+  "per_threshold": {
+    "0.50": {
+      "val_dice_mean": 0.5549362486481146,
+      "val_recall_mean": 0.5186606424785455,
+      "hard_dice_mean": NaN,
+      "hard_recall_mean": NaN
+    }
+  },
+  "best_hard_dice_threshold": null,
+  "best_val_dice_threshold": 0.5,
+  "fixed_threshold_reporting": 0.5,
+  "note": "Primary reported metrics use threshold 0.5 in val_metrics.json; sweep is diagnostic only."
+}

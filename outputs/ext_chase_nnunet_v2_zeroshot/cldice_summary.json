@@ -1,0 +1,7 @@
+{
+  "threshold_fixed": 0.5,
+  "primary_metric": "hard_dice_thinvessel@0.5 (see hard_metrics_thinvessel.json)",
+  "cldice_mean": 0.7659073093543237,
+  "n_images": 16,
+  "note": "clDice is secondary (connectivity)."
+}

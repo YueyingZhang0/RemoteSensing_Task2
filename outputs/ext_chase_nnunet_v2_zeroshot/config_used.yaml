@@ -1,0 +1,19 @@
+evaluation_type: nnunet_chase_thinvessel_eval
+pred_dir: C:\Users\zhang\Desktop\vessel\nnUNet_predictions\chase_zeroshot_prob
+split_ids_json: C:\Users\zhang\Desktop\vessel\outputs\ext_chase_split_seed42\test_split_ids.json
+max_images: 0
+primary_metric_chase_matrix: Hard Dice @0.5 (thin-vessel proxy mean over evaluated
+  images)
+secondary_metrics_chase_matrix:
+- Dice @0.5
+- Recall @0.5
+- clDice @0.5
+nnunet_protocol_disclaimer: nnU-Net v2 inference used its standard preprocessing,
+  resampling, and normalization (not identical to the raw-image sliding-window PyTorch
+  protocol used for P0/CDC/Attention/Swin). Probability maps were resized to CHASE
+  GT resolution before thresholding at 0.5.
+threshold: 0.5
+thin_vessel_proxy:
+  r_th: 2
+  dilate_iters: 1
+timestamp: '2026-04-08T01:08:40.432927+00:00'

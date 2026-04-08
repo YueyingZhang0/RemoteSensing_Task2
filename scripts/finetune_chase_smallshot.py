@@ -12,11 +12,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
+import numpy as np
 import torch
 import yaml
 from torch.utils.data import DataLoader
@@ -61,6 +63,21 @@ def _dump_config_used(out_dir: Path, doc: Dict[str, Any]) -> None:
     (out_dir / "config_used.yaml").write_text(yaml.safe_dump(doc, sort_keys=False), encoding="utf-8")
 
 
+def _set_reproducibility(seed: int) -> torch.Generator:
+    """Align PyTorch / NumPy / Python RNG and DataLoader shuffles with ``--seed`` for multi-seed runs."""
+    s = int(seed)
+    random.seed(s)
+    np.random.seed(s)
+    torch.manual_seed(s)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(s)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    g = torch.Generator()
+    g.manual_seed(s)
+    return g
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Small-shot fine-tune on CHASE_DB1 or HRF/all from canonical checkpoints.")
     ap.add_argument("--dataset", type=str, choices=("chase", "hrf"), default="chase")
@@ -98,11 +115,14 @@ def main() -> None:
     train_ds = ExternalThinVesselCropDataset(cases=train_cases, cfg=crop_cfg, seed=int(args.seed), augment=True)
     val_ds = ExternalThinVesselCropDataset(cases=val_cases, cfg=crop_cfg, seed=int(args.seed) + 10_000, augment=False)
 
+    dl_gen = _set_reproducibility(int(args.seed))
+
     pin = torch.cuda.is_available()
     train_loader = DataLoader(
         train_ds,
         batch_size=int(args.batch_size),
         shuffle=True,
+        generator=dl_gen,
         num_workers=0,
         collate_fn=collate_seg_sce,
         pin_memory=pin,
@@ -140,6 +160,17 @@ def main() -> None:
                 "image_size": int(args.image_size),
                 "crops_per_image": int(args.crops_per_image),
                 "thin_vessel_proxy": {"r_th": 2, "dilate_iters": 1, "score": "hard_vessel_ratio_in_crop"},
+                "reproducibility": {
+                    "torch_manual_seed": int(args.seed),
+                    "numpy_seed": int(args.seed),
+                    "python_random_seed": int(args.seed),
+                    "train_dataloader_generator_seed": int(args.seed),
+                    "external_crop_dataset_train_seed": int(args.seed),
+                    "external_crop_dataset_val_seed": int(args.seed) + 10_000,
+                    "cudnn_deterministic": True,
+                    "cudnn_benchmark": False,
+                    "note": "Test metrics after fine-tune: external_test_* JSON (test split, same protocol as ext_*_zeroshot).",
+                },
                 "timestamp": datetime.now(timezone.utc).isoformat(),
             },
         )
@@ -208,6 +239,17 @@ def main() -> None:
                 "min_weight": 1.0,
                 "max_weight": 1.5,
                 "normalize_weights_in_batch": True,
+            },
+            "reproducibility": {
+                "torch_manual_seed": int(args.seed),
+                "numpy_seed": int(args.seed),
+                "python_random_seed": int(args.seed),
+                "train_dataloader_generator_seed": int(args.seed),
+                "external_crop_dataset_train_seed": int(args.seed),
+                "external_crop_dataset_val_seed": int(args.seed) + 10_000,
+                "cudnn_deterministic": True,
+                "cudnn_benchmark": False,
+                "note": "Test metrics after fine-tune: external_test_* JSON (test split, same protocol as ext_*_zeroshot).",
             },
             "timestamp": datetime.now(timezone.utc).isoformat(),
         },
