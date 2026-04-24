@@ -1,0 +1,65 @@
+{
+  "n_combinations": 4,
+  "splits": [
+    "splitA_rs42",
+    "splitB_rs100_seed42",
+    "splitB_rs100_seed40",
+    "splitC_rs200"
+  ],
+  "per_split": [
+    {
+      "split": "splitA_rs42",
+      "P0_primary_hard_dice": 0.7346782118357121,
+      "P5_primary_hard_dice": 0.7374339064055633,
+      "J3_primary_hard_dice": 0.7385778641003746
+    },
+    {
+      "split": "splitB_rs100_seed42",
+      "P0_primary_hard_dice": 0.7030658295684444,
+      "P5_primary_hard_dice": 0.6996799475543485,
+      "J3_primary_hard_dice": 0.6992573030301981
+    },
+    {
+      "split": "splitB_rs100_seed40",
+      "P0_primary_hard_dice": 0.6977112722143923,
+      "P5_primary_hard_dice": 0.7014938583541314,
+      "J3_primary_hard_dice": 0.7009040193786922
+    },
+    {
+      "split": "splitC_rs200",
+      "P0_primary_hard_dice": 0.7158234015654393,
+      "P5_primary_hard_dice": 0.7201438228843526,
+      "J3_primary_hard_dice": 0.7212344756799666
+    }
+  ],
+  "aggregate": [
+    {
+      "condition": "P0_baseline",
+      "friendly_name": "P0",
+      "n_combinations": 4,
+      "primary_hard_dice_mean": 0.7128196787959971,
+      "primary_hard_dice_std": 0.016433901355763413,
+      "json_aggregate_mean": 0.7128196787959971,
+      "json_aggregate_std": 0.014232176057378643
+    },
+    {
+      "condition": "P5_oracle_matched_trigger",
+      "friendly_name": "P5",
+      "n_combinations": 4,
+      "primary_hard_dice_mean": 0.7146878837995989,
+      "primary_hard_dice_std": 0.017762031354218583,
+      "json_aggregate_mean": 0.7146878837995989,
+      "json_aggregate_std": 0.015382370375569008
+    },
+    {
+      "condition": "J3_joint_detach_false",
+      "friendly_name": "J3",
+      "n_combinations": 4,
+      "primary_hard_dice_mean": 0.7149934155473079,
+      "primary_hard_dice_std": 0.018630739533354163,
+      "json_aggregate_mean": 0.7149934155473079,
+      "json_aggregate_std": 0.016134693727175742
+    }
+  ],
+  "verdict": "WEAK PASS: J3 > P0 on majority of splits, no collapses, but not always > P5"
+}
